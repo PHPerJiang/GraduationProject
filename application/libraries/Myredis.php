@@ -2,9 +2,8 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 /**
  * redis操作类
- * 说明，任何为false的串，存在redis中都是空串。
- * 只有在key不存在时，才会返回false。
- * 这点可用于防止缓存穿透
+ * @author jiangyu
+ * @time 18.12.20
  */
 class Myredis
 {
@@ -245,9 +244,9 @@ class Myredis
      * @param int $end
      * @return array|bool
      */
-    public function zRange($key,$start,$end)
+    public function zRange($key,$start,$end,$with_score = NULL)
     {
-        return $this->redis->zRange($key,$start,$end);
+        return $this->redis->zRange($key,$start,$end,$with_score);
     }
 
     /**
@@ -257,9 +256,9 @@ class Myredis
      * @param int $end
      * @return array|bool
      */
-    public function zRevRange($key,$start,$end)
+    public function zRevRange($key,$start,$end,$with_score = NULL)
     {
-        return $this->redis->zRevRange($key,$start,$end);
+        return $this->redis->zRevRange($key,$start,$end,$with_score);
     }
 
     /**
