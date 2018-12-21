@@ -6,25 +6,34 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * Date: 2018/12/19
  * Time: 13:21
  * @property  Myredis myredis
+ * @property Mycaptcha mycaptcha
  */
 class Test extends CI_Controller{
     public function __construct()
     {
         parent::__construct();
-        $this->load->model('test_db');
-        $this->load->library('myredis');
     }
 
     //测试链接Mysql
     public function connect_mysql(){
+        $this->load->model('test_db');
         $res = $this->test_db->get_all();
         var_dump($res);
     }
 
     //测试链接Redis
     public function connect_redis(){
+        $this->load->library('myredis');
         var_dump($this->myredis->set('name','PHP'));
         var_dump($this->myredis->get('name'));
         var_dump($this->myredis->close());
+    }
+
+    //测试获取验证码
+    public function get_captcha(){
+        $this->load->library('mycaptcha');
+        $captcha_code = $this->mycaptcha->getCaptcha();
+//        var_dump($captcha_code);
+        $this->mycaptcha->showImg();
     }
 }

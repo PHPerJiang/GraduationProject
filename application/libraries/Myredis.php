@@ -8,10 +8,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Myredis
 {
     private $redis;
-    private $host = '127.0.0.1';
-    private $port = 6379;
-    private $auth = NULL;
-    private $timeout = 0;
+    private $host ;
+    private $port ;
+    private $auth ;
+    private $timeout ;
 
     public function __construct(){
         /*

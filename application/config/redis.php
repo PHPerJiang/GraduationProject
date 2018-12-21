@@ -1,10 +1,9 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 /**
- * Created by PhpStorm.
- * User: jiangyu01
- * Date: 2018/12/19
- * Time: 14:13
+ * redis配置
+ * @author jiangyu
+ * $time 18.12.20
  */
 
 $config['socket_type'] = 'tcp'; //`tcp` or `unix`
