@@ -16,10 +16,10 @@ class Mycaptcha
 
     function __construct(){
         $CI = &get_instance();
-        $this->width = $CI->config->item('width');
-        $this->height = $CI->config->item('height');
-        $this->codeNum = $CI->config->item('codeNum');
-        $this->code_range = $CI->config->item('code_range');
+        $this->width = $CI->config->item('captcha_width');
+        $this->height = $CI->config->item('captcha_height');
+        $this->codeNum = $CI->config->item('captcha_codeNum');
+        $this->code_range = $CI->config->item('captcha_code_range');
     }
 
     function showImg(){

@@ -19,10 +19,10 @@ class Myredis
          * 然后就能使用配置文件的内容了
          */
         $CI = & get_instance();
-        $this->host = $CI->config->item('host');
-        $this->port = $CI->config->item('port');
-        $this->auth = $CI->config->item('auth');
-        $this->timeout = $CI->config->item('timeout');
+        $this->host = $CI->config->item('redis_host');
+        $this->port = $CI->config->item('redis_port');
+        $this->auth = $CI->config->item('redis_auth');
+        $this->timeout = $CI->config->item('redis_timeout');
         return $this->getInstance();
     }
 

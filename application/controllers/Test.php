@@ -7,6 +7,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * Time: 13:21
  * @property  Myredis myredis
  * @property Mycaptcha mycaptcha
+ * @property Myupload myupload
  */
 class Test extends CI_Controller{
     public function __construct()
@@ -35,5 +36,17 @@ class Test extends CI_Controller{
         $captcha_code = $this->mycaptcha->getCaptcha();
 //        var_dump($captcha_code);
         $this->mycaptcha->showImg();
+    }
+
+    //文件上传
+    public function upload(){
+        $file_info = $_FILES;
+        if (!$file_info){
+            $this->load->view('upload/upload');
+        }else{
+            $this->load->library('myupload');
+            $file_name = $this->myupload->up($file_info['image']);
+            var_dump($file_name);
+        }
     }
 }
