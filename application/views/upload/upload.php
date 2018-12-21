@@ -13,5 +13,7 @@
     <input type = 'file' name = 'image' />
     <input type = 'submit' value = '上传' />
 </form>
+<br/>
+<br/>
 </body>
 </html>

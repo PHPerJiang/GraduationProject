@@ -13,6 +13,7 @@ class Test extends CI_Controller{
     public function __construct()
     {
         parent::__construct();
+        $this->load->helper(array('url','download'));
     }
 
     //测试链接Mysql
@@ -38,7 +39,7 @@ class Test extends CI_Controller{
         $this->mycaptcha->showImg();
     }
 
-    //文件上传
+    //文件上传、下载
     public function upload(){
         $file_info = $_FILES;
         if (!$file_info){
@@ -46,7 +47,10 @@ class Test extends CI_Controller{
         }else{
             $this->load->library('myupload');
             $file_name = $this->myupload->up($file_info['image']);
-            var_dump($file_name);
+            if (!empty($file_info)){
+                echo APPPATH.$file_name;
+                force_download(APPPATH.$file_name,NULL);
+            }
         }
     }
 }
