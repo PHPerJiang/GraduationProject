@@ -55,17 +55,39 @@ class Test extends CI_Controller{
         }
     }
 
+	/**
+	 * DB类测试
+	 */
     public function new_model_db(){
     	$this->load->model('bizs/user_base_info_biz');
-    	//数据插入
+//    	$this->insert_data();
+//		$this->update_data();
+//		$this->del_data();
+    	$this->user_base_info_biz->get_all();
+    }
+
+	//数据删除
+    private function del_data(){
+	    $where = ['mobile' => '12233445125'];
+	    $this->user_base_info_biz->data_del($where);
+    }
+
+	//数据更新
+    private function update_data(){
+	    $data = ['mobile' => '12233445125'];
+	    $where = ['name'=>'Python'];
+	    $this->user_base_info_biz->data_update($data, $where);
+    }
+
+	//数据插入
+    private function insert_data(){
+
 	    $param = [
 		    'name' => 'Python',
 		    'mobile' => '124124123',
 		    'account' => 'testtest3',
-		    'password' => '111111',
+		    'password' => '11111111111',
 	    ];
-		var_dump($this->user_base_info_biz->data_set($param));
-    	//数据查询
-    	var_dump($this->user_base_info_biz->get_all());
+	    $this->user_base_info_biz->data_set($param);
     }
 }

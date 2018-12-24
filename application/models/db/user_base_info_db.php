@@ -8,14 +8,16 @@ class User_base_info_db extends CI_Model{
 	private $table = 'user_base_info';
 	public $fields = [
 		'id' => NULL,
-		'name' => '',
-		'mobile' => '',
-		'account' => '',
-		'password' => '',
-		'salt' => '',
-		'status' => '',
-		'ip' => '',
+		'name' => NULL,
+		'mobile' => NULL,
+		'account' => NULL,
+		'password' => NULL,
+		'salt' => NULL,
+		'status' => NULL,
+		'ip' => NULL,
+		'last_login_time' => NULL
 	];
+
 	public function __construct()
 	{
 		$this->load->database();
@@ -61,15 +63,45 @@ class User_base_info_db extends CI_Model{
 	}
 
 	/**
+	 * 数据修改
+	 * @param $data
+	 * @param $where
+	 * @return array|bool
+	 */
+	public function update($data, $where){
+		if (empty($where)){
+			return FALSE;
+		}
+		$res = $this->field_check($data);
+		if (empty($res)) goto END;
+		$res = $this->db->set($res)->where($where)->update($this->table);
+		END:
+		return $res;
+	}
+
+	/**
+	 * 数据删除
+	 * @param $where
+	 * @return bool
+	 */
+	public function delete($where){
+		if (empty($where)){
+			return FALSE;
+		}
+		$res = $this->db->where($where)->delete($this->table);
+		return $res;
+	}
+	/**
 	 * 字段校验
 	 * @param $data
 	 * @return array|bool
 	 */
-	public function field_check($data){
+	private function field_check($data){
 		if (!is_array($data)){
 			return FALSE;
 		}
 		$data = array_merge($this->fields, $data);
+		$data['last_login_time'] = date('Y-m-d H:i:s',time());
 		foreach ($data as $key => $value){
 			if (!isset($value)){
 				unset($data[$key]);
@@ -77,5 +109,4 @@ class User_base_info_db extends CI_Model{
 		}
 		return $data;
 	}
-
 }
