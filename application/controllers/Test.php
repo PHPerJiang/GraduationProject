@@ -8,6 +8,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @property  Myredis myredis
  * @property Mycaptcha mycaptcha
  * @property Myupload myupload
+ * @property User_base_info_biz user_base_info_biz
  */
 class Test extends CI_Controller{
     public function __construct()
@@ -52,5 +53,19 @@ class Test extends CI_Controller{
                 force_download(APPPATH.$file_name,NULL);
             }
         }
+    }
+
+    public function new_model_db(){
+    	$this->load->model('bizs/user_base_info_biz');
+    	//数据插入
+	    $param = [
+		    'name' => 'Python',
+		    'mobile' => '124124123',
+		    'account' => 'testtest3',
+		    'password' => '111111',
+	    ];
+		var_dump($this->user_base_info_biz->data_set($param));
+    	//数据查询
+    	var_dump($this->user_base_info_biz->get_all());
     }
 }
