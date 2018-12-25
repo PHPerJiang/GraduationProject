@@ -95,6 +95,6 @@ class Test extends CI_Controller{
 	 * web页面引入
 	 */
     public function web(){
-		$this->load->view('web/index');
+	    $this->load->view('web/index');
     }
 }
