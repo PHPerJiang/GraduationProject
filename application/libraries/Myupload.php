@@ -66,7 +66,6 @@ class Myupload{
 
             #文件重命名,由当前日期 + 随机数 + 后缀名
             $file_name = date('YmdHis').uniqid().strrchr($file['name'], '.');  //strrchr表示从右截取文件后缀名。
-
             #准备就绪，开始上传
             if (move_uploaded_file($file['tmp_name'], $this->path . $sub_path . $file_name)) {
                 # 移动成功

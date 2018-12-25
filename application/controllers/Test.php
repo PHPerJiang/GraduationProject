@@ -49,8 +49,8 @@ class Test extends CI_Controller{
             $this->load->library('myupload');
             $file_name = $this->myupload->up($file_info['image']);
             if (!empty($file_info)){
-                echo APPPATH.$file_name;
-                force_download(APPPATH.$file_name,NULL);
+                echo $this->config->item('upload_path').$file_name;
+                force_download($this->config->item('upload_path').$file_name,NULL);
             }
         }
     }
@@ -89,5 +89,12 @@ class Test extends CI_Controller{
 		    'password' => '11111111111',
 	    ];
 	    $this->user_base_info_biz->data_set($param);
+    }
+
+	/**
+	 * web页面引入
+	 */
+    public function web(){
+		$this->load->view('web/index');
     }
 }
