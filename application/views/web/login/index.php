@@ -62,7 +62,7 @@
                 <br>
                 <div id="watermark">
                     <h2 class="page-title" text-center>Login</h2>
-                    <div class="marker">a</div>
+                    <div class="marker">L</div>
                 </div>
                 <br>
                 <!-- form -->
@@ -97,7 +97,7 @@
                 <br>
                 <div id="watermark">
                     <h2 class="page-title" text-center>Register</h2>
-                    <div class="marker">w</div>
+                    <div class="marker">R</div>
                 </div>
                 <br>
                 <!-- form -->
@@ -135,7 +135,7 @@
                 <br>
                 <div id="watermark">
                     <h2 class="page-title" text-center>Retrieve</h2>
-                    <div class="marker">c</div>
+                    <div class="marker">R</div>
                 </div>
                 <br>
                 <!-- form -->

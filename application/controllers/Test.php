@@ -91,10 +91,5 @@ class Test extends CI_Controller{
 	    $this->user_base_info_biz->data_set($param);
     }
 
-	/**
-	 * web页面引入
-	 */
-    public function web(){
-	    $this->load->view('web/index');
-    }
+
 }
