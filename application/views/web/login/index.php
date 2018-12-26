@@ -6,16 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>uuJiang : Home</title>
-    <link rel="icon" type="image/icon" href="<?php echo base_url('images/tabicon.ico')?>">
+    <link rel="icon" type="image/icon" href="<?php echo base_url('assets/images/tabicon.ico')?>">
 
     <link rel="stylesheet" type="text/css" href="">
-    <link href="<?php echo base_url('css/bootstrap.min.css')?>" rel="stylesheet">
-    <link href="<?php echo base_url('css/bootstrap-theme.min.css')?>" rel="stylesheet">
-    <link href="<?php echo base_url('css/font-awesome.min.css')?>" rel="stylesheet">
+    <link href="<?php echo base_url('assets/css/bootstrap.min.css')?>" rel="stylesheet">
+    <link href="<?php echo base_url('assets/css/bootstrap-theme.min.css')?>" rel="stylesheet">
+    <link href="<?php echo base_url('assets/css/font-awesome.min.css')?>" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,600,700,700i" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Crimson+Text:400,700,700i|Josefin+Sans:700" rel="stylesheet">
-    <link href="<?php echo base_url('css/main.css')?>" rel="stylesheet">
-    <link rel="icon" href="<?php echo base_url('images/logo.png')?>">
+    <link href="<?php echo base_url('assets/css/main.css')?>" rel="stylesheet">
+    <link rel="icon" href="<?php echo base_url('assets/images/logo.png')?>">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
 
 </head>
@@ -25,11 +25,11 @@
     <div class="container main">
         <div class="row home">
             <div id = "index_left" class="col-md-6 left">
-                <img class="img-responsive img-rabbit" src="<?php echo base_url('images/home.jpg')?>">
+                <img class="img-responsive img-rabbit" src="<?php echo base_url('assets/images/home.jpg')?>">
             </div>
             <div id = "index_right" class="col-md-6 text-center right">
                 <div class="logo">
-                    <img src="<?php echo base_url('images/logo.png')?>"><br><br>
+                    <img src="<?php echo base_url('assets/images/logo.png')?>"><br><br>
                     <h4>I am uuJiang</h4><br><br>
                 </div>
 
@@ -53,7 +53,7 @@
     <div class="container main">
         <div class="row">
             <div class="col-md-6 left" id="about_left">
-                <img class="img-responsive img-rabbit" src="<?php echo base_url('images/about.jpg')?>">
+                <img class="img-responsive img-rabbit" src="<?php echo base_url('assets/images/about.jpg')?>">
             </div>
 
             <div class="col-md-6 right" id="about_right">
@@ -66,7 +66,7 @@
                 </div>
                 <br>
                 <!-- form -->
-                <form class="form_edit" name="login" action="">
+                <form  action="<?php echo site_url('login/login')?>" name="login" method="POST">
                     <div class="form-group">
                         <input type="text" class="form-control" id="login_account" name="account" placeholder="Please enter your account .">
                     </div>
@@ -75,7 +75,7 @@
                         <input type="text" class="form-control" id="login_password" name="password" placeholder="Please enter your password .">
                     </div>
                     <br>
-                    <button type="button" class="btn btn-rabbit submit">Join</button>
+                    <input type="submit" class="btn btn-rabbit submit" value="Join">
                 </form>
             </div>
         </div>
@@ -87,7 +87,7 @@
         <div class="row">
             <div class="col-md-6" id="work_left">
                 <div id="owl-demo" class="owl-carousel owl-theme">
-                    <div class="item"><img class="img-responsive img-rabbit" src="<?php echo base_url('images/work.jpg')?>"></div>
+                    <div class="item"><img class="img-responsive img-rabbit" src="<?php echo base_url('assets/images/work.jpg')?>"></div>
                 </div>
             </div>
 
@@ -101,7 +101,7 @@
                 </div>
                 <br>
                 <!-- form -->
-                <form class="form_edit" name="register" action="">
+                <form  name="register" action="<?php echo site_url('login/register')?>">
                     <div class="form-group">
                         <input type="text" class="form-control" id="register_account" placeholder="Please enter your account .">
                     </div>
@@ -114,7 +114,7 @@
                         <input type="text" class="form-control" id="register_repassword" placeholder="Please enter your password again.">
                     </div>
                     <br>
-                    <button type="submit" class="btn btn-rabbit submit">Register</button>
+                    <input type="submit" class="btn btn-rabbit submit" value="Register">
                 </form>
             </div>
         </div>
@@ -126,7 +126,7 @@
     <div class="container main">
         <div class="row">
             <div class="col-md-6 left" id="contact_left">
-                <img class="img-responsive img-rabbit" src="<?php echo base_url('images/contact.jpg')?>">
+                <img class="img-responsive img-rabbit" src="<?php echo base_url('assets/images/contact.jpg')?>">
             </div>
 
             <div class="col-md-6 right" id="contact_right">
@@ -139,12 +139,12 @@
                 </div>
                 <br>
                 <!-- form -->
-                <form class="form_edit" name="retrieve" action="">
+                <form class="" name="retrieve" action="<?php echo site_url('login/retrieve')?>">
                     <div class="form-group">
                         <input type="text" class="form-control" id="mobile" name="mobile" placeholder="Please enter your phone number . ">
                     </div>
                     <br><br>
-                    <button type="submit" class="btn btn-rabbit submit">Join</button>
+                    <input type="submit" class="btn btn-rabbit submit" value="Retrieve">
                 </form>
             </div>
         </div>
@@ -162,8 +162,8 @@
 
 </div>                                                              <!-- Retrieve ends here -->
 
-<script src="<?php echo base_url('js/jquery-3.1.0.min.js')?>"></script>
-<script src="<?php echo base_url('js/bootstrap.min.js')?>">"></script>
-<script src="<?php echo base_url('js/script.js')?>">"></script>
+<script src="<?php echo base_url('assets/js/jquery-3.1.0.min.js')?>"></script>
+<script src="<?php echo base_url('assets/js/bootstrap.min.js')?>">"></script>
+<script src="<?php echo base_url('assets/js/script.js')?>">"></script>
 </body>
 </html>
