@@ -16,7 +16,7 @@
     <link href="https://fonts.googleapis.com/css?family=Crimson+Text:400,700,700i|Josefin+Sans:700" rel="stylesheet">
     <link href="<?php echo base_url('assets/css/main.css')?>" rel="stylesheet">
     <link rel="icon" href="<?php echo base_url('assets/images/logo.png')?>">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link href="<?php echo base_url('assets/css/animate.min.css')?>" rel="stylesheet">
 
 </head>
 
@@ -68,14 +68,16 @@
                 <!-- form -->
                 <form  action="<?php echo site_url('login/login')?>" name="login" method="POST">
                     <div class="form-group">
-                        <input type="text" class="form-control" id="login_account" name="account" placeholder="Please enter your account .">
+                        <input type="text" class="form-control" id="login_account" value="" name="account" placeholder="Please enter your account .">
                     </div>
 
                     <div class="form-group">
-                        <input type="text" class="form-control" id="login_password" name="password" placeholder="Please enter your password .">
+                        <input type="text" class="form-control" id="login_password" value="" name="password" placeholder="Please enter your password .">
                     </div>
-                    <br>
-                    <input type="submit" class="btn btn-rabbit submit" value="Join">
+
+                    <input type="test"  style="display: none;color: red;width: 500px; border-style: none;border: 0px;outline:none;cursor: pointer;"   readonly id="login_tips"   value="" >
+                    <br><br>
+                    <button type="submit" class="btn btn-rabbit submit" >Join</button>
                 </form>
             </div>
         </div>
@@ -101,20 +103,21 @@
                 </div>
                 <br>
                 <!-- form -->
-                <form  name="register" action="<?php echo site_url('login/register')?>">
+                <form  name="register" id="register_form" action="<?php echo site_url('login/register')?>">
                     <div class="form-group">
-                        <input type="text" class="form-control" id="register_account" placeholder="Please enter your account .">
+                        <input type="text" class="form-control" id="register_account" name="register_account"  value="" placeholder="Please enter your account .">
                     </div>
 
                     <div class="form-group">
-                        <input type="text" class="form-control" id="register_password" placeholder="Please enter your password .">
+                        <input type="password" class="form-control" id="register_password" name="register_password" value="" placeholder="Please enter your password .">
                     </div>
 
                     <div class="form-group">
-                        <input type="text" class="form-control" id="register_repassword" placeholder="Please enter your password again.">
+                        <input type="password" class="form-control" id="register_repassword" name="register_repassword" value="" placeholder="Please enter your password again.">
                     </div>
-                    <br>
-                    <input type="submit" class="btn btn-rabbit submit" value="Register">
+                    <input type="test"  style="display: none;color: red;width: 500px; border-style: none;border: 0px;outline:none;cursor: pointer;"   readonly id="register_tips"   value="" >
+                    <br><br>
+                    <button type="submit" class="btn btn-rabbit submit" id="register_btn">Register</button>
                 </form>
             </div>
         </div>
@@ -141,10 +144,11 @@
                 <!-- form -->
                 <form class="" name="retrieve" action="<?php echo site_url('login/retrieve')?>">
                     <div class="form-group">
-                        <input type="text" class="form-control" id="mobile" name="mobile" placeholder="Please enter your phone number . ">
+                        <input type="text" class="form-control" id="mobile" name="mobile" value="" placeholder="Please enter your phone number . ">
                     </div>
+                    <input type="test"  style="display: none;color: red;width: 500px; border-style: none;border: 0px;outline:none;cursor: pointer;"   readonly id="retrieve_tips"   value="" >
                     <br><br>
-                    <input type="submit" class="btn btn-rabbit submit" value="Retrieve">
+                    <button type="submit" class="btn btn-rabbit submit" >Retrieve</button>
                 </form>
             </div>
         </div>
@@ -165,5 +169,6 @@
 <script src="<?php echo base_url('assets/js/jquery-3.1.0.min.js')?>"></script>
 <script src="<?php echo base_url('assets/js/bootstrap.min.js')?>">"></script>
 <script src="<?php echo base_url('assets/js/script.js')?>">"></script>
+<script src="<?php echo base_url('assets/js/register.js')?>">"></script>
 </body>
 </html>
