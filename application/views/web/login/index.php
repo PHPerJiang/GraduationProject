@@ -115,6 +115,12 @@
                     <div class="form-group">
                         <input type="password" class="form-control" id="register_repassword" name="register_repassword" value="" placeholder="Please enter your password again.">
                     </div>
+
+                    <div class="form-group">
+                        <br>
+                        <img src="<?php echo site_url('login/get_code')?>" alt="" style="vertical-align: bottom">&nbsp;&nbsp;&nbsp;
+                        <input type="test"  style="height: 30px;width:200px;vertical-align: bottom" id="register_captach" name="register_captach" placeholder="Please enter verification code">
+                    </div>
                     <input type="test"  style="display: none;color: red;width: 500px; border-style: none;border: 0px;outline:none;cursor: pointer;"   readonly id="register_tips"   value="" >
                     <br><br>
                     <button type="submit" class="btn btn-rabbit submit" id="register_btn">Register</button>

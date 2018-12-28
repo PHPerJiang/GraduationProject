@@ -36,7 +36,6 @@ class Test extends CI_Controller{
     public function get_captcha(){
         $this->load->library('mycaptcha');
         $captcha_code = $this->mycaptcha->getCaptcha();
-//        var_dump($captcha_code);
         $this->mycaptcha->showImg();
     }
 
