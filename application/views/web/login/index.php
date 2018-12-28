@@ -118,7 +118,7 @@
 
                     <div class="form-group">
                         <br>
-                        <img src="<?php echo site_url('login/get_code')?>" alt="" style="vertical-align: bottom">&nbsp;&nbsp;&nbsp;
+                       <img src="<?php echo site_url('login/get_code')?>" alt="" style="vertical-align: bottom"  id="register_captcha_img" onclick="this.src+='?id='+Math.random();">&nbsp;&nbsp;&nbsp;
                         <input type="test"  style="height: 30px;width:200px;vertical-align: bottom" id="register_captach" name="register_captach" placeholder="Please enter verification code">
                     </div>
                     <input type="test"  style="display: none;color: red;width: 500px; border-style: none;border: 0px;outline:none;cursor: pointer;"   readonly id="register_tips"   value="" >
