@@ -4,6 +4,7 @@ $(document).ready(function(){
     var global_account;
     var global_password;
     var global_repassword;
+    var global_captach;
     //错误提示显示时间
     var tips_show_time = 3500;
 
@@ -45,6 +46,33 @@ $(document).ready(function(){
         }
     });
 
+    //验证码校验
+    $('#register_captach').blur(function () {
+        var register_captach = $('#register_captach').val();
+        if (register_captach){
+            $('#register_captach').val('');
+            $('#register_tips').val('请输入验证码').show().fadeOut(tips_show_time);
+        }
+        $.ajax({
+            type:'POST',
+            dataType:'json',
+            url:'validate_captcha',
+            data:{'captcha_code':global_captach},
+            success:function (data) {
+                if (data.error_code == 3){
+                    $('#register_captach').val('');
+                    $('#register_tips').val('验证码错误').show().fadeOut(tips_show_time);
+                }else if (data.error_code == 1){
+                    global_captach = register_captach;
+                }
+            } ,
+            error:function (err) {
+                $('#register_captach').val('');
+                $('#register_tips').val('网络错误').show().fadeOut(tips_show_time);
+            }
+        });
+    });
+
     //禁止表单自动提交
     $('#register_form').submit(function (e) {
         e.preventDefault();
@@ -52,21 +80,23 @@ $(document).ready(function(){
 
     //校验通过则发送请求
     $('#register_btn').click(function () {
-        if (global_account && global_password && global_repassword){
+        if (global_account && global_password && global_repassword && global_captach){
             $.ajax({
                 type:"POST",
-                url:"../../index.php/login/login",
-                data:{"account":global_account,"password":global_password},
+                url:"register",
+                data:{"account":global_account,"password":global_password, 'captcha_code':global_captach},
                 dataType:'json',
                 success:function (data) {
-                    alert(data);
+                    alert(1);
                 },
-                error:function (msg) {
-                    alert(msg);
+                error:function (err) {
+                    alert(2);
                 }
             });
-        }else{
+        }else if(!global_account || !global_password || !global_repassword){
             $('#register_tips').val('请输入要注册的账户名/密码').show().fadeOut(tips_show_time);
+        }else if (!global_captach) {
+            $('#register_tips').val('请输入验证码').show().fadeOut(tips_show_time);
         }
     })
 

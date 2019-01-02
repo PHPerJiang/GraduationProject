@@ -103,7 +103,7 @@
                 </div>
                 <br>
                 <!-- form -->
-                <form  name="register" id="register_form" action="<?php echo site_url('login/register')?>">
+                <form  name="register" id="register_form" action="">
                     <div class="form-group">
                         <input type="text" class="form-control" id="register_account" name="register_account"  value="" placeholder="Please enter your account .">
                     </div>
