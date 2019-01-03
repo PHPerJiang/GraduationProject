@@ -8,8 +8,6 @@ class User_base_info_db extends CI_Model{
 	private $table = 'user_base_info';
 	public $fields = [
 		'id' => NULL,
-		'name' => NULL,
-		'mobile' => NULL,
 		'account' => NULL,
 		'password' => NULL,
 		'salt' => NULL,
@@ -100,7 +98,11 @@ class User_base_info_db extends CI_Model{
 		if (!is_array($data)){
 			return FALSE;
 		}
-		$data = array_merge($this->fields, $data);
+		foreach ($data as $key => $value){
+			if (in_array($key, $this->fields)){
+				$this->fields[$key] = $value;
+			}
+		}
 		$data['last_login_time'] = date('Y-m-d H:i:s',time());
 		foreach ($data as $key => $value){
 			if (!isset($value)){

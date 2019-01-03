@@ -7,9 +7,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  */
 class User_base_info_biz extends CI_Model {
 
-	private $error_code = 1;
-	private $error_msg = '';
-
 	public function __construct()
 	{
 		$this->load->model('db/user_base_info_db');
@@ -21,7 +18,7 @@ class User_base_info_biz extends CI_Model {
 	public function  get_all(){
 		$result = $this->user_base_info_db->select();
 		$result = !empty($result) ? $result : [];
-		$this->resp($result);
+		return $result;
 	}
 
 	/**
@@ -31,9 +28,19 @@ class User_base_info_biz extends CI_Model {
 	 */
 	public function data_set($params = []){
 		if (empty($params)) return FALSE;
+		$default_params = [
+			'account'     => NULL,
+			'password'    => NULL,
+			'status'      => 1,
+			'salt'         => rand(1000,9999),
+			'ip'           => NULL,
+			'last_login_time' => time(),
+		];
+		$params = array_merge($default_params, $params);
+		$params['password'] = crypt($params['password'],$params['salt']);
 		$result = $this->user_base_info_db->insert($params);
 		$result = !empty($result) ? $result : [];
-		$this->resp($result);
+		return $result;
 	}
 
 	/**
@@ -46,7 +53,7 @@ class User_base_info_biz extends CI_Model {
 		if (empty($params)) return FALSE;
 		$result = $this->user_base_info_db->update($params, $where);
 		$result = !empty($result) ? $result : [];
-		$this->resp($result);
+		return $result;
 	}
 
 	/**
@@ -58,22 +65,6 @@ class User_base_info_biz extends CI_Model {
 		if (empty($where)) return FALSE;
 		$result = $this->user_base_info_db->delete($where);
 		$result = !empty($result) ? $result : [];
-		$this->resp($result);
+		return $result;
 	}
-
-	/**
-	 * 数据输出
-	 * @param array $data
-	 * @param string $total
-	 */
-	private function resp($data = []) {
-		header('Content-type: application/json');
-		echo json_encode([
-			'error_code' => $this->error_code,
-			'error_msg'  => $this->error_msg,
-			'data'       => $data,
-		]);
-		return;
-	}
-
 }

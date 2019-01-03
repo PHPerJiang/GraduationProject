@@ -6,6 +6,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @property Login_biz login_biz
  * @property Mycaptcha mycaptcha
  * @property CI_Session session
+ * @property User_base_info_biz user_base_info_biz
  */
 class Login extends CI_Controller {
 
@@ -19,6 +20,7 @@ class Login extends CI_Controller {
 		$this->load->model('bizs/login_biz');
 		$this->load->library('mycaptcha');
 		$this->load->library('session');
+		$this->load->model('bizs/user_base_info_biz');
 	}
 	//加载登录、注册、忘记密码页面
 	public function index(){
@@ -56,7 +58,20 @@ class Login extends CI_Controller {
 	public function register(){
 		$account = $this->input->post('account');
 		$password = $this->input->post('password');
-		if ($account != NULL && $password != NULL && ca)
+		$ip = $_SERVER['REMOTE_ADDR'];
+		$data = [];
+		if ($account != NULL && $password != NULL){
+			$params = [
+				'account' => $account,
+				'password' => $password,
+				'ip' => $ip,
+			];
+			$res = $this->user_base_info_biz->data_set($params);
+			if (!$res){
+				$this->error_msg = 1;
+				$this->error_code = 'Fail';
+			}
+		}
 		$this->resp();
 	}
 

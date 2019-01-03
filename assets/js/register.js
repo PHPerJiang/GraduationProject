@@ -49,7 +49,7 @@ $(document).ready(function(){
     //验证码校验
     $('#register_captach').blur(function () {
         var register_captach = $('#register_captach').val();
-        if (register_captach){
+        if (!register_captach){
             $('#register_captach').val('');
             $('#register_tips').val('请输入验证码').show().fadeOut(tips_show_time);
         }
@@ -57,12 +57,12 @@ $(document).ready(function(){
             type:'POST',
             dataType:'json',
             url:'validate_captcha',
-            data:{'captcha_code':global_captach},
+            data:{'captcha_code':register_captach},
             success:function (data) {
                 if (data.error_code == 3){
                     $('#register_captach').val('');
                     $('#register_tips').val('验证码错误').show().fadeOut(tips_show_time);
-                }else if (data.error_code == 1){
+                }else if (data.error_code == 0){
                     global_captach = register_captach;
                 }
             } ,
@@ -84,13 +84,15 @@ $(document).ready(function(){
             $.ajax({
                 type:"POST",
                 url:"register",
-                data:{"account":global_account,"password":global_password, 'captcha_code':global_captach},
+                data:{"account":global_account,"password":global_password},
                 dataType:'json',
                 success:function (data) {
-                    alert(1);
+                    if(data.error_code != 0){
+                        $('#register_tips').val('账户名/密码不正确').show().fadeOut(tips_show_time);
+                    }
                 },
                 error:function (err) {
-                    alert(2);
+                    $('#register_tips').val('网络错误').show().fadeOut(tips_show_time);
                 }
             });
         }else if(!global_account || !global_password || !global_repassword){
