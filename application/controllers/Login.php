@@ -39,7 +39,7 @@ class Login extends CI_Controller {
 	 */
 	public function validate_captcha(){
 		$data = [];
-		$captcha_code = $this->input->post('captcha_code');
+		$captcha_code = $this->input->post('code');
 		if (strtolower($captcha_code) != $this->session->userdata('captcha_code')){
 			$this->error_code = 3;
 			$this->error_msg = '验证码错误';
@@ -49,9 +49,12 @@ class Login extends CI_Controller {
 
 	//登录
 	public function login(){
-		$login_info = $this->input->post();
-
-		$this->resp($login_info);
+		$account = $this->input->post('account');
+		$password = $this->input->post('password');
+		$res = $this->login_biz->login($account,$password);
+		$this->error_code = $res ? 0 : 1;
+		$this->error_msg = $res ? '登录成功' : '登录失败';
+		$this->resp();
 	}
 
 	//注册
@@ -66,7 +69,7 @@ class Login extends CI_Controller {
 				'password' => $password,
 				'ip' => $ip,
 			];
-			$res = $this->user_base_info_biz->data_set($params);
+			$res = $this->login_biz->register($params);
 			if (!$res){
 				$this->error_msg = 1;
 				$this->error_code = 'Fail';

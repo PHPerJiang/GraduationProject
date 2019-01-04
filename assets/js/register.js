@@ -1,4 +1,4 @@
-//登录相关js
+//注册相关js
 $(document).ready(function(){
     //定义全局变量
     var global_account;
@@ -57,7 +57,7 @@ $(document).ready(function(){
             type:'POST',
             dataType:'json',
             url:'validate_captcha',
-            data:{'captcha_code':register_captach},
+            data:{'code':register_captach},
             success:function (data) {
                 if (data.error_code == 3){
                     $('#register_captach').val('');

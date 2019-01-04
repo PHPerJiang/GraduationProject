@@ -66,18 +66,24 @@
                 </div>
                 <br>
                 <!-- form -->
-                <form  action="<?php echo site_url('login/login')?>" name="login" method="POST">
+                <form  action="" name="login_form" id="login_form" method="POST">
                     <div class="form-group">
                         <input type="text" class="form-control" id="login_account" value="" name="account" placeholder="Please enter your account .">
                     </div>
 
                     <div class="form-group">
-                        <input type="text" class="form-control" id="login_password" value="" name="password" placeholder="Please enter your password .">
+                        <input type="password" class="form-control" id="login_password" value="" name="password" placeholder="Please enter your password .">
+                    </div>
+
+                    <div class="form-group">
+                        <br>
+                        <img src="<?php echo site_url('login/get_code')?>" alt="" style="vertical-align: bottom"  id="login_captcha_img" onclick="this.src+='?id='+Math.random();">&nbsp;&nbsp;&nbsp;
+                        <input type="test"  style="height: 30px;width:200px;vertical-align: bottom" id="login_captach" name="login_captach" placeholder="Please enter verification code">
                     </div>
 
                     <input type="test"  style="display: none;color: red;width: 500px; border-style: none;border: 0px;outline:none;cursor: pointer;"   readonly id="login_tips"   value="" >
                     <br><br>
-                    <button type="submit" class="btn btn-rabbit submit" >Join</button>
+                    <button type="submit" class="btn btn-rabbit submit" id="login_btn">Join</button>
                 </form>
             </div>
         </div>
@@ -176,5 +182,6 @@
 <script src="<?php echo base_url('assets/js/bootstrap.min.js')?>">"></script>
 <script src="<?php echo base_url('assets/js/script.js')?>">"></script>
 <script src="<?php echo base_url('assets/js/register.js')?>">"></script>
+<script src="<?php echo base_url('assets/js/login.js')?>">"></script>
 </body>
 </html>
