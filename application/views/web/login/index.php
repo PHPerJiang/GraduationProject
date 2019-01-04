@@ -39,8 +39,9 @@
 
                 <div class="btn-group-vertical custom_btn animated slideinright">
                     <div id="about" class="btn btn-rabbit">Login</div>
+                    <br />
                     <div id="work" class="btn btn-rabbit">Register</div>
-                    <div id="contact" class="btn btn-rabbit">Retrieve</div>
+<!--                    <div id="contact" class="btn btn-rabbit">Retrieve</div>-->
                 </div>
             </div>
         </div>
@@ -137,46 +138,46 @@
 </div>                                                                 <!-- Register ends here  -->
 
 
-<div id="contact_scroll" class="pages">                             <!-- Retrieve starts here -->
-    <div class="container main">
-        <div class="row">
-            <div class="col-md-6 left" id="contact_left">
-                <img class="img-responsive img-rabbit" src="<?php echo base_url('assets/images/contact.jpg')?>">
-            </div>
-
-            <div class="col-md-6 right" id="contact_right">
-                <br><br><br>
-                <a href="#index" class="btn btn-rabbit back"> <i class="fa fa-angle-left" aria-hidden="true"></i> Back to Index </a>
-                <br>
-                <div id="watermark">
-                    <h2 class="page-title" text-center>Retrieve</h2>
-                    <div class="marker">R</div>
-                </div>
-                <br>
-                <!-- form -->
-                <form class="" name="retrieve" action="<?php echo site_url('login/retrieve')?>">
-                    <div class="form-group">
-                        <input type="text" class="form-control" id="mobile" name="mobile" value="" placeholder="Please enter your phone number . ">
-                    </div>
-                    <input type="test"  style="display: none;color: red;width: 500px; border-style: none;border: 0px;outline:none;cursor: pointer;"   readonly id="retrieve_tips"   value="" >
-                    <br><br>
-                    <button type="submit" class="btn btn-rabbit submit" >Retrieve</button>
-                </form>
-            </div>
-        </div>
-    </div>
-
-    <footer class="text-center">
-        <div class="container bottom">
-            <div class="row">
-                <div class="col-sm-12">
-                    <p>Made with <i class="fa fa-heartbeat" aria-hidden="true"></i> by <a href="#">Themewagon</a> More Templates <a href="http://www.cssmoban.com/" target="_blank" title="模板之家">模板之家</a> - Collect from <a href="http://www.cssmoban.com/" title="网页模板" target="_blank">网页模板</a></p>
-                </div>
-            </div>
-        </div>
-    </footer>
-
-</div>                                                              <!-- Retrieve ends here -->
+<!--<div id="contact_scroll" class="pages">                             <!-- Retrieve starts here -->-->
+<!--    <div class="container main">-->
+<!--        <div class="row">-->
+<!--            <div class="col-md-6 left" id="contact_left">-->
+<!--                <img class="img-responsive img-rabbit" src="--><?php //echo base_url('assets/images/contact.jpg')?><!--">-->
+<!--            </div>-->
+<!---->
+<!--            <div class="col-md-6 right" id="contact_right">-->
+<!--                <br><br><br>-->
+<!--                <a href="#index" class="btn btn-rabbit back"> <i class="fa fa-angle-left" aria-hidden="true"></i> Back to Index </a>-->
+<!--                <br>-->
+<!--                <div id="watermark">-->
+<!--                    <h2 class="page-title" text-center>Retrieve</h2>-->
+<!--                    <div class="marker">R</div>-->
+<!--                </div>-->
+<!--                <br>-->
+<!--                <!-- form -->-->
+<!--                <form class="" name="retrieve" action="--><?php //echo site_url('login/retrieve')?><!--">-->
+<!--                    <div class="form-group">-->
+<!--                        <input type="text" class="form-control" id="mobile" name="mobile" value="" placeholder="Please enter your phone number . ">-->
+<!--                    </div>-->
+<!--                    <input type="test"  style="display: none;color: red;width: 500px; border-style: none;border: 0px;outline:none;cursor: pointer;"   readonly id="retrieve_tips"   value="" >-->
+<!--                    <br><br>-->
+<!--                    <button type="submit" class="btn btn-rabbit submit" >Retrieve</button>-->
+<!--                </form>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!---->
+<!--    <footer class="text-center">-->
+<!--        <div class="container bottom">-->
+<!--            <div class="row">-->
+<!--                <div class="col-sm-12">-->
+<!--                    <p>Made with <i class="fa fa-heartbeat" aria-hidden="true"></i> by <a href="#">Themewagon</a> More Templates <a href="http://www.cssmoban.com/" target="_blank" title="模板之家">模板之家</a> - Collect from <a href="http://www.cssmoban.com/" title="网页模板" target="_blank">网页模板</a></p>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </footer>-->
+<!---->
+<!--</div>                                                              <!-- Retrieve ends here -->-->
 
 <script src="<?php echo base_url('assets/js/jquery-3.1.0.min.js')?>"></script>
 <script src="<?php echo base_url('assets/js/bootstrap.min.js')?>">"></script>

@@ -78,6 +78,16 @@ class Login extends CI_Controller {
 		$this->resp();
 	}
 
+	//账号校验
+	public function validate_account(){
+		$account = $this->input->post('account');
+		$res = $this->login_biz->validate_account($account);
+		if (!$res){
+			$this->error_msg = 1;
+			$this->error_code = 'Fail';
+		}
+		$this->resp();
+	}
 	//忘记密码
 	public function retrieve(){
 

@@ -51,6 +51,22 @@ class Login_biz extends CI_Model {
 	}
 
 	/**
+	 * 校验账号是否注册
+	 * @param string $account
+	 * @return bool
+	 */
+	public function validate_account($account = ''){
+		if (empty($account)) return FALSE;
+		$is_account = FALSE;
+		$result = $this->user_base_info_db->select('id',['account'=>$account]);
+		$result = !empty($result) ? (isset($result[0]) ? (!empty($result[0]) ? $result[0] : []) : []) :[];
+		if (!$result){
+			$is_account = TRUE;
+		}
+		return $is_account;
+	}
+
+	/**
 	 * 忘记密码业务
 	 */
 	public function retrieve(){

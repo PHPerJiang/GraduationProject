@@ -13,7 +13,22 @@ $(document).ready(function(){
         var account = $('#register_account').val();
         var res = checkAccount(account);
         if (res){
-            global_account = account;
+            $.ajax({
+               type:"POST",
+                url:"validate_account",
+                data:{'account':account},
+                dataType:'json',
+                success:function (data) {
+                    if (data.error_code != 0){
+                        $('#register_tips').val('账号已被注册,请使用其他账号').show().fadeOut(tips_show_time);
+                    }else {
+                        global_account = account;
+                    }
+                },
+                error:function (error) {
+                    $('#register_tips').val('网络错误').show().fadeOut(tips_show_time);
+                }
+            });
         }else {
             $('#register_account').val('');
             $('#register_tips').val('账号由字母，数字，下划线组成，字母开头，4-16位').show().fadeOut(tips_show_time);
