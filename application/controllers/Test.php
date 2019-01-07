@@ -90,5 +90,8 @@ class Test extends CI_Controller{
 	    $this->user_base_info_biz->data_set($param);
     }
 
+    public function goto_index(){
+    	$this->load->view('web/feed/index');
+    }
 
 }
