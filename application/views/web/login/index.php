@@ -14,7 +14,7 @@
     <link href="<?php echo base_url('assets/css/font-awesome.min.css')?>" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,600,700,700i" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Crimson+Text:400,700,700i|Josefin+Sans:700" rel="stylesheet">
-    <link href="<?php echo base_url('assets/css/main.css')?>" rel="stylesheet">
+    <link href="<?php echo base_url('assets/css/main-login.css')?>" rel="stylesheet">
     <link rel="icon" href="<?php echo base_url('assets/images/logo.png')?>">
     <link href="<?php echo base_url('assets/css/animate.min.css')?>" rel="stylesheet">
 
@@ -181,7 +181,7 @@
 
 <script src="<?php echo base_url('assets/js/jquery-3.1.0.min.js')?>"></script>
 <script src="<?php echo base_url('assets/js/bootstrap.min.js')?>">"></script>
-<script src="<?php echo base_url('assets/js/script.js')?>">"></script>
+<script src="<?php echo base_url('assets/js/script-login.js')?>">"></script>
 <script src="<?php echo base_url('assets/js/register.js')?>">"></script>
 <script src="<?php echo base_url('assets/js/login.js')?>">"></script>
 </body>
