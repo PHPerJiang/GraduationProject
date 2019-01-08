@@ -180,9 +180,9 @@
 <!--</div>                                                              <!-- Retrieve ends here -->-->
 
 <script src="<?php echo base_url('assets/js/jquery-3.1.0.min.js')?>"></script>
-<script src="<?php echo base_url('assets/js/bootstrap.min.js')?>">"></script>
-<script src="<?php echo base_url('assets/js/script-login.js')?>">"></script>
-<script src="<?php echo base_url('assets/js/register.js')?>">"></script>
-<script src="<?php echo base_url('assets/js/login.js')?>">"></script>
+<script src="<?php echo base_url('assets/js/bootstrap.min.js')?>"></script>
+<script src="<?php echo base_url('assets/js/script-login.js')?>"></script>
+<script src="<?php echo base_url('assets/js/register.js')?>"></script>
+<script src="<?php echo base_url('assets/js/login.js')?>"></script>
 </body>
 </html>

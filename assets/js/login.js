@@ -80,7 +80,7 @@ $(document).ready(function(){
                     $('#login_tips').val('网络错误').show().fadeOut(tips_show_time);
                 }
             });
-        }else if(!global_account || !global_password || !global_repassword){
+        }else if(!global_account || !global_password){
             $('#login_tips').val('请输入要注册的账户名/密码').show().fadeOut(tips_show_time);
         }else if (!global_captach) {
             $('#login_tips').val('请输入验证码').show().fadeOut(tips_show_time);

@@ -56,7 +56,7 @@ class Login extends CI_Controller {
 		$this->error_msg = $res ? '登录成功' : '登录失败';
 		$this->resp();
 	}
-
+	
 	//注册
 	public function register(){
 		$account = $this->input->post('account');
