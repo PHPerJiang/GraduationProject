@@ -74,6 +74,8 @@ $(document).ready(function(){
                 success:function (data) {
                     if(data.error_code != 0){
                         $('#login_tips').val('账户名/密码不正确').show().fadeOut(tips_show_time);
+                    }else {
+                        window.location.href= $('#home_url').attr('href');
                     }
                 },
                 error:function (err) {

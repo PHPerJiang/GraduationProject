@@ -178,7 +178,7 @@
 <!--    </footer>-->
 <!---->
 <!--</div>                                                              <!-- Retrieve ends here -->-->
-
+<a href="<?php echo site_url('feed/index')?>" id="home_url"></a>
 <script src="<?php echo base_url('assets/js/jquery-3.1.0.min.js')?>"></script>
 <script src="<?php echo base_url('assets/js/bootstrap.min.js')?>"></script>
 <script src="<?php echo base_url('assets/js/script-login.js')?>"></script>
