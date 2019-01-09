@@ -51,8 +51,13 @@ class Login_biz extends CI_Model {
 		];
 		$params = array_merge($default_params, $params);
 		$params['password'] = crypt($params['password'],$params['salt']);
+		$is_register = FALSE;
 		$result = $this->user_base_info_db->insert($params);
-		$result = !empty($result) ? $result : [];
+		$is_register = !empty($result) ? $result : [];
+		if ($is_register){
+			//登录成功时保存user_id，并设置过期时间为30min
+			$this->session->set_tempdata('user_id',$result['id'],1800);
+		}
 		return $result;
 	}
 
