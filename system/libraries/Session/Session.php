@@ -980,4 +980,23 @@ class CI_Session {
 		$this->unmark_temp($key);
 	}
 
+	/**
+	 * 判断用户是否登录
+	 * @return bool
+	 */
+	public function is_login(){
+		$user_id = $this->tempdata('user_id');
+		if ($user_id != NULL){
+			return TRUE;
+		}else{
+			return FALSE;
+		}
+	}
+
+	/**
+	 * 登出
+	 */
+	public function logout(){
+		$this->unset_tempdata('user_id');
+	}
 }

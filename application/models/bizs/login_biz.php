@@ -5,6 +5,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @Author: jiangyu01
  * @Time: 2018/12/25 17:29
  * @property User_base_info_db user_base_info_db
+ * @property CI_Session session
  */
 
 class Login_biz extends CI_Model {
@@ -12,6 +13,7 @@ class Login_biz extends CI_Model {
 	{
 		parent::__construct();
 		$this->load->model('db/user_base_info_db');
+		$this->load->library('session');
 	}
 
 	/**
@@ -22,10 +24,14 @@ class Login_biz extends CI_Model {
 			return FALSE;
 		}
 		$is_login = FALSE;
-		$result = $this->user_base_info_db->select('password,salt',['account'=>$account,'status'=>1]);
+		$result = $this->user_base_info_db->select('id,password,salt',['account'=>$account,'status'=>1]);
 		$result = !empty($result) ? (isset($result[0]) ? (!empty($result[0]) ? $result[0] : []) : []) :[];
 		if (!empty($result) && isset($result['salt']) && isset($result['password'])){
 			$is_login = (crypt($password,$result['salt']) === $result['password']) ?  TRUE : FALSE;
+		}
+		if ($is_login){
+			//登录成功时保存user_id，并设置过期时间为30min
+			$this->session->set_tempdata('user_id',$result['id'],1800);
 		}
 		return $is_login;
 	}
