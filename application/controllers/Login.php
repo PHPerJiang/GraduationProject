@@ -24,7 +24,11 @@ class Login extends CI_Controller {
 	}
 	//加载登录、注册、忘记密码页面
 	public function index(){
-		$this->load->view('web/login/index');
+		if ($this->session->is_login()){
+			redirect('feed/index');
+		}else{
+			$this->load->view('web/login/index');
+		}
 	}
 
 	//展示验证码
@@ -91,6 +95,14 @@ class Login extends CI_Controller {
 	//忘记密码
 	public function retrieve(){
 
+	}
+
+	/**
+	 * 退出登录
+	 */
+	public function logout(){
+		$this->session->logout();
+		redirect('login/index');
 	}
 
 	/**

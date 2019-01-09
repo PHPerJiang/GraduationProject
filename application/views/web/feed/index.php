@@ -7,10 +7,10 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="shortcut icon" type="image/x-icon" href="<?php echo site_url('assets/images/logo.png')?>" />
 	<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
-    </script>
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text/css'>
-        <link rel="stylesheet" href="<?php echo site_url('assets/css/main-feed.css')?>">
-        <script src="<?php echo site_url('assets/js/jquery-3.1.0.min.js')?>"></script>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text/css' />
+    <link rel="stylesheet" href="<?php echo site_url('assets/css/main-feed.css')?>" />
+    <script src="<?php echo site_url('assets/js/jquery-3.1.0.min.js')?>"></script>
+    <script src="<?php echo site_url('assets/js/common.js')?>"></script>
 	<script type="text/javascript">
         var $ = jQuery.noConflict();
         $(function() {
@@ -50,12 +50,10 @@
 					<div class="form_content">
 						<div class="menu_box_list">
 							<ul>
-								<li><a href="#"><span>home</span></a></li>
-								<li><a href="#"><span>About</span></a></li>
-								<li><a href="#"><span>Works</span></a></li>
-								<li><a href="#"><span>Clients</span></a></li>
-								<li><a href="#"><span>Blog</span></a></li>
-								<li><a href="#"><span>Contact</span></a></li>
+								<li><a href="#"><span>热门信息</span></a></li>
+								<li><a href="#"><span>我的关注</span></a></li>
+								<li><a href="#"><span>发布信息</span></a></li>
+								<li><a href="#"><span>我的资料</span></a></li>
 								<div class="clear"> </div>
 							</ul>
 						</div>
@@ -72,7 +70,8 @@
 		<div class="userinfo">
 			<div class="user">
 				<ul>
-					<li><a href="#"><img src="<?php echo site_url('assets/images/user-pic.png')?>" title="user-name" /><span>Ipsum</span></a></li>
+					<li><a href="#"><img src="<?php echo site_url('assets/images/user-pic.png')?>" title="user-name" /><span>个人资料</span></a></li>
+                    <li><a href="<?php echo site_url('login/logout')?>"  id="logout" ><span>退出登录</span></li>
 				</ul>
 			</div>
 		</div>
