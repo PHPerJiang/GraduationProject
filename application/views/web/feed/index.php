@@ -12,6 +12,7 @@
     <script src="<?php echo site_url('assets/js/jquery-3.1.0.min.js')?>"></script>
     <script src="<?php echo site_url('assets/js/common.js')?>"></script>
 	<script type="text/javascript">
+        //控制导航栏的js
         var $ = jQuery.noConflict();
         $(function() {
             $('#activator').click(function(){
@@ -53,7 +54,7 @@
 								<li><a href="#"><span>热门信息</span></a></li>
 								<li><a href="#"><span>我的关注</span></a></li>
 								<li><a href="#"><span>发布信息</span></a></li>
-								<li><a href="#"><span>我的资料</span></a></li>
+								<li><a href="#"><span>我的信息</span></a></li>
 								<div class="clear"> </div>
 							</ul>
 						</div>
