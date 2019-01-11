@@ -64,6 +64,8 @@ $(document).ready(function(){
     //验证码校验
     $('#register_captach').blur(function () {
         var register_captach = $('#register_captach').val();
+        var register_captcha_img_src = $('#register_captcha_img').attr('src');
+        register_captcha_img_src = register_captcha_img_src + '?id='+Math.random();
         if (!register_captach){
             $('#register_captach').val('');
             $('#register_tips').val('请输入验证码').show().fadeOut(tips_show_time);
@@ -76,6 +78,7 @@ $(document).ready(function(){
             success:function (data) {
                 if (data.error_code == 3){
                     $('#register_captach').val('');
+                    $('#register_captcha_img').attr('src',register_captcha_img_src);
                     $('#register_tips').val('验证码错误').show().fadeOut(tips_show_time);
                 }else if (data.error_code == 0){
                     global_captach = register_captach;
@@ -83,6 +86,7 @@ $(document).ready(function(){
             } ,
             error:function (err) {
                 $('#register_captach').val('');
+                $('#register_captcha_img').attr('src',register_captcha_img_src);
                 $('#register_tips').val('网络错误').show().fadeOut(tips_show_time);
             }
         });
