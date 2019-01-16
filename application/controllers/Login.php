@@ -106,6 +106,13 @@ class Login extends CI_Controller {
 	}
 
 	/**
+	 * ajax 退出登录
+	 */
+	public function ajax_logout(){
+		$this->session->logout();
+		$this->resp();
+	}
+	/**
 	 * 数据输出
 	 * @param array $data
 	 * @param string $total

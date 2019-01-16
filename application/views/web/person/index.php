@@ -63,8 +63,8 @@
 		<div class="userinfo">
 			<div class="user">
 				<ul>
-                    <li><a href="<?php echo site_url('person/index')?>" target="_blank"><img src="<?php echo site_url('assets/images/user-pic.png')?>" title="user-name" /><span>个人资料</span></a></li>
-                    <li><a href="#"  id="logout" ><span>退出登录</span></li>
+                    <li><a href="#"><img src="<?php echo site_url('assets/images/user-pic.png')?>" title="user-img" /><span>个人资料</span></a></li>
+                    <li><a><span id="ajax_logout" attr-href="<?php echo site_url('login/ajax_logout')?>">退出登录</span></li>
 				</ul>
 			</div>
 		</div>
@@ -112,14 +112,14 @@
 			<form method="post" action="">
 				<div class="contact-form">
 					<div class="contact-to">
-						<input type="text" class="text" placeholder="Please enter your real name.">
-						<input type="text" class="text" placeholder="Please enter your name.">
-						<input type="text" class="text" placeholder="Please enter your phone.">
+						<input type="text" class="text" name="person_name" placeholder="Please enter your real name.">
+						<input type="text" class="text" name="person_nickname" placeholder="Please enter your nickname.">
+						<input type="text" class="text" name="person_phone" placeholder="Please enter your phone.">
 					</div>
 					<div class="text2">
-						<textarea value="Message:" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Message';}">Message..</textarea>
+						<textarea  name="person_description" placeholder="Description"></textarea>
 					</div>
-					<span><input type="submit" class="" value="提交"></span>
+					<span><input type="submit" id="person_btn" class="" value="提交"></span>
 					<div class="clear"></div>
 				</div>
 			</form>
@@ -128,10 +128,11 @@
 </div>
 <!----start-footer--->
 <div class="footer">
-    <p>Copyright &copy; 2015.Company name All rights reserved.More Templates <a href="" target="_blank" title="">版权最终解释权归uuJiang所有</a> - Collect from <a href="" title="" target="_blank">PHPerJiang</a></p>
+    <p>Copyright &copy; 2018.Company name All rights reserved.More Templates <a href="" title="">版权最终解释权归uuJiang所有</a> - Collect from <a href="" title="" target="_blank">PHPerJiang</a></p>
 </div>
 <!----//End-footer--->
 <!---//End-wrap---->
+<script src="<?php echo base_url('assets/js/person.js')?>"></script>
 </body>
 </html>
 
