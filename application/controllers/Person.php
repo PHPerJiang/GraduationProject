@@ -13,6 +13,9 @@ class Person extends CI_Controller{
 		$this->load->library('session');
 	}
 
+	/**
+	 * 个人主页首页
+	 */
 	public function index(){
 		if (!$this->session->is_login()){
 			redirect('login/index');

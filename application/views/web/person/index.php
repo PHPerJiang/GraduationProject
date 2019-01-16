@@ -112,12 +112,12 @@
 			<form method="post" action="">
 				<div class="contact-form">
 					<div class="contact-to">
-						<input type="text" class="text" name="person_name" placeholder="Please enter your real name.">
-						<input type="text" class="text" name="person_nickname" placeholder="Please enter your nickname.">
-						<input type="text" class="text" name="person_phone" placeholder="Please enter your phone.">
+						<input type="text" class="text" name="person_name" id="person_name" placeholder="Please enter your real name.">
+						<input type="text" class="text" name="person_nickname" id="person_nickname" placeholder="Please enter your nickname.">
+						<input type="text" class="text" name="person_phone" id="person_phone" placeholder="Please enter your phone.">
 					</div>
 					<div class="text2">
-						<textarea  name="person_description" placeholder="Description"></textarea>
+						<textarea  name="person_description" id="person_description" placeholder="Description"></textarea>
 					</div>
 					<span><input type="submit" id="person_btn" class="" value="提交"></span>
 					<div class="clear"></div>
