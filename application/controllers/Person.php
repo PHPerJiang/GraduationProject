@@ -6,6 +6,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @property CI_Session session
  */
 class Person extends CI_Controller{
+
+	private $error_code = 0;
+	private $error_msg = 'success';
+
 	public function __construct()
 	{
 		parent::__construct();
@@ -22,5 +26,33 @@ class Person extends CI_Controller{
 		}else{
 			$this->load->view('web/person/index');
 		}
+	}
+
+	/**
+	 * 昵称查重
+	 */
+	public function validate_nickname(){
+		$this->resp();
+	}
+
+	/**
+	 * 手机号查重
+	 */
+	public function validate_phone(){
+		$this->resp();
+	}
+	/**
+	 * 数据输出
+	 * @param array $data
+	 * @param string $total
+	 */
+	private function resp($data = []) {
+		header('Content-type: application/json');
+		echo json_encode([
+			'error_code' => $this->error_code,
+			'error_msg'  => $this->error_msg,
+			'data'       => $data,
+		]);
+		return;
 	}
 }

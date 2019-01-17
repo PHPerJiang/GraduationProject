@@ -119,8 +119,9 @@
 					<div class="text2">
 						<textarea  name="person_description" id="person_description" placeholder="Description"></textarea>
 					</div>
-					<span><input type="submit" id="person_btn" class="" value="提交"></span>
-					<div class="clear"></div>
+					<span><input type="submit" id="person_btn" class="" value="提交" style="display:inline;"></span>&nbsp;&nbsp;&nbsp;
+                    <span><input type="test"  style="display: none;font-size:18px;color: red;width: 500px; border-style: none;border: 0px;outline:none;cursor: pointer;"   readonly id="person_tips"   value="" ></span>
+                    <div class="clear"></div>
 				</div>
 			</form>
 		</div>
