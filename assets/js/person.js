@@ -3,7 +3,7 @@ $(document).ready(function () {
     var global_person_name;
     var global_person_nickname;
     var global_person_phone;
-    var global_person_description;
+    var global_person_description = $('#person_description').val();
 
     //提示显示时间
     var tips_show_time = 3500;
@@ -53,7 +53,7 @@ $(document).ready(function () {
             $.ajax({
                 url:'validate_nickname',
                 type:"POST",
-                dataType:'josn',
+                dataType:'json',
                 success:function (data) {
                     if (data.error_code == 0){
                         global_person_nickname = person_nickname;
@@ -62,7 +62,7 @@ $(document).ready(function () {
                     }
                 },
                 error:function (error) {
-                    $('#person_tips').val('网络错误').show().fadeOut(tips_show_time);
+                    $('#person_tips').val('网络异常').show().fadeOut(tips_show_time);
                 }
             });
         }
@@ -80,7 +80,7 @@ $(document).ready(function () {
             $.ajax({
                 url:'validate_phone',
                 type:"POST",
-                dataType:'josn',
+                dataType:'json',
                 success:function (data) {
                     if (data.error_code == 0){
                         global_person_phone = person_phone;
@@ -89,11 +89,29 @@ $(document).ready(function () {
                     }
                 },
                 error:function (error) {
-                    $('#person_tips').val('网络错误').show().fadeOut(tips_show_time);
+                    $('#person_tips').val('网络异常').show().fadeOut(tips_show_time);
                 }
             });
         }
     })
 
-
+    //获取
+    $("#person_btn").click(function () {
+        if (global_person_name && global_person_nickname && global_person_phone){
+            $.ajax({
+                url:'save_info',
+                data:{'name':global_person_name, 'nickname':global_person_nickname, 'phone':global_person_phone, 'description':global_person_phone},
+                type:'POST',
+                dataType:'json',
+                success:function (data) {
+                    $('#person_form').attr('onsubmit',true);
+                },
+                error:function (error) {
+                    $('#person_tips').val('网络异常').show().fadeOut(tips_show_time);
+                }
+            })
+        }else {
+            $('#person_tips').val('请填写必要信息').show().fadeOut(tips_show_time);
+        }
+    })
 });

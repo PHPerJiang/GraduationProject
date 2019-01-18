@@ -41,6 +41,14 @@ class Person extends CI_Controller{
 	public function validate_phone(){
 		$this->resp();
 	}
+
+	/**
+	 * 保存用户信息
+	 */
+	public function save_info(){
+		$user_info = $this->input->post();
+		$this->resp($user_info);
+	}
 	/**
 	 * 数据输出
 	 * @param array $data

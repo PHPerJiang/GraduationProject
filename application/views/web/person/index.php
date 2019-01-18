@@ -109,7 +109,7 @@
 				</div>
 				<div class="clear"></div>
 			</div>
-			<form method="post" action="">
+			<form method="post" action="" onsubmit="false" id="person_form">
 				<div class="contact-form">
 					<div class="contact-to">
 						<input type="text" class="text" name="person_name" id="person_name" placeholder="Please enter your real name.">
@@ -119,7 +119,7 @@
 					<div class="text2">
 						<textarea  name="person_description" id="person_description" placeholder="Description"></textarea>
 					</div>
-					<span><input type="submit" id="person_btn" class="" value="提交" style="display:inline;"></span>&nbsp;&nbsp;&nbsp;
+					<span><input type="submit" id="person_btn" class="" value="提交"  style="display:inline;"></span>&nbsp;&nbsp;&nbsp;
                     <span><input type="test"  style="display: none;font-size:18px;color: red;width: 500px; border-style: none;border: 0px;outline:none;cursor: pointer;"   readonly id="person_tips"   value="" ></span>
                     <div class="clear"></div>
 				</div>
