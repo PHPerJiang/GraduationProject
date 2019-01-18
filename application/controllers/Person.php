@@ -46,8 +46,12 @@ class Person extends CI_Controller{
 	 * 保存用户信息
 	 */
 	public function save_info(){
-		$user_info = $this->input->post();
-		$this->resp($user_info);
+		$user_id = $this->input->post('user_id');
+		$name = $this->input->post('name');
+		$nickname = $this->input->post('nickname');
+		$phone = $this->input->post('phone');
+		$description = $this->input->post('description');
+		$this->resp();
 	}
 	/**
 	 * 数据输出

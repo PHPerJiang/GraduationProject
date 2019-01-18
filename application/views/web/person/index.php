@@ -117,7 +117,7 @@
 						<input type="text" class="text" name="person_phone" id="person_phone" placeholder="Please enter your phone.">
 					</div>
 					<div class="text2">
-						<textarea  name="person_description" id="person_description" placeholder="Description"></textarea>
+						<textarea  name="person_description" id="person_description" value="123" placeholder="Description"></textarea>
 					</div>
 					<span><input type="submit" id="person_btn" class="" value="提交"  style="display:inline;"></span>&nbsp;&nbsp;&nbsp;
                     <span><input type="test"  style="display: none;font-size:18px;color: red;width: 500px; border-style: none;border: 0px;outline:none;cursor: pointer;"   readonly id="person_tips"   value="" ></span>
@@ -133,6 +133,8 @@
 </div>
 <!----//End-footer--->
 <!---//End-wrap---->
+<input type="hidden" id="login_href" value="<?php echo site_url('login/index')?>">
+<input type="hidden" id="id" value="<?php echo $_SESSION['user_id']?>">
 <script src="<?php echo base_url('assets/js/person.js')?>"></script>
 </body>
 </html>

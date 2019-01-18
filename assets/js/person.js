@@ -3,7 +3,7 @@ $(document).ready(function () {
     var global_person_name;
     var global_person_nickname;
     var global_person_phone;
-    var global_person_description = $('#person_description').val();
+    var global_person_description;
 
     //提示显示时间
     var tips_show_time = 3500;
@@ -16,13 +16,14 @@ $(document).ready(function () {
     //ajax退出登录
     $('#ajax_logout').click(function () {
         var url = $('#ajax_logout').attr('attr-href');
+        var jump_to = $('#login_href').val();
         $.ajax({
             url:url,
             type:"POST",
             dataType:'json',
             success:function (data) {
                 if (data.error_code == 0){
-                    alert(1);
+                    window.location.href = jump_to;
                 }
             },
         });
@@ -97,10 +98,18 @@ $(document).ready(function () {
 
     //获取
     $("#person_btn").click(function () {
+        alert('#id').val();
         if (global_person_name && global_person_nickname && global_person_phone){
             $.ajax({
                 url:'save_info',
-                data:{'name':global_person_name, 'nickname':global_person_nickname, 'phone':global_person_phone, 'description':global_person_phone},
+                data:
+                    {
+                        'name':global_person_name,
+                        'nickname':global_person_nickname,
+                        'phone':global_person_phone,
+                        'description':$('#person_description').val(),
+                        'user_id':$('#id').val(),
+                    },
                 type:'POST',
                 dataType:'json',
                 success:function (data) {
