@@ -4,6 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @Author: jiangyu01
  * @Time: 2019/1/15 13:16
  * @property CI_Session session
+ * @property  User_person_info_biz user_person_info_biz
  */
 class Person extends CI_Controller{
 
@@ -15,6 +16,7 @@ class Person extends CI_Controller{
 		parent::__construct();
 		$this->load->helper('url');
 		$this->load->library('session');
+		$this->load->model('bizs/user_person_info_biz');
 	}
 
 	/**
@@ -51,7 +53,21 @@ class Person extends CI_Controller{
 		$nickname = $this->input->post('nickname');
 		$phone = $this->input->post('phone');
 		$description = $this->input->post('description');
-		$this->resp();
+		if (!$user_id || !is_numeric($user_id) || !$name || !$nickname || !$phone){
+			$this->error_code = 3;
+			$this->error_msg = '参数错误';
+			$result = FALSE;
+			goto END;
+		}
+		$params = [
+			'name' => $name,
+			'nickname' => $nickname,
+			'phone' => $phone,
+			'description' => $description,
+		];
+		$result = $this->user_person_info_biz->save_user_info($user_id, $params);
+		END:
+		$this->resp($result);
 	}
 	/**
 	 * 数据输出

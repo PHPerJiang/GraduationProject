@@ -2,22 +2,24 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 /**
  * @Author: jiangyu01
- * @Time: 2018/12/24 9:29
+ * @Time: 2019/1/21 8:57
  */
-class User_base_info_db extends CI_Model{
-	private $table = 'user_base_info';
-	public $fields = [
+class User_person_info_db_biz extends CI_Model{
+	//数据表
+	private $table = 'user_person_info';
+	//数据表字段
+	private $fields = [
 		'id' => NULL,
-		'account' => NULL,
-		'password' => NULL,
-		'salt' => NULL,
-		'status' => NULL,
-		'ip' => NULL,
-		'last_login_time' => NULL
+		'user_id' => NULL,
+		'name' => NULL,
+		'phone' => NULL,
+		'nickname' => NULL,
+		'description' => NULL,
+		'image' => NULL,
 	];
-
 	public function __construct()
 	{
+		parent::__construct();
 		$this->load->database();
 	}
 
@@ -60,6 +62,7 @@ class User_base_info_db extends CI_Model{
 		return $res;
 	}
 
+
 	/**
 	 * 数据修改
 	 * @param $data
@@ -89,6 +92,7 @@ class User_base_info_db extends CI_Model{
 		$res = $this->db->where($where)->delete($this->table);
 		return $res;
 	}
+
 	/**
 	 * 字段校验
 	 * @param $data
@@ -98,7 +102,6 @@ class User_base_info_db extends CI_Model{
 		if (!is_array($data)){
 			return FALSE;
 		}
-		$data['last_login_time'] = date('Y-m-d H:i:s',time());
 		foreach ($data as $key => $value){
 			if (in_array($key, $this->fields)){
 				//转译入库数据

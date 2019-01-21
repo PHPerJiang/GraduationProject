@@ -98,7 +98,6 @@ $(document).ready(function () {
 
     //获取
     $("#person_btn").click(function () {
-        alert('#id').val();
         if (global_person_name && global_person_nickname && global_person_phone){
             $.ajax({
                 url:'save_info',
