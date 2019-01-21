@@ -38,4 +38,15 @@ class User_person_info_biz extends CI_Model{
 		}
 		return $result;
 	}
+
+	/**
+	 * 获取用户个人信息
+	 */
+	public function get_person_info($user_id){
+		if (!is_numeric($user_id)){
+			return FALSE;
+		}
+		$result = $this->user_person_info_db_biz->select('*',['user_id' => $user_id]);
+		return $result;
+	}
 }

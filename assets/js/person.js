@@ -1,9 +1,9 @@
 $(document).ready(function () {
     //声明全局变量
-    var global_person_name;
-    var global_person_nickname;
-    var global_person_phone;
-    var global_person_description;
+    var global_person_name = $('#person_name').val();
+    var global_person_nickname = $('#person_nickname').val();
+    var global_person_phone = $('#person_phone').val();
+    var global_person_description = $('#person_description');
 
     //提示显示时间
     var tips_show_time = 3500;
@@ -121,5 +121,26 @@ $(document).ready(function () {
         }else {
             $('#person_tips').val('请填写必要信息').show().fadeOut(tips_show_time);
         }
-    })
+    });
+
+    /**
+     * 如果姓名已经填写，则设为只读模式
+     */
+    if(global_person_name){
+        $('#person_name').attr('readOnly',true);
+    }
+
+    /**
+     *点击头像打开上传框
+     */
+    $('#person_image').click(function () {
+        $('#person_image_upload').click();
+    });
+
+    /**
+     *
+     */
+
+
 });
+

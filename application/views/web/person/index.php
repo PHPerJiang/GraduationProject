@@ -37,7 +37,7 @@
 <div class="header">
 	<div class="wrap">
 		<div class="logo">
-			<a href="index.html"><img src="<?php echo site_url('assets/images/logo.png')?>" title="pinbal" /></a>
+			<a href="index.php"><img src="<?php echo site_url('assets/images/logo.png')?>" title="pinbal"/></a>
 		</div>
 		<div class="nav-icon">
 			<a href="#" class="right_bt" id="activator"><span> </span> </a>
@@ -63,7 +63,8 @@
 		<div class="userinfo">
 			<div class="user">
 				<ul>
-                    <li><a href="#"><img src="<?php echo site_url('assets/images/user-pic.png')?>" title="user-img" /><span>个人资料</span></a></li>
+                    <li><a href="#"><img src="<?php echo site_url('assets/images/user-pic.png')?>" title="user-img" id="person_image" /><span>个人资料</span></a></li>
+                    <input type="file" name="person_image" style="display: none" id="person_image_upload" >
                     <li><a><span id="ajax_logout" attr-href="<?php echo site_url('login/ajax_logout')?>">退出登录</span></li>
 				</ul>
 			</div>
@@ -112,12 +113,17 @@
 			<form method="post" action="" onsubmit="false" id="person_form">
 				<div class="contact-form">
 					<div class="contact-to">
-						<input type="text" class="text" name="person_name" id="person_name" placeholder="Please enter your real name.">
-						<input type="text" class="text" name="person_nickname" id="person_nickname" placeholder="Please enter your nickname.">
-						<input type="text" class="text" name="person_phone" id="person_phone" placeholder="Please enter your phone.">
+						<input type="text" class="text" name="person_name" id="person_name" placeholder="Please enter your real name."
+                               value="<?php echo $data['name'] ?>" >
+
+						<input type="text" class="text" name="person_nickname" id="person_nickname" placeholder="Please enter your nickname."
+                               value="<?php echo $data['nickname']?>">
+
+						<input type="text" class="text" name="person_phone" id="person_phone" placeholder="Please enter your phone."
+                               value="<?php echo $data['phone']?>">
 					</div>
 					<div class="text2">
-						<textarea  name="person_description" id="person_description" value="123" placeholder="Description"></textarea>
+						<textarea  name="person_description" id="person_description"  placeholder="Description"><?php echo isset($data['description']) ? $data['description'] : '' ?></textarea>
 					</div>
 					<span><input type="submit" id="person_btn" class="" value="提交"  style="display:inline;"></span>&nbsp;&nbsp;&nbsp;
                     <span><input type="test"  style="display: none;font-size:18px;color: red;width: 500px; border-style: none;border: 0px;outline:none;cursor: pointer;"   readonly id="person_tips"   value="" ></span>

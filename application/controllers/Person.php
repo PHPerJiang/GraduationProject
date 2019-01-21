@@ -5,6 +5,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @Time: 2019/1/15 13:16
  * @property CI_Session session
  * @property  User_person_info_biz user_person_info_biz
+ * @property Myupload myupload
  */
 class Person extends CI_Controller{
 
@@ -17,6 +18,7 @@ class Person extends CI_Controller{
 		$this->load->helper('url');
 		$this->load->library('session');
 		$this->load->model('bizs/user_person_info_biz');
+		$this->load->library('myupload');
 	}
 
 	/**
@@ -26,8 +28,18 @@ class Person extends CI_Controller{
 		if (!$this->session->is_login()){
 			redirect('login/index');
 		}else{
-			$this->load->view('web/person/index');
+			$person_info = $this->user_person_info_biz->get_person_info($this->session->userdata('user_id'));
+			$data['data'] = isset($person_info[0]) ? $person_info[0] : [];
+			$this->load->view('web/person/index',$data);
 		}
+	}
+
+	/**
+	 * 更换头像
+	 */
+	public function update_image(){
+		$image_info = $_FILES;
+		$this->resp($image_info);
 	}
 
 	/**
