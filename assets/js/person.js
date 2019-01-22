@@ -137,10 +137,26 @@ $(document).ready(function () {
         $('#person_image_upload').click();
     });
 
-    /**
-     *
-     */
-
-
 });
 
+/**
+ *上传图片
+ */
+function upload_image() {
+    var forData = new FormData();
+    forData.append('file',$('#person_image_upload')[0].files[0]);
+    $.ajax({
+        url:'update_image',
+        type:'POST',
+        data:forData,
+        cache:false,
+        processData:false,
+        contentType:false,
+        success:function () {
+            console.log('请求成功');
+        },
+        error:function () {
+            console.log('请求失败');
+        }
+    })
+}

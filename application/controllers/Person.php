@@ -39,6 +39,7 @@ class Person extends CI_Controller{
 	 */
 	public function update_image(){
 		$image_info = $_FILES;
+		$this->myupload->up($image_info);
 		$this->resp($image_info);
 	}
 
