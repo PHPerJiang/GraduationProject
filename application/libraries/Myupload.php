@@ -12,6 +12,7 @@ class Myupload{
     private $max_size;      #上传文件大小限制
     private $errno;         #错误信息号
     private $mime;          #允许上传的文件类型
+	private $error_msg;   #错误号
 
     /**
      * 构造函数,
@@ -32,6 +33,8 @@ class Myupload{
      * @return mixed 成功返回上传的文件名，失败返回false
      */
     public function up($file){
+    	//初始化返回数据
+	    $result = ['error_code' => 0, 'error_msg' => 'success', 'data' => ''];
         //判断文件是否是通过 HTTP POST 上传，防止恶意欺骗
         /*
         if (! is_uploaded_file($file['tmp_name'])) {
@@ -46,15 +49,17 @@ class Myupload{
             #上传类型判断
             if (!in_array($file['type'], $this->mime)) {
                 # 类型不对
-                $this->errno = -1;
-                return false;
+                $result['error_code'] = $this->errno = -1;
+	            $result['error_msg'] = $this->error($this->errno);
+	            return $result;
             }
 
             #判断文件大小
             if ($file['size'] > $this->max_size) {
                 # 大小超出配置文件的中的上传限制
-                $this->errno = -2;
-                return false;
+	            $result['error_code'] = $this->errno = -2;
+	            $result['error_msg'] = $this->error($this->errno);
+	            return $result;
             }
 
             #获取存放上传文件的目录
@@ -69,17 +74,20 @@ class Myupload{
             #准备就绪，开始上传
             if (move_uploaded_file($file['tmp_name'], $this->path . $sub_path . $file_name)) {
                 # 移动成功
-                return $sub_path . $file_name;
+	            $result['data'] = $sub_path . $file_name;
+                return $result;
             } else {
                 # 移动失败
-                $this->errno = -3;
-                return false;
+	            $result['error_code'] = $this->errno = -3;
+	            $result['error_msg'] = $this->error($this->errno);
+	            return $result;
             }
 
         } else {
             #上传到临时文件夹失败，根据其错误号设置错误号
-            $this->errno = $file['error'];
-            return $this->error($this->errno);
+	        $result['error_code'] = $this->errno = $file['error'];
+	        $result['error_msg'] = $this->error($this->errno);
+	        return $result;
         }
 
     }

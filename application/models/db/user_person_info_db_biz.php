@@ -110,4 +110,20 @@ class User_person_info_db_biz extends CI_Model{
 		}
 		return $data;
 	}
+
+	/**
+	 * 用户存储个人信息，结合insert、update
+	 * @param $user_id
+	 * @param array $params
+	 * @return array|bool
+	 */
+	public function  save($user_id, $params = []){
+		$user_info = $this->select('id',['user_id' => $user_id]);
+		if ($user_info){
+			$result = $this->update($params, ['user_id' => $user_id]);
+		}else{
+			$result = $this->insert($params);
+		}
+		return $result;
+	}
 }

@@ -38,9 +38,22 @@ class Person extends CI_Controller{
 	 * 更换头像
 	 */
 	public function update_image(){
-		$image_info = $_FILES;
-		$this->myupload->up($image_info);
-		$this->resp($image_info);
+		$user_id = $this->input->post('user_id');
+		if (empty($user_id) || !is_numeric($user_id)){
+			$this->error_code = -3;
+			$this->error_msg = '无效的用户';
+			$this->resp();
+		}
+		$image_info = $_FILES['file'];
+		$result = $this->myupload->up($image_info);
+		//头像入库
+		if($result['error_code'] == 0){
+			$this->user_person_info_biz->user_image_2_base($user_id, $result['data']);
+			$result['data'] = site_url('assets/'.$result['data']);
+		}
+		$this->error_msg = $result['error_msg'];
+		$this->error_code = $result['error_code'];
+		$this->resp($result['data']);
 	}
 
 	/**

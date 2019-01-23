@@ -30,12 +30,7 @@ class User_person_info_biz extends CI_Model{
 			'description' =>  '',
 		];
 		$params = array_merge($default_params, $userinfo);
-		$user_info = $this->user_person_info_db_biz->select('id',['user_id' => $user_id]);
-		if ($user_info){
-			$result = $this->user_person_info_db_biz->update($params, ['user_id' => $user_id]);
-		}else{
-			$result = $this->user_person_info_db_biz->insert($params);
-		}
+		$result = $this->user_person_info_db_biz->save($user_id, $params);
 		return $result;
 	}
 
@@ -47,6 +42,20 @@ class User_person_info_biz extends CI_Model{
 			return FALSE;
 		}
 		$result = $this->user_person_info_db_biz->select('*',['user_id' => $user_id]);
+		return $result;
+	}
+
+	/**
+	 * 图片路径入库
+	 * @param $user_id
+	 * @param $image_url
+	 */
+	public function user_image_2_base($user_id, $image_url){
+		$params = [
+			'user_id' => $user_id,
+			'image' => $image_url,
+		];
+		$result = $this->user_person_info_db_biz->save($user_id, $params);
 		return $result;
 	}
 }

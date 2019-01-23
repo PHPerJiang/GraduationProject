@@ -145,6 +145,7 @@ $(document).ready(function () {
 function upload_image() {
     var forData = new FormData();
     forData.append('file',$('#person_image_upload')[0].files[0]);
+    forData.append('user_id',$('#id').val());
     $.ajax({
         url:'update_image',
         type:'POST',
@@ -152,10 +153,15 @@ function upload_image() {
         cache:false,
         processData:false,
         contentType:false,
-        success:function () {
+        success:function (data) {
             console.log('请求成功');
+            if (data.error_code == 0){
+                $('#person_image').prop('src',data.data);
+            } else {
+                alert('图片上传失败：'+ data.error_msg);
+            }
         },
-        error:function () {
+        error:function (error) {
             console.log('请求失败');
         }
     })
