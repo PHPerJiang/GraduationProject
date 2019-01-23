@@ -30,6 +30,7 @@ class Person extends CI_Controller{
 		}else{
 			$person_info = $this->user_person_info_biz->get_person_info($this->session->userdata('user_id'));
 			$data['data'] = isset($person_info[0]) ? $person_info[0] : [];
+			$data['data']['image'] = isset($data['data']['image']) ? site_url('assets/'.$data['data']['image']) : [];
 			$this->load->view('web/person/index',$data);
 		}
 	}
