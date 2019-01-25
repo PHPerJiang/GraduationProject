@@ -7,8 +7,11 @@
 	<link rel="shortcut icon" type="image/x-icon" href="<?php echo site_url('assets/images/logo.png')?>" />
 	<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text/css'>
-	<script src="<?php echo base_url('assets/js/jquery-3.1.0.min.js')?>"></script>
-	<script type="text/javascript">
+    <script src="<?php echo base_url('assets/js/jquery-3.1.0.min.js')?>"></script>
+    <!--    加载百度的ueditor插件-->
+    <script src="<?php echo base_url('assets/ueditor/ueditor.config.js')?>"></script>
+    <script src="<?php echo base_url('assets/ueditor/ueditor.all.js')?>"></script>
+    <script type="text/javascript">
         var $ = jQuery.noConflict();
         $(function() {
             $('#activator').click(function(){
@@ -113,20 +116,21 @@
 			<form method="post" action="" onsubmit="false" id="person_form">
 				<div class="contact-form">
 					<div class="contact-to">
-						<input type="text" class="text" name="person_name" id="person_name" placeholder="Please enter your info title."
+						<input type="text" class="text" name="article_name" id="article_name" placeholder="Please enter your info title."
                                value="">
 
-						<input type="text" class="text" name="person_nickname" id="person_nickname" placeholder="Please enter brief introduction."
+						<input type="text" class="text" name="article_intro" id="article_intro" placeholder="Please enter brief introduction."
                                value="">
 
-						<input type="text" class="text" name="person_phone" id="person_phone" placeholder="Automatic filling."
+						<input type="text" class="text" name="article_author" id="article_author" placeholder="Automatic filling."
                                value="">
-					</div>
+					</div><br/><br/><br/><br/>
 					<div class="text2">
-						<textarea  name="person_description" id="person_description"  placeholder="Description" style="height: 500px;" required><?php echo isset($data['description']) ? $data['description'] : '' ?></textarea>
+						<textarea  name="article_content" id="article_content"  placeholder="Please enter what you think..." style="height: 400px;" required><?php echo isset($data['description']) ? $data['description'] : '' ?></textarea>
 					</div>
-					<span><input type="submit" id="person_btn" class="" value="发布"  style="display:inline;"></span>&nbsp;&nbsp;&nbsp;
-                    <span><input type="submit" id="person_btn" class="" value="草稿"  style="display:inline;"></span>&nbsp;&nbsp;&nbsp;
+                    <br/>
+					<span><input type="submit" id="atricle_release_btn" class="" value="发布"  style="display:inline;"></span>&nbsp;&nbsp;&nbsp;
+                    <span><input type="submit" id="article_draft_btn" class="" value="草稿"  style="display:inline;"></span>&nbsp;&nbsp;&nbsp;
                     <span><input type="test"  style="display: none;font-size:18px;color: red;width: 500px; border-style: none;border: 0px;outline:none;cursor: pointer;"   readonly id="person_tips"   value="" ></span>
                     <div class="clear"></div>
 				</div>
@@ -142,7 +146,7 @@
 <!---//End-wrap---->
 <input type="hidden" id="login_href" value="<?php echo site_url('login/index')?>">
 <input type="hidden" id="id" value="<?php echo isset($_SESSION['user_id']) ? $_SESSION['user_id'] : 0 ?>">
-<script src="<?php echo base_url('assets/js/atricle.js')?>"></script>
+<script src="<?php echo base_url('assets/js/article.js')?>"></script>
 </body>
 </html>
 
