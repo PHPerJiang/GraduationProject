@@ -5,6 +5,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @Author: jiangyu01
  * @Time: 2018/12/25 17:29
  * @property User_base_info_db user_base_info_db
+ * @property User_person_info_biz user_person_info_biz
  * @property CI_Session session
  */
 
@@ -13,6 +14,7 @@ class Login_biz extends CI_Model {
 	{
 		parent::__construct();
 		$this->load->model('db/user_base_info_db');
+		$this->load->model('bizs/user_person_info_biz');
 		$this->load->library('session');
 	}
 
@@ -36,8 +38,14 @@ class Login_biz extends CI_Model {
 			}
 		}
 		if ($is_login){
-			//登录成功时保存user_id，并设置过期时间为30min
-			$this->session->set_tempdata('user_id',$result['id'],1800);
+			//登录成功时保存user_id，并设置过期时间为2h
+			$this->session->set_tempdata('user_id',$result['id'],3600*2);
+			//如果用户上传过头像，则将头像信息打入session
+			$user_person_info = $this->user_person_info_biz->get_person_info($result['id']);
+			$user_person_info = isset($user_person_info[0]) ?  $user_person_info[0] : '';
+			if (!empty($user_person_info) && isset($user_person_info['image']) && !empty($user_person_info['image'])){
+				$this->session->set_tempdata('user_image', site_url('assets/'.$user_person_info['image']),3600*2);
+			}
 		}
 		return $is_login;
 	}

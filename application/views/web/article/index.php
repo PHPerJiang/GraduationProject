@@ -140,7 +140,7 @@
 <!----//End-footer--->
 <!---//End-wrap---->
 <input type="hidden" id="login_href" value="<?php echo site_url('login/index')?>">
-<input type="hidden" id="id" value="<?php echo  isset($_SESSION['user_id']) ? $_SESSION['user_id'] : 0 ?>">
+<input type="hidden" id="id" value="<?php echo isset($_SESSION['user_id']) ? $_SESSION['user_id'] : 0 ?>">
 <script src="<?php echo base_url('assets/js/person.js')?>"></script>
 </body>
 </html>

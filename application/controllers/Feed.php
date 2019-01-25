@@ -21,7 +21,8 @@ class Feed extends CI_Controller{
 		if (!$this->session->is_login()){
 			redirect('login/index');
 		}else{
-			$this->load->view('web/feed/index');
+			$data['user_image'] = isset($_SESSION['user_image']) ? $_SESSION['user_image'] : '';
+			$this->load->view('web/feed/index',$data);
 		}
 	}
 

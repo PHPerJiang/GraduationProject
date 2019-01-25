@@ -71,7 +71,7 @@
 		<div class="userinfo">
 			<div class="user">
 				<ul>
-					<li><a href="<?php echo site_url('person/index')?>" ><img src="<?php echo site_url('assets/images/user-pic.png')?>" title="user-name" /><span>个人资料</span></a></li>
+					<li><a href="<?php echo site_url('person/index')?>" ><img src="<?php echo isset($user_image) ? $user_image : site_url('assets/images/user-pic.png')?>" title="user-name"  style="width: 50px;height: 50px;"/><span>个人资料</span></a></li>
                     <li><a href="<?php echo site_url('login/logout')?>"  id="logout" ><span>退出登录</span></li>
 				</ul>
 			</div>

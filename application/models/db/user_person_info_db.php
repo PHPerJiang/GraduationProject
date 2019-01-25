@@ -4,7 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @Author: jiangyu01
  * @Time: 2019/1/21 8:57
  */
-class User_person_info_db_biz extends CI_Model{
+class User_person_info_db extends CI_Model{
 	//数据表
 	private $table = 'user_person_info';
 	//数据表字段
