@@ -63,7 +63,7 @@
 		<div class="userinfo">
 			<div class="user">
 				<ul>
-                    <li><a href="#"><img src="<?php if (isset($data['image']) && is_string($data['image'])) : echo $data['image'];else:echo site_url('assets/images/user-pic.png');endif;?>" title="user-img" id="person_image"  style="width: 50px;height: 50px;"/><span>个人资料</span></a></li>
+                    <li><a href="#"><img src="<?php if (isset($user_image) && is_string($user_image)) : echo $user_image;else:echo site_url('assets/images/user-pic.png');endif;?>" title="user-img" id="person_image"  style="width: 50px;height: 50px;"/><span>个人资料</span></a></li>
                     <input type="file" name="person_image" style="display: none" id="person_image_upload" onchange="upload_image()">
                     <li><a><span id="ajax_logout" attr-href="<?php echo site_url('login/ajax_logout')?>">退出登录</span></li>
 				</ul>
@@ -79,31 +79,31 @@
 		<div class="contact-info">
 			<div class="contact-grids">
 				<div class="col_1_of_bottom span_1_of_first1">
-					<h5>真实姓名</h5>
+					<h5>标题</h5>
 					<ul class="list3">
 						<li>
 							<div class="extra-wrap">
-								<p>Please enter your real name.</p>
+								<p>Please enter your info title.</p>
 							</div>
 						</li>
 					</ul>
 				</div>
 				<div class="col_1_of_bottom span_1_of_first1">
-					<h5>账号昵称</h5>
+					<h5>简介</h5>
 					<ul class="list3">
 						<li>
 							<div class="extra-wrap">
-								<p>Please enter your name.</p>
+								<p>Please enter brief introduction.</p>
 							</div>
 						</li>
 					</ul>
 				</div>
 				<div class="col_1_of_bottom span_1_of_first1">
-					<h5>联系电话</h5>
+					<h5>作者</h5>
 					<ul class="list3">
 						<li>
                             <div class="extra-wrap">
-                                <p>Please enter your phone.</p>
+                                <p>Automatic filling.</p>
                             </div>
 						</li>
 					</ul>
@@ -113,19 +113,20 @@
 			<form method="post" action="" onsubmit="false" id="person_form">
 				<div class="contact-form">
 					<div class="contact-to">
-						<input type="text" class="text" name="person_name" id="person_name" placeholder="Please enter your real name."
-                               value="<?php echo isset($data['name']) ? $data['name'] : ''?>" >
+						<input type="text" class="text" name="person_name" id="person_name" placeholder="Please enter your info title."
+                               value="">
 
-						<input type="text" class="text" name="person_nickname" id="person_nickname" placeholder="Please enter your nickname."
-                               value="<?php echo isset($data['nickname']) ? $data['nickname'] : ''?>">
+						<input type="text" class="text" name="person_nickname" id="person_nickname" placeholder="Please enter brief introduction."
+                               value="">
 
-						<input type="text" class="text" name="person_phone" id="person_phone" placeholder="Please enter your phone."
-                               value="<?php echo isset($data['phone']) ? $data['phone'] : ''?>">
+						<input type="text" class="text" name="person_phone" id="person_phone" placeholder="Automatic filling."
+                               value="">
 					</div>
 					<div class="text2">
-						<textarea  name="person_description" id="person_description"  placeholder="Description"><?php echo isset($data['description']) ? $data['description'] : '' ?></textarea>
+						<textarea  name="person_description" id="person_description"  placeholder="Description" style="height: 500px;" required><?php echo isset($data['description']) ? $data['description'] : '' ?></textarea>
 					</div>
-					<span><input type="submit" id="person_btn" class="" value="提交"  style="display:inline;"></span>&nbsp;&nbsp;&nbsp;
+					<span><input type="submit" id="person_btn" class="" value="发布"  style="display:inline;"></span>&nbsp;&nbsp;&nbsp;
+                    <span><input type="submit" id="person_btn" class="" value="草稿"  style="display:inline;"></span>&nbsp;&nbsp;&nbsp;
                     <span><input type="test"  style="display: none;font-size:18px;color: red;width: 500px; border-style: none;border: 0px;outline:none;cursor: pointer;"   readonly id="person_tips"   value="" ></span>
                     <div class="clear"></div>
 				</div>
@@ -141,7 +142,7 @@
 <!---//End-wrap---->
 <input type="hidden" id="login_href" value="<?php echo site_url('login/index')?>">
 <input type="hidden" id="id" value="<?php echo isset($_SESSION['user_id']) ? $_SESSION['user_id'] : 0 ?>">
-<script src="<?php echo base_url('assets/js/person.js')?>"></script>
+<script src="<?php echo base_url('assets/js/atricle.js')?>"></script>
 </body>
 </html>
 
