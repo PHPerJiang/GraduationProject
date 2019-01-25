@@ -63,7 +63,7 @@
 		<div class="userinfo">
 			<div class="user">
 				<ul>
-                    <li><a href="#"><img src="<?php if (isset($data['image'])) : echo $data['image'];else:echo site_url('assets/images/user-pic.png');endif;?>" title="user-img" id="person_image"  style="width: 50px;height: 50px;"/><span>个人资料</span></a></li>
+                    <li><a href="#"><img src="<?php if (isset($data['image']) && is_string($data['image'])) : echo $data['image'];else:echo site_url('assets/images/user-pic.png');endif;?>" title="user-img" id="person_image"  style="width: 50px;height: 50px;"/><span>个人资料</span></a></li>
                     <input type="file" name="person_image" style="display: none" id="person_image_upload" onchange="upload_image()">
                     <li><a><span id="ajax_logout" attr-href="<?php echo site_url('login/ajax_logout')?>">退出登录</span></li>
 				</ul>
@@ -114,13 +114,13 @@
 				<div class="contact-form">
 					<div class="contact-to">
 						<input type="text" class="text" name="person_name" id="person_name" placeholder="Please enter your real name."
-                               value="<?php echo $data['name'] ?>" >
+                               value="<?php echo isset($data['name']) ? $data['name'] : ''?>" >
 
 						<input type="text" class="text" name="person_nickname" id="person_nickname" placeholder="Please enter your nickname."
-                               value="<?php echo $data['nickname']?>">
+                               value="<?php echo isset($data['nickname']) ? $data['nickname'] : ''?>">
 
 						<input type="text" class="text" name="person_phone" id="person_phone" placeholder="Please enter your phone."
-                               value="<?php echo $data['phone']?>">
+                               value="<?php echo isset($data['phone']) ? $data['phone'] : ''?>">
 					</div>
 					<div class="text2">
 						<textarea  name="person_description" id="person_description"  placeholder="Description"><?php echo isset($data['description']) ? $data['description'] : '' ?></textarea>

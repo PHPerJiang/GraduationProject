@@ -106,7 +106,7 @@ class Person extends CI_Controller{
 		echo json_encode([
 			'error_code' => $this->error_code,
 			'error_msg'  => $this->error_msg,
-			'data'       => $data,
+			'rdata'       => $data,
 		]);
 		return;
 	}

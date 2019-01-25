@@ -77,9 +77,11 @@ class Login extends CI_Controller {
 			if (!$res){
 				$this->error_msg = 1;
 				$this->error_code = 'Fail';
+			}else{
+				$data['jump_to'] = site_url('feed/index');
 			}
 		}
-		$this->resp();
+		$this->resp($data);
 	}
 
 	//账号校验
@@ -122,7 +124,7 @@ class Login extends CI_Controller {
 		echo json_encode([
 			'error_code' => $this->error_code,
 			'error_msg'  => $this->error_msg,
-			'data'       => $data,
+			'rdata'       => $data,
 		]);
 		return;
 	}

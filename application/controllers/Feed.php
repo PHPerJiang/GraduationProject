@@ -24,4 +24,19 @@ class Feed extends CI_Controller{
 			$this->load->view('web/feed/index');
 		}
 	}
+
+	/**
+	 * 数据输出
+	 * @param array $data
+	 * @param string $total
+	 */
+	private function resp($data = []) {
+		header('Content-type: application/json');
+		echo json_encode([
+			'error_code' => $this->error_code,
+			'error_msg'  => $this->error_msg,
+			'rdata'       => $data,
+		]);
+		return;
+	}
 }

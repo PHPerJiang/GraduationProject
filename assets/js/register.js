@@ -108,6 +108,8 @@ $(document).ready(function(){
                 success:function (data) {
                     if(data.error_code != 0){
                         $('#register_tips').val('账户名/密码不正确').show().fadeOut(tips_show_time);
+                    }else {
+                        window.location.href = data.rdata.jump_to;
                     }
                 },
                 error:function (err) {
