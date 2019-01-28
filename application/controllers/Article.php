@@ -22,4 +22,14 @@ class Article extends CI_Controller{
 		}
 
 	}
+
+	/**
+	 * 文章存储
+	 */
+	public function save_article(){
+		$_post = $this->input->post();
+		var_dump($_post);
+	}
+
+
 }

@@ -53,7 +53,7 @@
 							<ul>
                                 <li><a href="<?php echo site_url('feed/index')?>"><span>热门信息</span></a></li>
                                 <li><a href="#"><span>我的关注</span></a></li>
-                                <li><a href="#"><span>发布信息</span></a></li>
+                                <li><a href="<?php echo site_url('article/index')?>"><span>发布信息</span></a></li>
                                 <li><a href="#"><span>我的信息</span></a></li>
                                 <div class="clear"> </div>
 							</ul>
@@ -113,7 +113,7 @@
 				</div>
 				<div class="clear"></div>
 			</div>
-			<form method="post" action="" onsubmit="false" id="person_form">
+			<form method="post" action="" onsubmit="false" id="article_form">
 				<div class="contact-form">
 					<div class="contact-to">
 						<input type="text" class="text" name="article_name" id="article_name" placeholder="Please enter your info title."
@@ -126,12 +126,12 @@
                                value="">
 					</div><br/><br/><br/><br/>
 					<div class="text2">
-						<textarea  name="article_content" id="article_content"  placeholder="Please enter what you think..." style="height: 400px;" required><?php echo isset($data['description']) ? $data['description'] : '' ?></textarea>
+						<textarea  name="article_content" id="article_content"  placeholder="Please enter what you think..." style="height: 400px;" ><?php echo isset($data['description']) ? $data['description'] : '' ?></textarea>
 					</div>
                     <br/>
-					<span><input type="submit" id="atricle_release_btn" class="" value="发布"  style="display:inline;"></span>&nbsp;&nbsp;&nbsp;
-                    <span><input type="submit" id="article_draft_btn" class="" value="草稿"  style="display:inline;"></span>&nbsp;&nbsp;&nbsp;
-                    <span><input type="test"  style="display: none;font-size:18px;color: red;width: 500px; border-style: none;border: 0px;outline:none;cursor: pointer;"   readonly id="person_tips"   value="" ></span>
+					<span><input type="submit" id="atricle_release_btn" class="" value="发布"   style="display:inline;"></span>&nbsp;&nbsp;&nbsp;
+                    <span><input type="submit" id="article_draft_btn" class="" value="草稿"   style="display:inline;"></span>&nbsp;&nbsp;&nbsp;
+                    <span><input type="test"  style="display: none;font-size:18px;color: red;width: 500px; border-style: none;border: 0px;outline:none;cursor: pointer;"   readonly id="article_tips"   value="" ></span>
                     <div class="clear"></div>
 				</div>
 			</form>
