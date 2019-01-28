@@ -3,13 +3,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 /**
  * @Author: jiangyu01
  * @Time: 2019/1/25 13:44
+ * @property User_article_biz user_article_biz
  */
 class Article extends CI_Controller{
+	private $error_code = 0;
+	private $error_msg = 'success';
 	public function __construct()
 	{
 		parent::__construct();
 		$this->load->helper('url');
 		$this->load->library('session');
+		$this->load->model('bizs/user_article_biz');
 	}
 
 	public function index(){
@@ -27,9 +31,47 @@ class Article extends CI_Controller{
 	 * 文章存储
 	 */
 	public function save_article(){
-		$_post = $this->input->post();
-		var_dump($_post);
+		//获取信息
+		$article_name = $this->input->post('article_name');
+		$article_intro = $this->input->post('article_intro');
+		$article_author = $this->input->post('article_author');
+		$article_content = $this->input->post('article_conttent');
+		$article_status = $this->input->post('article_status');
+		$user_id = $this->input->post('user_id');
+
+		//校验用户
+		if (!$user_id){
+			$this->error_msg = '用户不存在';
+			$this->error_code = 1;
+			goto END;
+		}
+
+		//参数拼凑
+		$params = [
+			'article_name' => isset($article_name) ? $article_name : '',
+			'article_intro' => isset($article_intro) ? $article_intro : '',
+			'article_author' => isset($article_author) ? $article_author : '',
+			'article_content' => isset($article_content) ? $article_content : '',
+			'article_status' => isset($article_status) ? $article_status : 0,
+		];
+		$data = [];
+		$result = $this->user_article_biz->save_article($user_id,$params);
+		END:
+		$this->resp();
 	}
 
-
+	/**
+	 * 数据输出
+	 * @param array $data
+	 * @param string $total
+	 */
+	private function resp($data = []) {
+		header('Content-type: application/json');
+		echo json_encode([
+			'error_code' => $this->error_code,
+			'error_msg'  => $this->error_msg,
+			'rdata'       => $data,
+		]);
+		return;
+	}
 }
