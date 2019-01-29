@@ -116,14 +116,13 @@
 			<form method="post" action="" onsubmit="false" id="article_form">
 				<div class="contact-form">
 					<div class="contact-to">
-						<input type="text" class="text" name="article_name" id="article_name" placeholder="Please enter your info title."
-                               value="">
+						<input type="text" class="text" name="article_name" id="article_name"  placeholder="Please enter your info title."
+                               value="<?php echo isset($articles_info['article_name']) ? $articles_info['article_name'] : '' ?>">
 
 						<input type="text" class="text" name="article_intro" id="article_intro" placeholder="Please enter brief introduction."
-                               value="">
-
+                               value="<?php echo isset($articles_info['article_intro']) ? $articles_info['article_intro'] : '' ?>">
 						<input type="text" class="text" name="article_author" id="article_author" placeholder="Automatic filling."
-                               value="">
+                               value="<?php echo isset($articles_info['article_author']) ? $articles_info['article_authorg'] : '' ?>">
 					</div><br/><br/><br/><br/>
 					<div class="text2">
 						<textarea  name="article_content" id="article_content"  placeholder="Please enter what you think..." style="height: 400px;" ><?php echo isset($data['description']) ? $data['description'] : '' ?></textarea>

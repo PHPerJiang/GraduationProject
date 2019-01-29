@@ -105,8 +105,8 @@
                         <tr>
                             <td width="300px;" style="font-size: smaller">发布时间: <?php echo $value['modification_time']?></td>
                             <td width="1300px"></td>
-                            <td width="50px"><a href="#">编辑</a></td>
-                            <td width="50px"><a href="#">删除</a></td>
+                            <td width="50px"><a href="<?php echo $article_edit.'?article_id='.$value['id'] ?>">编辑</a></td>
+                            <td width="50px"><a href="<?php echo $article_del.'?article_id='.$value['id'] ?>">删除</a></td>
                         </tr>
                     </table>
                     <hr>
