@@ -22,4 +22,13 @@ class User_article_biz extends CI_Model {
 		$result = $this->user_article_db->save($article_id, $params);
 		return $result;
 	}
+
+	/*
+	 *根据用户id查询文章
+	 */
+	public function find_articles_by_user_id($user_id,$options = []){
+		$user_id = is_numeric($user_id) ? $user_id : 0;
+		$result = $this->user_article_db->select($user_id,'*',[],'id desc',0,10000);
+		return $result;
+	}
 }

@@ -52,7 +52,7 @@
                                 <li><a href="<?php echo site_url('feed/index')?>"><span>热门信息</span></a></li>
                                 <li><a href="#"><span>我的关注</span></a></li>
                                 <li><a href="<?php echo site_url('article/index')?>"><span>发布信息</span></a></li>
-                                <li><a href="#"><span>我的信息</span></a></li>
+                                <li><a href="<?php echo site_url('article_list/index')?>"><span>我的信息</span></a></li>
                                 <div class="clear"> </div>
 							</ul>
 						</div>
@@ -92,29 +92,33 @@
 				<div class="clear"></div>
 			</div>
 			<form method="post" action="" onsubmit="false" id="article_form">
+                <?php if (isset($articles_info) && !empty($articles_info) && is_array($articles_info)) :?>
+                <?php foreach ($articles_info as $key => $value){?>
 				<div class="contact-form">
-                    <hr>
                     <table style="line-height: 50px">
                         <tr>
-                            <td width="50px;">标题</td>
-                            <td width="50px;"></td>
-                            <td width="50px;"></td>
-                        </tr>
-                        <tr>
-                            <td>内容</td>
+                            <td width="300px;" style="font-size: large;"><a href="#"><?php echo $value['article_name']?></a></td>
                             <td width="1300px"></td>
-                            <td width="50px">删除</td>
-                            <td width="50px">编辑</td>
+                            <td width="50px;">赞:12</td>
+                            <td width="50px;">踩:10</td>
                         </tr>
                         <tr>
-                            <td  width="50px;">发布时间</td>
-                            <td  width="50px"></td>
-                            <td  width="50px">修改时间</td>
-                            <td  width="50px"></td>
+                            <td width="300px;" style="font-size: smaller">发布时间: <?php echo $value['modification_time']?></td>
+                            <td width="1300px"></td>
+                            <td width="50px"><a href="#">编辑</a></td>
+                            <td width="50px"><a href="#">删除</a></td>
                         </tr>
                     </table>
                     <hr>
 				</div>
+                <?php }?>
+                <?php else:?>
+                    <div class="contact-form">
+                        <hr>
+                         您没有发表任何信息哟~
+                        <hr>
+                    </div>
+                <?php endif;?>
 			</form>
 		</div>
 	</div>
