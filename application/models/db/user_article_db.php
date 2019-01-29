@@ -11,28 +11,29 @@ class User_article_db extends CI_Model{
 	private $fields = [
 		'id' => NULL,
 		'user_id' => NULL,
-		'name' => NULL,
-		'phone' => NULL,
-		'nickname' => NULL,
-		'description' => NULL,
-		'image' => NULL,
+		'article_name' => NULL,
+		'article_intro' => NULL,
+		'article_author' => NULL,
+		'article_content' => NULL,
+		'article_status' => NULL,
 	];
 
 	public function __construct()
 	{
 		parent::__construct();
+		$this->load->database();
 	}
 
 	/**
-	 * 用户存储个人信息，结合insert、update
-	 * @param $user_id
+	 * 根据文章id存储数据
+	 * @param $article_id
 	 * @param array $params
 	 * @return array|bool
 	 */
-	public function  save($user_id, $params = []){
-		$user_info = $this->select('id',['user_id' => $user_id]);
-		if ($user_info){
-			$result = $this->update($params, ['user_id' => $user_id]);
+	public function  save($article_id, $params = []){
+		$article_info = $this->select($params['user_id'],'id',['id' => $article_id]);
+		if ($article_info){
+			$result = $this->update($params, ['id' => $article_id]);
 		}else{
 			$result = $this->insert($params);
 		}
@@ -41,6 +42,7 @@ class User_article_db extends CI_Model{
 
 	/**
 	 * 条件查询
+	 * @param int $user_id
 	 * @param string $fields
 	 * @param array $where
 	 * @param string $order
@@ -48,7 +50,8 @@ class User_article_db extends CI_Model{
 	 * @param int $limit
 	 * @return mixed
 	 */
-	public function select($fields = '*', $where = ['id >' => 0],$order = 'id desc', $limit = 0, $size = 100){
+	public function select($user_id, $fields = '*', $where = ['id >' => 0],$order = 'id desc', $limit = 0, $size = 100){
+		$this->table = $this->table.($user_id % 10);
 		$query = $this->db
 			->select($fields)
 			->from($this->table)
@@ -97,10 +100,12 @@ class User_article_db extends CI_Model{
 
 	/**
 	 * 数据删除
+	 * @param $user_id
 	 * @param $where
 	 * @return bool
 	 */
-	public function delete($where){
+	public function delete($user_id,$where){
+		$this->table = $this->table.($user_id % 10);
 		if (empty($where)){
 			return FALSE;
 		}
@@ -116,7 +121,6 @@ class User_article_db extends CI_Model{
 		if (!is_array($data)){
 			return FALSE;
 		}
-		$data['last_login_time'] = date('Y-m-d H:i:s',time());
 		foreach ($data as $key => $value){
 			if (in_array($key, $this->fields)){
 				//转译入库数据

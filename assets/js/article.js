@@ -1,7 +1,7 @@
 $(document).ready(function () {
     //全局函数
     var global_article_name;
-    var global_article_intro = $.trim($('#article_intro').val());
+    var global_article_intro ;
     var global_article_author;
     var global_article_content;
     var global_article_status;
@@ -68,6 +68,7 @@ $(document).ready(function () {
             $('#article_tips').val('内容不能为空！').show().fadeOut(tips_show_time);
         }
         if (global_article_name && global_article_author && global_article_content && global_article_status){
+            global_article_intro = $('#article_intro').val();
             $.ajax({
                 url:'save_article',
                 type:'POST',

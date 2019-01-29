@@ -4,6 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @Author: jiangyu01
  * @Time: 2019/1/25 13:44
  * @property User_article_biz user_article_biz
+ * @property CI_Session session
  */
 class Article extends CI_Controller{
 	private $error_code = 0;
@@ -35,9 +36,11 @@ class Article extends CI_Controller{
 		$article_name = $this->input->post('article_name');
 		$article_intro = $this->input->post('article_intro');
 		$article_author = $this->input->post('article_author');
-		$article_content = $this->input->post('article_conttent');
+		$article_content = $this->input->post('article_content');
 		$article_status = $this->input->post('article_status');
 		$user_id = $this->input->post('user_id');
+		$article_id = $this->input->post('article_id');
+		$article_id = empty($article_id) ? 0 : $article_id;
 
 		//校验用户
 		if (!$user_id){
@@ -48,6 +51,7 @@ class Article extends CI_Controller{
 
 		//参数拼凑
 		$params = [
+			'user_id' => $user_id,
 			'article_name' => isset($article_name) ? $article_name : '',
 			'article_intro' => isset($article_intro) ? $article_intro : '',
 			'article_author' => isset($article_author) ? $article_author : '',
@@ -55,7 +59,7 @@ class Article extends CI_Controller{
 			'article_status' => isset($article_status) ? $article_status : 0,
 		];
 		$data = [];
-		$result = $this->user_article_biz->save_article($user_id,$params);
+		$result = $this->user_article_biz->save_article($article_id,$params);
 		END:
 		$this->resp();
 	}
