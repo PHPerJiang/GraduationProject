@@ -106,6 +106,23 @@ $(document).ready(function () {
             $('#article_tips').val('标题、作者、内容不能为空，请填写！').show().fadeOut(tips_show_time);
         }
     }
+
+    //ajax退出登录
+    $('#ajax_logout').click(function () {
+        var url = $('#ajax_logout').attr('attr-href');
+        var jump_to = $('#login_href').val();
+        $.ajax({
+            url:url,
+            type:"POST",
+            dataType:'json',
+            success:function (data) {
+                if (data.error_code == 0){
+                    window.location.href = jump_to;
+                }
+            },
+        });
+    });
+    
     function goto_article_list() {
         window.location.href = $('#article_list_href').val();
     }
