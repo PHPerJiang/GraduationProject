@@ -1,8 +1,8 @@
 $(document).ready(function () {
     //全局函数
-    var global_article_name;
-    var global_article_intro ;
-    var global_article_author;
+    var global_article_name = $('#article_name').val();
+    var global_article_intro = $('#article_intro').val();
+    var global_article_author = $('#article_author').val();
     var global_article_content;
     var global_article_status;
 
@@ -16,7 +16,15 @@ $(document).ready(function () {
         initialFrameWidth:'97.8%' , //初始化编辑器宽度,默认1000
         initialFrameHeight:400
     });
-
+    //获取库中数据并加载进editor
+    var html_content = $('#html_content').html();
+    if (html_content){
+        //停1s后加载
+        window.setTimeout(setContent,1000);
+    }
+    function setContent(){
+        ue.execCommand('insertHtml',html_content);
+    }
     /**
      * 阻止表单提交
      */
@@ -79,18 +87,27 @@ $(document).ready(function () {
                     'article_author' : global_article_author,
                     'article_content' : global_article_content,
                     'article_status' : global_article_status,
+                    'article_id': $('#article_id').val(),
                     'user_id' : $('#id').val(),
                 },
                 success:function (data) {
-                    
+                    if (data.error_code != 0){
+                        $('#article_tips').val(data.error_msg).show().fadeOut(tips_show_time);
+                    }else {
+                        $('#article_tips').css('color','green').val('存储成功,3秒后跳转至已发布信息列表页').show().fadeOut(tips_show_time);
+                        window.setTimeout(goto_article_list,3000);
+                    }
                 },
                 error:function (error) {
-                    
+                    $('#article_tips').val('网络错误').show().fadeOut(tips_show_time);
                 }
             });
         }else {
             $('#article_tips').val('标题、作者、内容不能为空，请填写！').show().fadeOut(tips_show_time);
         }
+    }
+    function goto_article_list() {
+        window.location.href = $('#article_list_href').val();
     }
 });
 

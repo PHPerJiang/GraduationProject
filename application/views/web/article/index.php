@@ -66,7 +66,7 @@
 		<div class="userinfo">
 			<div class="user">
 				<ul>
-                    <li><a href="#"><img src="<?php if (isset($user_image) && is_string($user_image)) : echo $user_image;else:echo site_url('assets/images/user-pic.png');endif;?>" title="user-img" id="person_image"  style="width: 50px;height: 50px;"/><span>个人资料</span></a></li>
+                    <li><a href="<?php echo site_url('person/index')?>"><img src="<?php if (isset($user_image) && is_string($user_image)) : echo $user_image;else:echo site_url('assets/images/user-pic.png');endif;?>" title="user-img" id="person_image"  style="width: 50px;height: 50px;"/><span>个人资料</span></a></li>
                     <input type="file" name="person_image" style="display: none" id="person_image_upload" onchange="upload_image()">
                     <li><a><span id="ajax_logout" attr-href="<?php echo site_url('login/ajax_logout')?>">退出登录</span></li>
 				</ul>
@@ -121,11 +121,12 @@
 
 						<input type="text" class="text" name="article_intro" id="article_intro" placeholder="Please enter brief introduction."
                                value="<?php echo isset($articles_info['article_intro']) ? $articles_info['article_intro'] : '' ?>">
+
 						<input type="text" class="text" name="article_author" id="article_author" placeholder="Automatic filling."
-                               value="<?php echo isset($articles_info['article_author']) ? $articles_info['article_authorg'] : '' ?>">
+                               value="<?php echo isset($articles_info['article_author']) ? $articles_info['article_author'] : $user_nickname ?>">
 					</div><br/><br/><br/><br/>
 					<div class="text2">
-						<textarea  name="article_content" id="article_content"  placeholder="Please enter what you think..." style="height: 400px;" ><?php echo isset($data['description']) ? $data['description'] : '' ?></textarea>
+						<textarea  name="article_content" id="article_content"  placeholder="Please enter what you think..." style="height: 400px;" ></textarea>
 					</div>
                     <br/>
 					<span><input type="submit" id="atricle_release_btn" class="" value="发布"   style="display:inline;"></span>&nbsp;&nbsp;&nbsp;
@@ -145,6 +146,11 @@
 <!---//End-wrap---->
 <input type="hidden" id="login_href" value="<?php echo site_url('login/index')?>">
 <input type="hidden" id="id" value="<?php echo isset($_SESSION['user_id']) ? $_SESSION['user_id'] : 0 ?>">
+<input type="hidden" id="article_id" value="<?php echo isset($articles_info['id']) ? $articles_info['id'] : 0 ?>">
+<input type="hidden" id="article_list_href" value="<?php echo site_url('article_list/index')?>">
+<code style="display: none" id="html_content">
+    <?php echo isset($articles_info['article_content']) ? $articles_info['article_content'] : ''?>
+</code>
 <script src="<?php echo base_url('assets/js/article.js')?>"></script>
 </body>
 </html>

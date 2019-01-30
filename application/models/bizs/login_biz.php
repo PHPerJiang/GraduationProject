@@ -46,6 +46,10 @@ class Login_biz extends CI_Model {
 			if (!empty($user_person_info) && isset($user_person_info['image']) && !empty($user_person_info['image'])){
 				$this->session->set_tempdata('user_image', site_url('assets/'.$user_person_info['image']),3600*2);
 			}
+			//将用户昵称打入session
+			if (!empty($user_person_info) && isset($user_person_info['nickname']) && !empty($user_person_info['nickname'])){
+				$this->session->set_tempdata('user_nickname', $user_person_info['nickname'],3600*2);
+			}
 		}
 		return $is_login;
 	}

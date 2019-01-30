@@ -17,19 +17,41 @@ class Article extends CI_Controller{
 		$this->load->model('bizs/user_article_biz');
 	}
 
+	//加载首页
 	public function index(){
 		//判断是否已登录
 		if (!$this->session->is_login()){
 			redirect('login/index');
 		}else{
+			$user_id = $this->session->userdata['user_id'];
 			$data['user_image'] = isset($_SESSION['user_image']) ? $_SESSION['user_image'] : '';
+			$data['user_nickname'] = isset($_SESSION['user_nickname']) ?  $_SESSION['user_nickname'] : '用户'.$user_id;
 			$this->load->view('web/article/index', $data);
 		}
 
 	}
 
+	//编辑
+	public function edit(){
+		$article_id = $this->input->get('article_id');
+		if (!$this->session->is_login()){
+			redirect('login/index');
+		}else{
+			if (!$article_id){
+				$this->index();
+			}else{
+				$user_id = $this->session->userdata['user_id'];
+				$articles_info = $this->user_article_biz->find_articles_by_user_id($user_id,['id' => $article_id]);
+				$data['articles_info'] = empty($articles_info) ? [] : (isset($articles_info[0]) ? $articles_info[0] : []);
+				$data['user_image'] = isset($_SESSION['user_image']) ? $_SESSION['user_image'] : '';
+				$data['user_nickname'] = isset($_SESSION['user_nickname']) ?  $_SESSION['user_nickname'] : '用户'.$user_id;
+				$this->load->view('web/article/index', $data);
+			}
+		}
+	}
+
 	/**
-	 * 文章存储
+	 * 存储
 	 */
 	public function save_article(){
 		//获取信息
@@ -60,8 +82,27 @@ class Article extends CI_Controller{
 		];
 		$data = [];
 		$result = $this->user_article_biz->save_article($article_id,$params);
+		if (!$result){
+			$this->error_code = 1;
+			$this->error_msg = '网络错误';
+		}
 		END:
 		$this->resp();
+	}
+
+	public function del(){
+		$article_id = $this->input->get('article_id');
+		if (!$this->session->is_login()){
+			redirect('login/index');
+		}else{
+			if (!$article_id){
+				redirect('article_list/index');
+			}else{
+				$user_id = $this->session->userdata['user_id'];
+				$articles_info = $this->user_article_biz->del_article_by_user_id($user_id,$article_id);
+				redirect('article_list/index');
+			}
+		}
 	}
 
 	/**

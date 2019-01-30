@@ -64,7 +64,7 @@
 		<div class="userinfo">
 			<div class="user">
 				<ul>
-                    <li><a href="#"><img src="<?php if (isset($user_image) && is_string($user_image)) : echo $user_image;else:echo site_url('assets/images/user-pic.png');endif;?>" title="user-img" id="person_image"  style="width: 50px;height: 50px;"/><span>个人资料</span></a></li>
+                    <li><a href="<?php echo site_url('person/index')?>"><img src="<?php if (isset($user_image) && is_string($user_image)) : echo $user_image;else:echo site_url('assets/images/user-pic.png');endif;?>" title="user-img" id="person_image"  style="width: 50px;height: 50px;"/><span>个人资料</span></a></li>
                     <input type="file" name="person_image" style="display: none" id="person_image_upload" onchange="upload_image()">
                     <li><a><span id="ajax_logout" attr-href="<?php echo site_url('login/ajax_logout')?>">退出登录</span></li>
 				</ul>
@@ -97,13 +97,13 @@
 				<div class="contact-form">
                     <table style="line-height: 50px">
                         <tr>
-                            <td width="300px;" style="font-size: large;"><a href="#"><?php echo $value['article_name']?></a></td>
+                            <td width="300px;" style="font-size: large;"><a href="<?php echo $article_edit.'?article_id='.$value['id'] ?>"><?php echo $value['article_name']?></a></td>
                             <td width="1300px"></td>
                             <td width="50px;">赞:12</td>
                             <td width="50px;">踩:10</td>
                         </tr>
                         <tr>
-                            <td width="300px;" style="font-size: smaller">发布时间: <?php echo $value['modification_time']?></td>
+                            <td width="300px;" style="font-size: smaller">发布时间: <?php echo $value['creation_time']?></td>
                             <td width="1300px"></td>
                             <td width="50px"><a href="<?php echo $article_edit.'?article_id='.$value['id'] ?>">编辑</a></td>
                             <td width="50px"><a href="<?php echo $article_del.'?article_id='.$value['id'] ?>">删除</a></td>
@@ -115,7 +115,12 @@
                 <?php else:?>
                     <div class="contact-form">
                         <hr>
+                        <br>
+                        <br>
                          您没有发表任何信息哟~
+                        <br>
+                        <br>
+                        <br>
                         <hr>
                     </div>
                 <?php endif;?>
