@@ -122,7 +122,7 @@ $(document).ready(function () {
             },
         });
     });
-    
+
     function goto_article_list() {
         window.location.href = $('#article_list_href').val();
     }

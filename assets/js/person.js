@@ -113,6 +113,11 @@ $(document).ready(function () {
                 dataType:'json',
                 success:function (data) {
                     $('#person_form').attr('onsubmit',true);
+                    if (data.error_code == 0){
+                        $('#person_tips').css('color','green').val('信息更新成功').show().fadeOut(tips_show_time);
+                    }else {
+                        $('#person_tips').val('更新失败').show().fadeOut(tips_show_time);
+                    }
                 },
                 error:function (error) {
                     $('#person_tips').val('网络异常').show().fadeOut(tips_show_time);
@@ -157,6 +162,7 @@ function upload_image() {
             console.log('请求成功');
             if (data.error_code == 0){
                 $('#person_image').prop('src',data.data);
+                window.location.reload();
             } else {
                 alert('图片上传失败：'+ data.error_msg);
             }

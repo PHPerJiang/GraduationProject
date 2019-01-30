@@ -51,6 +51,7 @@ class Person extends CI_Controller{
 		if($result['error_code'] == 0){
 			$this->user_person_info_biz->user_image_2_base($user_id, $result['data']);
 			$result['data'] = site_url('assets/'.$result['data']);
+			$this->session->set_userdata('user_image',$result['data']);
 		}
 		$this->error_msg = $result['error_msg'];
 		$this->error_code = $result['error_code'];
@@ -92,6 +93,7 @@ class Person extends CI_Controller{
 			'phone' => $phone,
 			'description' => $description,
 		];
+		$this->session->set_userdata('user_nickname',$nickname);
 		$result = $this->user_person_info_biz->save_user_info($user_id, $params);
 		END:
 		$this->resp($result);
