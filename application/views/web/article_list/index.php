@@ -98,7 +98,7 @@
                     <table style="line-height: 50px">
                         <tr>
                             <td width="300px;" style="font-size: large;"><a href="<?php echo $article_edit.'?article_id='.$value['id'] ?>"><?php echo $value['article_name']?></a></td>
-                            <td width="300px;"></td>
+                            <td width="300px;"><span><?php echo $value['article_status'] == 1 ? '[已发布]' : '[草稿]'?></span></td>
                             <td width="1300px"></td>
                             <td width="50px;">赞:12</td>
                             <td width="50px;">踩:10</td>
@@ -107,7 +107,7 @@
                             <td width="300px;" style="font-size: smaller;color: rgba(26,26,52,0.72)">更新时间: <?php echo $value['modification_time']?></td>
                             <td width="300px;" style="font-size: smaller;color: rgba(26,26,52,0.72)">发布时间: <?php echo $value['creation_time']?></td>
                             <td width="1300px"></td>
-                            <td width="50px"><a href="<?php echo $article_edit.'?article_id='.$value['id'] ?>">编辑</a></td>
+                            <td width="50px"><?php if ($value['article_status'] == 2):?><a href="<?php echo $article_edit.'?article_id='.$value['id'] ?>">编辑</a><?php endif;?></td>
                             <td width="50px"><a href="<?php echo $article_del.'?article_id='.$value['id'] ?>">删除</a></td>
                         </tr>
                     </table>
