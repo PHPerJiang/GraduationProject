@@ -6,7 +6,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  */
 class User_article_db extends CI_Model{
 	//数据表
-	private $table = 'user_article_';
+	private $table = 'user_article';
 	//数据表字段
 	private $fields = [
 		'id' => NULL,
@@ -51,7 +51,7 @@ class User_article_db extends CI_Model{
 	 * @return mixed
 	 */
 	public function select($user_id, $fields = '*', $where = ['id >' => 0],$order = 'id desc', $limit = 0, $size = 100){
-		$this->table = $this->table.($user_id % 10);
+		$this->table = $this->get_table($user_id);
 		$query = $this->db
 			->select($fields)
 			->from($this->table)
@@ -128,5 +128,15 @@ class User_article_db extends CI_Model{
 			}
 		}
 		return $data;
+	}
+
+	/***
+	 * 获取表名称
+	 */
+	public function get_table($user_id = 0, $table_index = FALSE) {
+		if ($table_index === FALSE) {
+			$table_index = ((int)$user_id) % 10;
+		}
+		return 'user_article_'. $table_index;
 	}
 }

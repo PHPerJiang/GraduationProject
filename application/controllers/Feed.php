@@ -40,4 +40,9 @@ class Feed extends CI_Controller{
 		]);
 		return;
 	}
+
+	public function article_from_sql_2_redis(){
+		$redis = new Redis();
+		var_dump($redis);
+	}
 }

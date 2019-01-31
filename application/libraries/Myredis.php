@@ -4,6 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * redis操作类
  * @author jiangyu
  * @time 18.12.20
+ * @property Redis redis
  */
 class Myredis
 {
@@ -724,6 +725,16 @@ class Myredis
         return $this->redis->randomKey();
     }
 
+	/**
+	 * 修改键名
+	 * @param $old_name
+	 * @param $new_name
+	 * @return bool
+	 */
+    public function reName($old_name, $new_name){
+    	return $this->redis->rename($old_name,$new_name);
+    }
+
     /**
      * 返回当前密码
      */
@@ -781,6 +792,15 @@ class Myredis
     public function multi($type=\Redis::MULTI)
     {
         return $this->redis->multi($type);
+    }
+
+	/**
+	 * 管道模式
+	 * @param int $type
+	 * @return Redis
+	 */
+    public function pipeline($type=\Redis::PIPELINE){
+	    return $this->redis->multi($type);
     }
 
     /**
