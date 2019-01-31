@@ -137,5 +137,22 @@
 <input type="hidden" id="login_href" value="<?php echo site_url('login/index')?>">
 <input type="hidden" id="id" value="<?php echo isset($_SESSION['user_id']) ? $_SESSION['user_id'] : 0 ?>">
 </body>
+<script type="text/javascript">
+    //ajax退出登录
+    $('#ajax_logout').click(function () {
+        var url = $('#ajax_logout').attr('attr-href');
+        var jump_to = $('#login_href').val();
+        $.ajax({
+            url:url,
+            type:"POST",
+            dataType:'json',
+            success:function (data) {
+                if (data.error_code == 0){
+                    window.location.href = jump_to;
+                }
+            },
+        });
+    });
+</script>
 </html>
 
