@@ -4,6 +4,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @Author: jiangyu01
  * @Time: 2019/1/8 9:09
  * @property CI_Session session
+ * @property Myredis myredis
+ * @property Feed_biz feed_biz
  */
 class Feed extends CI_Controller{
 	public function __construct()
@@ -11,6 +13,7 @@ class Feed extends CI_Controller{
 		parent::__construct();
 		$this->load->helper(array('url'));
 		$this->load->library('session');
+		$this->load->model('bizs/feed_biz');
 	}
 
 	/**
@@ -21,6 +24,9 @@ class Feed extends CI_Controller{
 		if (!$this->session->is_login()){
 			redirect('login/index');
 		}else{
+			$user_id = $this->session->userdata['user_id'];
+			$feed_infos = $this->feed_biz->get_feed_info($user_id);
+			$data['articles_info'] = empty($feed_infos) ? [] : $feed_infos;
 			$data['user_image'] = isset($_SESSION['user_image']) ? $_SESSION['user_image'] : '';
 			$this->load->view('web/feed/index',$data);
 		}

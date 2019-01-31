@@ -6,6 +6,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @property Myredis myredis
  * @property User_article_db user_article_db
  * @property User_base_info_db user_base_info_db
+ * @property User_person_info_db user_person_info_db
  */
 class Feed extends CI_Controller{
 	public function __construct()
@@ -14,6 +15,7 @@ class Feed extends CI_Controller{
 		$this->load->library('myredis');
 		$this->load->model('db/user_article_db');
 		$this->load->model('db/user_base_info_db');
+		$this->load->model('db/user_person_info_db');
 	}
 
 	/**
@@ -30,6 +32,8 @@ class Feed extends CI_Controller{
 		}
 		//开启管道模式
 		$this->myredis->pipeline();
+		$redis_tmp_key = 'article_feed_tmp';        //临时key
+		$redis_key = 'article_feed';                   //持久key
 		//根据用户id查询对应的已发布信息
 		foreach ($user_ids as $key => $user_id){
 			//查询用户信息
@@ -37,20 +41,22 @@ class Feed extends CI_Controller{
 			if (empty($articles_info)){
 				continue;
 			}else{
-				$redis_tmp_key = 'article_feed_tmp';        //临时key
-				$redis_key = 'article_feed';                   //持久key
+				$user_person_info = $this->user_person_info_db->select('*',['user_id' => $user_id],'id desc',0,1);
+				$user_person_info = isset($user_person_info[0]) ? $user_person_info[0] : [];
 				foreach ($articles_info as $key1 => $article_info){
-					$res = $this->myredis->zAdd($redis_tmp_key,strtotime($article_info['modification_time']),json_encode($article_info));
+					$articles_info[$key1]['description'] = isset($user_person_info['description']) ? $user_person_info['description'] : '';
+					$articles_info[$key1]['image'] = isset($user_person_info['image']) ? $user_person_info['image'] : '';
+					$res = $this->myredis->zAdd($redis_tmp_key,strtotime($article_info['modification_time']),json_encode($articles_info[$key1]));
 					if ($res){
 						echo "信息: {$article_info['article_name']} ==> 作者: {$article_info['article_author']}, 存入feed流成功\n";
 					}else{
 						echo "信息: {$article_info['article_name']} ==> 作者: {$article_info['article_author']}, 存入feed流失败\n";
 					}
 				}
-				if ($this->myredis->reName($redis_tmp_key, $redis_key)){
-					echo "\n用户: $user_id  ， 信息入流完毕！\n\n";
-				}
 			}
+		}
+		if ($this->myredis->reName($redis_tmp_key, $redis_key)){
+			echo "\n用户: $user_id  ， 信息入流完毕！\n\n";
 		}
 		//执行管道
 		$this->myredis->exec();

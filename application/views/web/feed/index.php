@@ -86,236 +86,28 @@
 		<div id="main" role="main">
 			<ul id="tiles">
 				<!-- These are our grid blocks -->
-				<li onClick="location.href='single-page.html';">
-					<img src="<?php echo site_url('assets/images/img1.jpg')?>" width="200" height="200">
+                <?php if (isset($articles_info) && !empty($articles_info)):?>
+                <?php foreach ($articles_info as $key => $value){?>
+				<li onclick="jump_to(<?php echo $value['user_id']?>, <?php echo $value['id']?>)">
+					<img src="<?php echo  !empty($value['image']) ? site_url("assets/{$value['image']}") :  site_url('assets/images/img4.jpg')?>" width="200" height="333">
 					<div class="post-info">
 						<div class="post-basic-info">
-							<h3><a href="#">Animation films</a></h3>
-							<span><a href="#"><label> </label>Movies</a></span>
-							<p>Lorem Ipsum is simply dummy text of the printing & typesetting industry.</p>
+							<h3><a href="#"><?php echo $value['article_name']?></a></h3>
+							<span><a href="#"><label></label><?php echo $value['article_author']?></a></span>
+							<p><?php echo $value['article_intro']?></p>
 						</div>
 						<div class="post-info-rate-share">
-							<div class="rateit">
-								<span> </span>
+							<div>
+								&nbsp;<span style="font-size: smaller;color: rgba(96,98,138,0.34)"><?php echo $value['modification_time']?></span>
 							</div>
-							<div class="post-share">
+							<div>
 								<span> </span>
 							</div>
 							<div class="clear"> </div>
 						</div>
 					</div>
 				</li>
-				<li onClick="location.href='single-page.html';">
-					<img src="<?php echo site_url('assets/images/img2.jpg')?>" width="200" height="299">
-					<div class="post-info">
-						<div class="post-basic-info">
-							<h3><a href="#">Animation films</a></h3>
-							<span><a href="#"><label> </label>Movies</a></span>
-							<p>Lorem Ipsum is simply dummy text of the printing & typesetting industry.</p>
-						</div>
-						<div class="post-info-rate-share">
-							<div class="rateit">
-								<span> </span>
-							</div>
-							<div class="post-share">
-								<span> </span>
-							</div>
-							<div class="clear"> </div>
-						</div>
-					</div>
-				</li>
-				<li onClick="location.href='single-page.html';">
-					<img src="<?php echo site_url('assets/images/img3.jpg')?>" width="200" height="214">
-					<div class="post-info">
-						<div class="post-basic-info">
-							<h3><a href="#">Animation films</a></h3>
-							<span><a href="#"><label> </label>Movies</a></span>
-							<p>Lorem Ipsum is simply dummy text of the printing & typesetting industry.</p>
-						</div>
-						<div class="post-info-rate-share">
-							<div class="rateit">
-								<span> </span>
-							</div>
-							<div class="post-share">
-								<span> </span>
-							</div>
-							<div class="clear"> </div>
-						</div>
-					</div>
-				</li>
-				<li onClick="location.href='single-page.html';">
-					<img src="<?php echo site_url('assets/images/img4.jpg')?>" width="200" height="333">
-					<div class="post-info">
-						<div class="post-basic-info">
-							<h3><a href="#">Animation films</a></h3>
-							<span><a href="#"><label> </label>Movies</a></span>
-							<p>Lorem Ipsum is simply dummy text of the printing & typesetting industry.</p>
-						</div>
-						<div class="post-info-rate-share">
-							<div class="rateit">
-								<span> </span>
-							</div>
-							<div class="post-share">
-								<span> </span>
-							</div>
-							<div class="clear"> </div>
-						</div>
-					</div>
-				</li>
-				<!----//--->
-				<li onClick="location.href='single-page.html';">
-					<img src="<?php echo site_url('assets/images/img4.jpg')?>" width="200" height="333">
-					<div class="post-info">
-						<div class="post-basic-info">
-							<h3><a href="#">Animation films</a></h3>
-							<span><a href="#"><label> </label>Movies</a></span>
-							<p>Lorem Ipsum is simply dummy text of the printing & typesetting industry.</p>
-						</div>
-						<div class="post-info-rate-share">
-							<div class="rateit">
-								<span> </span>
-							</div>
-							<div class="post-share">
-								<span> </span>
-							</div>
-							<div class="clear"> </div>
-						</div>
-					</div>
-				</li>
-				<li onClick="location.href='single-page.html';">
-					<img src="<?php echo site_url('assets/images/img3.jpg')?>" width="200" height="214">
-					<div class="post-info">
-						<div class="post-basic-info">
-							<h3><a href="#">Animation films</a></h3>
-							<span><a href="#"><label> </label>Movies</a></span>
-							<p>Lorem Ipsum is simply dummy text of the printing & typesetting industry.</p>
-						</div>
-						<div class="post-info-rate-share">
-							<div class="rateit">
-								<span> </span>
-							</div>
-							<div class="post-share">
-								<span> </span>
-							</div>
-							<div class="clear"> </div>
-						</div>
-					</div>
-				</li>
-				<li onClick="location.href='single-page.html';">
-					<img src="<?php echo site_url('assets/images/img2.jpg')?>" width="200" height="299">
-					<div class="post-info">
-						<div class="post-basic-info">
-							<h3><a href="#">Animation films</a></h3>
-							<span><a href="#"><label> </label>Movies</a></span>
-							<p>Lorem Ipsum is simply dummy text of the printing & typesetting industry.</p>
-						</div>
-						<div class="post-info-rate-share">
-							<div class="rateit">
-								<span> </span>
-							</div>
-							<div class="post-share">
-								<span> </span>
-							</div>
-							<div class="clear"> </div>
-						</div>
-					</div>
-				</li>
-				<li onClick="location.href='single-page.html';">
-					<img src="<?php echo site_url('assets/images/img1.jpg')?>" width="200" height="200">
-					<div class="post-info">
-						<div class="post-basic-info">
-							<h3><a href="#">Animation films</a></h3>
-							<span><a href="#"><label> </label>Movies</a></span>
-							<p>Lorem Ipsum is simply dummy text of the printing & typesetting industry.</p>
-						</div>
-						<div class="post-info-rate-share">
-							<div class="rateit">
-								<span> </span>
-							</div>
-							<div class="post-share">
-								<span> </span>
-							</div>
-							<div class="clear"> </div>
-						</div>
-					</div>
-				</li>
-				<!----//--->
-				<li onClick="location.href='single-page.html';">
-					<img src="<?php echo site_url('assets/images/img1.jpg')?>" width="200" height="200">
-					<div class="post-info">
-						<div class="post-basic-info">
-							<h3><a href="#">Animation films</a></h3>
-							<span><a href="#"><label> </label>Movies</a></span>
-							<p>Lorem Ipsum is simply dummy text of the printing & typesetting industry.</p>
-						</div>
-						<div class="post-info-rate-share">
-							<div class="rateit">
-								<span> </span>
-							</div>
-							<div class="post-share">
-								<span> </span>
-							</div>
-							<div class="clear"> </div>
-						</div>
-					</div>
-				</li>
-				<li onClick="location.href='single-page.html';">
-					<img src="<?php echo site_url('assets/images/img2.jpg')?>" width="200" height="299">
-					<div class="post-info">
-						<div class="post-basic-info">
-							<h3><a href="#">Animation films</a></h3>
-							<span><a href="#"><label> </label>Movies</a></span>
-							<p>Lorem Ipsum is simply dummy text of the printing & typesetting industry.</p>
-						</div>
-						<div class="post-info-rate-share">
-							<div class="rateit">
-								<span> </span>
-							</div>
-							<div class="post-share">
-								<span> </span>
-							</div>
-							<div class="clear"> </div>
-						</div>
-					</div>
-				</li>
-				<li onClick="location.href='single-page.html';">
-					<img src="<?php echo site_url('assets/images/img3.jpg')?>" width="200" height="214">
-					<div class="post-info">
-						<div class="post-basic-info">
-							<h3><a href="#">Animation films</a></h3>
-							<span><a href="#"><label> </label>Movies</a></span>
-							<p>Lorem Ipsum is simply dummy text of the printing & typesetting industry.</p>
-						</div>
-						<div class="post-info-rate-share">
-							<div class="rateit">
-								<span> </span>
-							</div>
-							<div class="post-share">
-								<span> </span>
-							</div>
-							<div class="clear"> </div>
-						</div>
-					</div>
-				</li>
-				<li onClick="location.href='single-page.html';">
-					<img src="<?php echo site_url('assets/images/img4.jpg')?>" width="200" height="333">
-					<div class="post-info">
-						<div class="post-basic-info">
-							<h3><a href="#">Animation films</a></h3>
-							<span><a href="#"><label> </label>Movies</a></span>
-							<p>Lorem Ipsum is simply dummy text of the printing & typesetting industry.</p>
-						</div>
-						<div class="post-info-rate-share">
-							<div class="rateit">
-								<span> </span>
-							</div>
-							<div class="post-share">
-								<span> </span>
-							</div>
-							<div class="clear"> </div>
-						</div>
-					</div>
-				</li>
+                <?php } endif;?>
 				<!-- End of grid blocks -->
 			</ul>
 		</div>
