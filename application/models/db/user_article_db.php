@@ -92,6 +92,7 @@ class User_article_db extends CI_Model{
 			return FALSE;
 		}
 		$res = $this->field_check($data);
+		$res['modification_time'] = date('Y-m-d H:i:s');
 		if (empty($res)) goto END;
 		$res = $this->db->set($res)->where($where)->update($this->table);
 		END:
