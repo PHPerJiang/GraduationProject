@@ -45,9 +45,9 @@ class Feed extends CI_Controller{
 				foreach ($articles_info as $key1 => $article_info){
 					$articles_info[$key1]['description'] = isset($user_person_info['description']) ? $user_person_info['description'] : '';
 					$articles_info[$key1]['image'] = isset($user_person_info['image']) ? $user_person_info['image'] : '';
-					//打入用户信息表
+//					打入用户信息表
 					$res_user_articles = $this->myredis->hSet($user_articles_key,$article_info['id'],json_encode($articles_info[$key1]));
-					//打入信息时间表
+//					打入信息时间表
 					$this->myredis->zAdd($feed_articles_key,strtotime($article_info['modification_time']),($user_id.':'.$article_info['id']));
 					if ($res_user_articles){
 						echo "信息: {$article_info['article_name']} ==> 作者: {$article_info['article_author']}, 存入redis成功\n";

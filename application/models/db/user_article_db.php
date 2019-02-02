@@ -106,7 +106,7 @@ class User_article_db extends CI_Model{
 	 * @return bool
 	 */
 	public function delete($user_id,$where){
-		$this->table = $this->table.($user_id % 10);
+		$this->table = $this->get_table($user_id);
 		if (empty($where)){
 			return FALSE;
 		}
