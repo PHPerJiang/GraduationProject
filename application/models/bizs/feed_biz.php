@@ -19,7 +19,9 @@ class Feed_biz extends CI_Model{
 	 */
 	public function get_feed_info($user_id, $option = []){
 		$data = [];
+		//获取缓存里的数据
 		$feed_infos_from_redis = $this->myredis->zRevRange('feed_articles',0,-1);
+		//获取集体的信息数据
 		if (!empty($feed_infos_from_redis) && is_array($feed_infos_from_redis)){
 			foreach ($feed_infos_from_redis as $key => $value){
 				$redis_info = explode(':',$value);

@@ -1369,9 +1369,11 @@
             closeToBottom = ($window.scrollTop() + winHeight > $document.height() - 100);
         if (closeToBottom) {
             // Get the first then items from the grid, clone them, and add them to the bottom of the grid
-            var $items = $('li', $tiles),
-                $firstTen = $items.slice(0, 10);
-            $tiles.append($firstTen.clone());
+            var $items = $('li', $tiles);
+            var $firstTen = $items.slice(0, 1);
+            var $more_article = $firstTen.clone()
+            console.log($more_article[0]);
+            $tiles.append($more_article);
 
             applyLayout();
         }
