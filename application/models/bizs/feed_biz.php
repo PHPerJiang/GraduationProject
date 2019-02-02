@@ -19,10 +19,14 @@ class Feed_biz extends CI_Model{
 	 */
 	public function get_feed_info($user_id, $option = []){
 		$data = [];
-		$feed_infos_from_redis = $this->myredis->zRevRange('article_feed',0,-1);
+		$feed_infos_from_redis = $this->myredis->zRevRange('feed_articles',0,-1);
 		if (!empty($feed_infos_from_redis) && is_array($feed_infos_from_redis)){
 			foreach ($feed_infos_from_redis as $key => $value){
-				$data[] = json_decode($value,true);
+				$redis_info = explode(':',$value);
+				$res = $this->myredis->hGet('user_articles:'.$redis_info[0],$redis_info[1]);
+				if (!empty($res)){
+					$data[] = json_decode($res,true);
+				}
 			}
 		}
 		return $data;

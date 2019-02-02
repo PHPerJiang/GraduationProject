@@ -24,6 +24,13 @@ $(document).ready(function () {
     }
     function setContent(){
         ue.execCommand('insertHtml',html_content);
+        //如果是读取页则隐藏编辑器并不可编辑
+        var now_page = self.location.href;
+        if (now_page.search('read') != -1){
+            ue.setDisabled();
+            // ue.readAsText();
+            // ue.setHide();
+        }
     }
     /**
      * 阻止表单提交

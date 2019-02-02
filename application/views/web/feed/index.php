@@ -88,25 +88,27 @@
 				<!-- These are our grid blocks -->
                 <?php if (isset($articles_info) && !empty($articles_info)):?>
                 <?php foreach ($articles_info as $key => $value){?>
-				<li onclick="jump_to(<?php echo $value['user_id']?>, <?php echo $value['id']?>)">
-					<img src="<?php echo  !empty($value['image']) ? site_url("assets/{$value['image']}") :  site_url('assets/images/img4.jpg')?>" width="200" height="333">
-					<div class="post-info">
-						<div class="post-basic-info">
-							<h3><a href="#"><?php echo $value['article_name']?></a></h3>
-							<span><a href="#"><label></label><?php echo $value['article_author']?></a></span>
-							<p><?php echo $value['article_intro']?></p>
-						</div>
-						<div class="post-info-rate-share">
-							<div>
-								&nbsp;<span style="font-size: smaller;color: rgba(96,98,138,0.34)"><?php echo $value['modification_time']?></span>
-							</div>
-							<div>
-								<span> </span>
-							</div>
-							<div class="clear"> </div>
-						</div>
-					</div>
-				</li>
+                        <a href="<?php echo site_url('article/read').'?article_id='.$value['user_id'].':'.$value['id']?>">
+                            <li>
+                                <img src="<?php echo  !empty($value['image']) ? site_url("assets/{$value['image']}") :  site_url('assets/images/img4.jpg')?>" width="200" height="333">
+                                <div class="post-info">
+                                    <div class="post-basic-info">
+                                        <h3><a href="#"><?php echo $value['article_name']?></a></h3>
+                                        <span><a href="#"><label></label><?php echo $value['article_author']?></a></span>
+                                        <p><?php echo $value['article_intro']?></p>
+                                    </div>
+                                    <div class="post-info-rate-share">
+                                        <div>
+                                            &nbsp;<span style="font-size: smaller;color: rgba(96,98,138,0.34)"><?php echo $value['modification_time']?></span>
+                                        </div>
+                                        <div>
+                                            <span> </span>
+                                        </div>
+                                        <div class="clear"> </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </a>
                 <?php } endif;?>
 				<!-- End of grid blocks -->
 			</ul>

@@ -32,10 +32,9 @@ class Feed extends CI_Controller{
 		}
 		//开启管道模式
 		$this->myredis->pipeline();
-		$redis_tmp_key = 'article_feed_tmp';        //临时key
-		$redis_key = 'article_feed';                   //持久key
-		//根据用户id查询对应的已发布信息
 		foreach ($user_ids as $key => $user_id){
+			$user_articles_key = 'user_articles:'.$user_id;
+			$feed_articles_key = 'feed_articles';
 			//查询用户信息
 			$articles_info = $this->user_article_db->select($user_id,'*',['article_status' => 1,'user_id' => $user_id],'modification_time desc',0,10000);
 			if (empty($articles_info)){
@@ -46,20 +45,19 @@ class Feed extends CI_Controller{
 				foreach ($articles_info as $key1 => $article_info){
 					$articles_info[$key1]['description'] = isset($user_person_info['description']) ? $user_person_info['description'] : '';
 					$articles_info[$key1]['image'] = isset($user_person_info['image']) ? $user_person_info['image'] : '';
-					$res = $this->myredis->zAdd($redis_tmp_key,strtotime($article_info['modification_time']),json_encode($articles_info[$key1]));
-					if ($res){
-						echo "信息: {$article_info['article_name']} ==> 作者: {$article_info['article_author']}, 存入feed流成功\n";
+					//打入用户信息表
+					$res_user_articles = $this->myredis->hSet($user_articles_key,$article_info['id'],json_encode($articles_info[$key1]));
+					//打入信息时间表
+					$this->myredis->zAdd($feed_articles_key,strtotime($article_info['modification_time']),($user_id.':'.$article_info['id']));
+					if ($res_user_articles){
+						echo "信息: {$article_info['article_name']} ==> 作者: {$article_info['article_author']}, 存入redis成功\n";
 					}else{
-						echo "信息: {$article_info['article_name']} ==> 作者: {$article_info['article_author']}, 存入feed流失败\n";
+						echo "信息: {$article_info['article_name']} ==> 作者: {$article_info['article_author']}, 存入redis失败\n";
 					}
 				}
 			}
 		}
-		if ($this->myredis->reName($redis_tmp_key, $redis_key)){
-			echo "\n用户: $user_id  ， 信息入流完毕！\n\n";
-		}
-		//执行管道
 		$this->myredis->exec();
-		echo "\n\n所有信息打入feed流完毕\n\n";
+		echo "\n\n所有用户信息存储完毕\n\n";
 	}
 }

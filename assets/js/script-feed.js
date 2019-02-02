@@ -1367,7 +1367,6 @@
         // Check if we're within 100 pixels of the bottom edge of the broser window.
         var winHeight = window.innerHeight ? window.innerHeight : $window.height(), // iphone fix
             closeToBottom = ($window.scrollTop() + winHeight > $document.height() - 100);
-
         if (closeToBottom) {
             // Get the first then items from the grid, clone them, and add them to the bottom of the grid
             var $items = $('li', $tiles),
