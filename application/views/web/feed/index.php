@@ -85,9 +85,9 @@
 	<div class="wrap">
 		<div id="main" role="main">
 			<ul id="tiles">
-				<!-- These are our grid blocks -->
-                <?php if (isset($articles_info) && !empty($articles_info)):?>
-                <?php foreach ($articles_info as $key => $value){?>
+                <!-- These are our grid blocks -->
+				<?php if (isset($articles_info) && !empty($articles_info)):?>
+					<?php foreach ($articles_info as $key => $value){?>
                         <a href="<?php echo site_url('article/read').'?article_id='.$value['user_id'].':'.$value['id']?>">
                             <li>
                                 <img src="<?php echo  !empty($value['image']) ? site_url("assets/{$value['image']}") :  site_url('assets/images/img4.jpg')?>" width="200" height="333">
@@ -109,13 +109,107 @@
                                 </div>
                             </li>
                         </a>
-                <?php } endif;?>
-				<!-- End of grid blocks -->
-			</ul>
+					<?php } endif;?>
+                <!-- End of grid blocks -->
+            </ul>
 		</div>
 	</div>
 </div>
 <script src="<?php echo site_url('assets/js/script-feed.js')?>"></script>
+<script>
+    (function ($){
+        var $tiles = $('#tiles'),
+            $handler = $('li', $tiles),
+            $main = $('#main'),
+            $window = $(window),
+            $document = $(document),
+            options = {
+                autoResize: true, // This will auto-update the layout when the browser window is resized.
+                container: $main, // Optional, used for some extra CSS styling
+                offset: 20, // Optional, the distance between grid items
+                itemWidth:280 // Optional, the width of a grid item
+            };
+        /**
+         * Reinitializes the wookmark handler after all images have loaded
+         */
+        function applyLayout() {
+            $tiles.imagesLoaded(function() {
+                // Destroy the old handler
+                if ($handler.wookmarkInstance) {
+                    $handler.wookmarkInstance.clear();
+                }
+
+                //创建处理对象
+                $handler = $('li', $tiles);
+                $handler.wookmark(options);
+            });
+        }
+
+        /**
+         * 滚动事件函数
+         */
+        function onScroll() {
+            // 设置触发高度
+            var winHeight = window.innerHeight ? window.innerHeight : $window.height(), // iphone fix
+                closeToBottom = ($window.scrollTop() + winHeight > $document.height() - 100);
+            //获取当前ul对象
+            var tiles = document.getElementById('tiles');
+            //获取当前ul下li标签的个数
+            var li_num = tiles.getElementsByTagName('li').length;
+            //赋值偏移量及每次增量请求个数
+            var offset = li_num;
+            var size = offset + 10;
+            if (closeToBottom) {
+                $.ajax({
+                    url:'more_feed_info',
+                    type:'POST',
+                    dataType:'json',
+                    data:{'offset':offset,'size':size},
+                    success:function (data) {
+                        if (data.error_code == 0){
+                            for (var i = 0 ; i < data.rdata.length ; i++){
+                                //拼凑html
+                                var popContent =
+                                    '<a href="'+data.rdata[i].jump_to+'">'+
+                                    '<li>'+
+                                    '<img src="'+data.rdata[i].image+'" width="200" height="333">'+
+                                    '<div class="post-info">'+
+                                    '<div class="post-basic-info">'+
+                                    ' <h3><a href="#">'+data.rdata[i].article_name+'</a></h3>'+
+                                    '<span><a href="#"><label></label>'+data.rdata[i].article_author+'</a></span>'+
+                                    '<p>'+data.rdata[i].article_intro+'</p>'+
+                                    '</div>'+
+                                    '<div class="post-info-rate-share">'+
+                                    '<div>'+
+                                    '&nbsp;<span style="font-size: smaller;color: rgba(96,98,138,0.34)">'+data.rdata[i].modification_time+'</span>'+
+                                    '</div>'+
+                                    '<div>'+
+                                    ' <span> </span>'+
+                                    '</div>'+
+                                    '<div class="clear"> </div>'+
+                                    '</div>'+
+                                    '</div>'+
+                                    '</li>'+
+                                    '</a>'
+                                //将拼凑好的html追加到对象中
+                                $tiles.append(popContent);
+                                applyLayout();
+                            }
+                        }
+                    },
+                    error:function (error) {
+                        alert('网络异常');
+                    }
+                });
+
+            }
+        };
+
+        applyLayout();
+
+        $window.bind('scroll.wookmark', onScroll);
+    })(jQuery);
+</script>
 <div class="footer">
 	<p>Copyright &copy; 2015.Company name All rights reserved.More Templates <a href="" target="_blank" title="">版权最终解释权归uuJiang所有</a> - Collect from <a href="" title="" target="_blank">PHPerJiang</a></p>
 </div>

@@ -89,6 +89,9 @@ class Article extends CI_Controller{
 		$this->resp();
 	}
 
+	/**
+	 * 文章删除
+	 */
 	public function del(){
 		$article_id = $this->input->get('article_id');
 		if (!$this->session->is_login()){
@@ -129,7 +132,6 @@ class Article extends CI_Controller{
 			$this->load->view('web/article/read',$data);
 		}
 	}
-
 	/**
 	 * 数据输出
 	 * @param array $data

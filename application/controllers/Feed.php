@@ -8,6 +8,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @property Feed_biz feed_biz
  */
 class Feed extends CI_Controller{
+	private $error_code = 0;
+	private $error_msg = '';
 	public function __construct()
 	{
 		parent::__construct();
@@ -33,6 +35,33 @@ class Feed extends CI_Controller{
 	}
 
 	/**
+	 *获取更多的feed信息
+	 */
+	public function more_feed_info(){
+		//判断是否已登录
+		if (!$this->session->is_login()){
+			redirect('login/index');
+		}else{
+			$user_id = $this->session->userdata['user_id'];
+			$offset = $this->input->post('offset');
+			$size = $this->input->post('size');
+			$options = [
+				'offset' => empty($offset) ? 0 : $offset,
+				'size'  => empty($size) ? 0 : $size,
+			];
+			$more_feed_info = $this->feed_biz->get_feed_info($user_id, $options);
+			if (!empty($more_feed_info)){
+				foreach ($more_feed_info as $key => $value){
+					$more_feed_info[$key]['image'] = site_url('assets/'.$value['image']);
+					$more_feed_info[$key]['jump_to'] = site_url('article/read').'?article_id='.$value['user_id'].':'.$value['id'];
+ 				}
+			}
+			$this->resp($more_feed_info);
+		}
+
+	}
+
+	/**
 	 * 数据输出
 	 * @param array $data
 	 * @param string $total
@@ -45,10 +74,5 @@ class Feed extends CI_Controller{
 			'rdata'       => $data,
 		]);
 		return;
-	}
-
-	public function article_from_sql_2_redis(){
-		$redis = new Redis();
-		var_dump($redis);
 	}
 }
