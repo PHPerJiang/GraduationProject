@@ -88,7 +88,7 @@
                 <!-- These are our grid blocks -->
 				<?php if (isset($articles_info) && !empty($articles_info)):?>
 					<?php foreach ($articles_info as $key => $value){?>
-                        <a href="<?php echo site_url('article/read').'?article_id='.$value['user_id'].':'.$value['id']?>">
+                        <a href="<?php echo site_url('article/read').'?article_id='.$value['user_id'].':'.$value['id']?>" target="_blank">
                             <li>
                                 <img src="<?php echo  !empty($value['image']) ? site_url("assets/{$value['image']}") :  site_url('assets/images/img4.jpg')?>" width="200" height="333">
                                 <div class="post-info">
@@ -170,7 +170,7 @@
                             for (var i = 0 ; i < data.rdata.length ; i++){
                                 //拼凑html
                                 var popContent =
-                                    '<a href="'+data.rdata[i].jump_to+'">'+
+                                    '<a href="'+data.rdata[i].jump_to+'" target="_blank">'+
                                     '<li>'+
                                     '<img src="'+data.rdata[i].image+'" width="200" height="333">'+
                                     '<div class="post-info">'+
