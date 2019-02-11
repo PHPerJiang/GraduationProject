@@ -26,7 +26,7 @@ class Article_list extends CI_Controller{
 			$user_id = $this->session->userdata['user_id'];
 			$articles_info = $this->user_article_biz->find_articles_by_user_id($user_id);
 			$data['articles_info'] = empty($articles_info) ? [] : $articles_info;
-			$data['user_image'] = isset($_SESSION['user_image']) ? $_SESSION['user_image'] : '';
+			$data['user_image'] = isset($_SESSION['user_image']) ? $_SESSION['user_image'] : site_url('assets/images/user-pic.png');
 			$data['article_edit'] = site_url('article/edit');
 			$data['article_del'] = site_url('article/del');
 			$this->load->view('web/article_list/index', $data);

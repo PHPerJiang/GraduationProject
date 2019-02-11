@@ -997,6 +997,10 @@ class CI_Session {
 	 * 登出
 	 */
 	public function logout(){
-		$this->unset_tempdata('user_id');
+//		var_dump($_SESSION);
+		$session_var = ['user_id', 'user_nickname', 'user_image'];
+		$this->unset_tempdata($session_var);
+		$this->unset_userdata($session_var);
+//		var_dump($_SESSION);EXIT;
 	}
 }

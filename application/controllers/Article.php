@@ -24,7 +24,7 @@ class Article extends CI_Controller{
 			redirect('login/index');
 		}else{
 			$user_id = $this->session->userdata['user_id'];
-			$data['user_image'] = isset($_SESSION['user_image']) ? $_SESSION['user_image'] : '';
+			$data['user_image'] = isset($_SESSION['user_image']) ? $_SESSION['user_image'] : site_url('assets/images/user-pic.png');
 			$data['user_nickname'] = isset($_SESSION['user_nickname']) ?  $_SESSION['user_nickname'] : '用户'.$user_id;
 			$this->load->view('web/article/index', $data);
 		}
