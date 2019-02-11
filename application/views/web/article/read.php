@@ -130,7 +130,13 @@
                         </textarea>
 					</div>
                     <br/>
-                    <div class="clear"></div>
+                    <div class="clear">
+                        <span><a href="javascript:void(0)"><image src = "<?php echo site_url('assets/images/good.png')?>"  style="vertical-align: middle"></image></a></span>
+                        &nbsp;&nbsp;
+                        <span><a href="javascript:void(0)"><image src = "<?php echo site_url('assets/images/bad.png')?>"  style="vertical-align: middle"></image></a></span>
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <span><button  style="vertical-align: middle">关注作者</button></span>
+                    </div>
 				</div>
 			</form>
 		</div>
