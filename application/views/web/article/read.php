@@ -52,7 +52,7 @@
 						<div class="menu_box_list">
 							<ul>
                                 <li><a href="<?php echo site_url('feed/index')?>"><span>热门信息</span></a></li>
-                                <li><a href="#"><span>我的关注</span></a></li>
+                                <li><a href="<?php echo site_url('follow/follow_list')?>"><span>我的关注</span></a></li>
                                 <li><a href="<?php echo site_url('article/index')?>"><span>发布信息</span></a></li>
                                 <li><a href="<?php echo site_url('article_list/index')?>"><span>我的信息</span></a></li>
                                 <div class="clear"> </div>
