@@ -575,7 +575,7 @@ class Myredis
 
     /**
      * 返回无序集合的元素个数
-     * @param unknown $key
+     * @param  $key
      */
     public function scard($key)
     {

@@ -134,21 +134,7 @@ $(document).ready(function () {
         window.location.href = $('#article_list_href').val();
     }
 
-    $('#good').click(function () {
-        $.ajax({
-            url:$('#user_follow_href').val(),
-            type:'POST',
-            dataType:'json',
-            data:{'article_id':$("#article_id").val(),'good':1},
-            success:function (data) {
-
-            },
-            error:function (error) {
-
-            }
-        });
-    });
-
+    //点击关注、取消关注
     $('#follow').click(function () {
         var follow_status = $(this).val();
         if (follow_status == 1){
@@ -187,5 +173,60 @@ $(document).ready(function () {
         }
 
     });
+
+    //点赞
+    $('#evaluate_good').click(function () {
+        var evaluate_statis = $(this).attr('attr-status');
+        if (evaluate_statis == 1){
+            $.ajax({
+                url:'evaluate',
+                type:'POST',
+                dataType:'json',
+                data:{
+                    'article_id':$("#article_id").val(),
+                    'article_user_id':$("#article_user_id").val(),
+                    'evaluate_type' : 'add',
+                },
+                success:function (data) {
+                    if (data.error_code == 0){
+                        $('#evaluate_good').attr('src',"http://localhost/GraduationProject/assets/images/gooded.png");
+                        var article_good_num = parseInt($('#article_good_num').html()) + 1;
+                        $('#article_good_num').html(article_good_num);
+                        $('#evaluate_good').attr('attr-status',0);
+                    }
+                },
+                error:function (error) {
+                    alert('网络错误');
+                }
+            });
+        } else {
+            $.ajax({
+                url:'evaluate',
+                type:'POST',
+                dataType:'json',
+                data:{
+                    'article_id':$("#article_id").val(),
+                    'article_user_id':$("#article_user_id").val(),
+                    'evaluate_type' : 'del',
+                },
+                success:function (data) {
+                    if (data.error_code == 0){
+                        $('#evaluate_good').attr('src',"http://localhost/GraduationProject/assets/images/good.png");
+                        var article_good_num = parseInt($('#article_good_num').html()) - 1;
+                        $('#article_good_num').html(article_good_num);
+                        $('#evaluate_good').attr('attr-status',1);
+                    }
+                },
+                error:function (error) {
+                    alert('网络错误');
+                }
+            });
+        }
+
+    });
+
+    function evaluate() {
+        
+    }
 });
 

@@ -5,6 +5,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @Time: 2019/1/29 11:11
  * @property CI_Session session
  * @property User_article_biz user_article_biz
+ * @property User_evaluate_info_biz user_evaluate_info_biz
  */
 class Article_list extends CI_Controller{
 
@@ -17,6 +18,7 @@ class Article_list extends CI_Controller{
 		$this->load->helper('url');
 		$this->load->library('session');
 		$this->load->model('bizs/user_article_biz');
+		$this->load->model('bizs/user_evaluate_info_biz');
 	}
 
 	public function index(){
@@ -25,6 +27,12 @@ class Article_list extends CI_Controller{
 		}else{
 			$user_id = $this->session->userdata['user_id'];
 			$articles_info = $this->user_article_biz->find_articles_by_user_id($user_id);
+			//获取文章点赞数
+			if (!empty($articles_info) && is_array($articles_info)){
+				foreach ($articles_info as $key => $value){
+					$articles_info[$key]['good_num'] = $this->user_evaluate_info_biz->get_user_evaluate($user_id,$value['user_id'],$value['id']);
+				}
+			}
 			$data['articles_info'] = empty($articles_info) ? [] : $articles_info;
 			$data['user_image'] = isset($_SESSION['user_image']) ? $_SESSION['user_image'] : site_url('assets/images/user-pic.png');
 			$data['article_edit'] = site_url('article/edit');

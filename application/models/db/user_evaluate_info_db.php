@@ -2,23 +2,22 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 /**
  * @Author: jiangyu01
- * @Time: 2019/2/12 10:30
+ * @Time: 2019/2/12 14:57
  */
-class User_follow_info_db extends CI_Model{
-	private $table = 'user_follow_info';
+class User_evaluate_info_db extends CI_Model{
+	private $table = 'user_evaluate_info';
 
 	public $fields = [
 		'id' => NULL,
 		'user_id' => NULL,
-		'user_follow_id' => NULL,
-		'status' => NULL,
+		'article_id' => NULL,
+		'article_user_id' => NULL,
 	];
 
 	public function __construct()
 	{
 		$this->load->database();
 	}
-
 	/**
 	 * 条件查询
 	 * @param string $fields
