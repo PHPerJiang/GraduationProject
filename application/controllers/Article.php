@@ -5,6 +5,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @Time: 2019/1/25 13:44
  * @property User_article_biz user_article_biz
  * @property CI_Session session
+ * @property Follow_biz follow_biz
  */
 class Article extends CI_Controller{
 	private $error_code = 0;
@@ -15,6 +16,7 @@ class Article extends CI_Controller{
 		$this->load->helper('url');
 		$this->load->library('session');
 		$this->load->model('bizs/user_article_biz');
+		$this->load->model('bizs/follow_biz');
 	}
 
 	//加载首页
@@ -126,7 +128,15 @@ class Article extends CI_Controller{
 				}
 			}
 			$articles_info = $this->user_article_biz->find_articles_by_user_id($user_id,['id' => $article_id, 'article_status' => 1]);
-			$data['articles_info'] = empty($articles_info) ? [] : (isset($articles_info[0]) ? $articles_info[0] : []);
+			$articles_info = empty($articles_info) ? [] : (isset($articles_info[0]) ? $articles_info[0] : []);
+			$current_user_id = $this->session->userdata['user_id'];
+			if (!empty($articles_info)){
+				$articles_info['is_followed'] = 0;
+				if ($this->follow_biz->user_is_followed($current_user_id,$articles_info['user_id'])){
+					$articles_info['is_followed'] = 1;
+				}
+			}
+			$data['articles_info'] = $articles_info;
 			$data['user_image'] = isset($_SESSION['user_image']) ? $_SESSION['user_image'] : '';
 			$data['user_nickname'] = isset($data['articles_info']['article_author']) ?  $data['articles_info']['article_author'] :  '用户'.$user_id;
 			$this->load->view('web/article/read',$data);

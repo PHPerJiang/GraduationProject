@@ -137,7 +137,7 @@
                         <span><a href="javascript:void(0)"><image src = "<?php echo site_url('assets/images/bad.png')?>"  style="vertical-align: middle"  id="bad"></image></a></span>
                         <label><?php echo $articles_info['bad']?></label>
                         &nbsp;&nbsp;&nbsp;&nbsp;
-                        <span><button  style="vertical-align: middle" id="follow" value="1">关注作者</button></span>
+                        <span><button  style="vertical-align: middle" id="follow" value="<?php echo empty($articles_info['is_followed']) ? 1 : 0 ?>"><?php echo empty($articles_info['is_followed']) ? '关注作者' : '取消关注作者' ?></button></span>
                     </div>
 				</div>
 			</form>
