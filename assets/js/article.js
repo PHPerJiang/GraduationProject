@@ -133,5 +133,59 @@ $(document).ready(function () {
     function goto_article_list() {
         window.location.href = $('#article_list_href').val();
     }
+
+    $('#good').click(function () {
+        $.ajax({
+            url:$('#user_follow_href').val(),
+            type:'POST',
+            dataType:'json',
+            data:{'article_id':$("#article_id").val(),'good':1},
+            success:function (data) {
+
+            },
+            error:function (error) {
+
+            }
+        });
+    });
+
+    $('#follow').click(function () {
+        var follow_status = $(this).val();
+        if (follow_status == 1){
+            $.ajax({
+                url:$('#user_follow_href').val(),
+                type:'POST',
+                dataType:'json',
+                data:{'user_follow_id':$('#article_user_id').val()},
+                success:function (data) {
+                    if(data.error_code == 0){
+                        $('#follow').html('取消关注作者');
+                        $('#follow').val('0');
+
+                    }
+                },
+                error:function (error) {
+                    alert('网络异常');
+                }
+            });
+        }else {
+            $.ajax({
+                url:$('#user_unfollow_href').val(),
+                type:'POST',
+                dataType:'json',
+                data:{'user_follow_id':$('#article_user_id').val()},
+                success:function (data) {
+                    if(data.error_code == 0){
+                        $('#follow').html('关注作者');
+                        $('#follow').val('1');
+                    }
+                },
+                error:function (error) {
+                    alert('网络异常');
+                }
+            });
+        }
+
+    });
 });
 

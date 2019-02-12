@@ -551,7 +551,7 @@ class Myredis
 
     /**
      * 添加集合。由于版本问题，扩展不支持批量添加。这里做了封装
-     * @param unknown $key
+     * @param  $key
      * @param string|array $value
      */
     public function sAdd($key,$value)
@@ -562,6 +562,15 @@ class Myredis
             $arr=$value;
         foreach($arr as $row)
             $this->redis->sAdd($key,$row);
+    }
+
+	/**
+	 * 判断 member 元素是否集合 key 的成员。
+	 * @param $key
+	 * @param $member
+	 */
+    public function sIsMEMBER($key, $member){
+		return $this->redis->sIsMember($key, $member);
     }
 
     /**
@@ -575,7 +584,7 @@ class Myredis
 
     /**
      * 从集合中删除一个元素
-     * @param unknown $key
+     * @param  $key
      * @param unknown $value
      */
     public function srem($key,$value)

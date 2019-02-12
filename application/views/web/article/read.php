@@ -131,11 +131,13 @@
 					</div>
                     <br/>
                     <div class="clear">
-                        <span><a href="javascript:void(0)"><image src = "<?php echo site_url('assets/images/good.png')?>"  style="vertical-align: middle"></image></a></span>
+                        <span><a href="javascript:void(0)"><image src = "<?php echo site_url('assets/images/good.png')?>"  style="vertical-align: middle"  id="good"></image></a></span>
+                        <label><?php echo $articles_info['good']?></label>
                         &nbsp;&nbsp;
-                        <span><a href="javascript:void(0)"><image src = "<?php echo site_url('assets/images/bad.png')?>"  style="vertical-align: middle"></image></a></span>
+                        <span><a href="javascript:void(0)"><image src = "<?php echo site_url('assets/images/bad.png')?>"  style="vertical-align: middle"  id="bad"></image></a></span>
+                        <label><?php echo $articles_info['bad']?></label>
                         &nbsp;&nbsp;&nbsp;&nbsp;
-                        <span><button  style="vertical-align: middle">关注作者</button></span>
+                        <span><button  style="vertical-align: middle" id="follow" value="1">关注作者</button></span>
                     </div>
 				</div>
 			</form>
@@ -149,6 +151,9 @@
 <!----//End-footer--->
 <!---//End-wrap---->
 <input type="hidden" id="login_href" value="<?php echo site_url('login/index')?>">
+<input type="hidden" id="user_follow_href" value="<?php echo site_url('follow/user_follow')?>">
+<input type="hidden" id="user_unfollow_href" value="<?php echo site_url('follow/user_unfollow')?>">
+<input type="hidden" id="article_user_id" value="<?php echo $articles_info['user_id']?>">
 <input type="hidden" id="id" value="<?php echo isset($_SESSION['user_id']) ? $_SESSION['user_id'] : 0 ?>">
 <input type="hidden" id="article_id" value="<?php echo isset($articles_info['id']) ? $articles_info['id'] : 0 ?>">
 <input type="hidden" id="article_list_href" value="<?php echo site_url('article_list/index')?>">
