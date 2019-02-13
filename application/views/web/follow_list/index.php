@@ -63,11 +63,11 @@
 				</div>
 			</div>
 		</div>
-		<div class="top-searchbar">
-			<form>
-				<input type="text" /><input type="submit" value="" />
-			</form>
-		</div>
+<!--		<div class="top-searchbar">-->
+<!--			<form>-->
+<!--				<input type="text" /><input type="submit" value="" />-->
+<!--			</form>-->
+<!--		</div>-->
 		<div class="userinfo">
 			<div class="user">
 				<ul>
