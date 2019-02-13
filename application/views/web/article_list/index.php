@@ -49,10 +49,10 @@
 					<div class="form_content">
 						<div class="menu_box_list">
 							<ul>
-                                <li><a href="<?php echo site_url('feed/index')?>"><span>热门信息</span></a></li>
-                                <li><a href="<?php echo site_url('follow/follow_list')?>"><span>我的关注</span></a></li>
-                                <li><a href="<?php echo site_url('article/index')?>"><span>发布信息</span></a></li>
-                                <li><a href="<?php echo site_url('article_list/index')?>"><span>我的信息</span></a></li>
+                                <li><a href="<?php echo site_url('feed/index')?>"><span style="color: red">HOT&nbsp;</span>热门信息</a></li>
+                                <li><a href="<?php echo site_url('follow/follow_list')?>"><span>我关注的信息</span></a></li>
+                                <li><a href="<?php echo site_url('follow/follow_user_list')?>"><span>我关注的用户</span></a></li>
+                                <li><a href="<?php echo site_url('article_list/index')?>"><span>我发布的信息</span></a></li>
                                 <div class="clear"> </div>
 							</ul>
 						</div>
@@ -89,6 +89,26 @@
 						</li>
 					</ul>
 				</div>
+                <div class="col_1_of_bottom span_1_of_first1">
+                    <h5></h5>
+                    <ul class="list3">
+                        <li>
+                            <div class="extra-wrap">
+                                <p></p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col_1_of_bottom span_1_of_first1">
+                    <h5><a href="<?php echo site_url('article/index')?>">发布信息</a></h5>
+                    <ul class="list3">
+                        <li>
+                            <div class="extra-wrap">
+                                <p>Please click me !</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
 				<div class="clear"></div>
 			</div>
 			<form method="post" action="" onsubmit="false" id="article_form">
