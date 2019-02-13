@@ -6,6 +6,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @property Myredis myredis
  * @property User_follow_info_db user_follow_info_db
  * @property User_evaluate_info_biz user_evaluate_info_biz
+ * @property User_person_info_biz user_person_info_biz
  */
 class Follow_biz extends CI_Model{
 	public function __construct()
@@ -14,6 +15,7 @@ class Follow_biz extends CI_Model{
 		$this->load->library('myredis');
 		$this->load->model('db/user_follow_info_db');
 		$this->load->model('bizs/user_evaluate_info_biz');
+		$this->load->model('bizs/user_person_info_biz');
 	}
 
 	/**
@@ -120,6 +122,26 @@ class Follow_biz extends CI_Model{
 			}
 		}
 		return $data;
+	}
+
+	/**
+	 * 根据用户id查询用户已关注的用户列表
+	 * @param $user_id
+	 */
+	public function get_follower_list_by_user_id($user_id){
+		//获取缓存中的关注关系集合
+		$follower_list = $this->myredis->sMembers('user_follow_info:'.$user_id);
+		$person_info = [];
+		if (!empty($follower_list)){
+			foreach ($follower_list as $key => $value){
+				//根据用户id获取用户基本信息
+				$tmp = $this->user_person_info_biz->get_person_info($value);
+				if(!empty($tmp) && isset($tmp[0]) && !empty($tmp[0])){
+					$person_info[] = $tmp[0];
+				}
+			}
+		}
+		return $person_info;
 	}
 
 	/**

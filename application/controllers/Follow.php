@@ -34,6 +34,21 @@ class Follow extends CI_Controller{
 	}
 
 	/**
+	 * 关注用户列表
+	 */
+	public function follow_user_list(){
+		if (!$this->session->is_login()){
+			redirect('login/index');
+		}else{
+			$user_id = $this->session->userdata['user_id'];
+			$follower_info_list = $this->follow_biz->get_follower_list_by_user_id($user_id);
+			$data['follower_info'] = $follower_info_list;
+			$data['user_image'] = isset($_SESSION['user_image']) ? $_SESSION['user_image'] : site_url('assets/images/user-pic.png');
+			$this->load->view('web/follow_user_list/index',$data);
+		}
+	}
+
+	/**
 	 * 用户关注
 	 */
 	public function user_follow(){
