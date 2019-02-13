@@ -469,7 +469,7 @@ class Myredis
 
     /**
      * 删除并返回队列中的尾元素
-     * @param unknown $key
+     * @param  $key
      */
     public function rPop($key)
     {

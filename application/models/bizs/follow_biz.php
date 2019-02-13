@@ -26,6 +26,7 @@ class Follow_biz extends CI_Model{
 		}
 		$action = 'follow';
 		$this->sync_2_redis($user_id, $user_follow_id,$action);
+		$this->sync_2_follow_event_list($user_id, $user_follow_id,$action);
 		return $this->sync_2_mysql($user_id, $user_follow_id,$action);
 	}
 
@@ -41,6 +42,7 @@ class Follow_biz extends CI_Model{
 		}
 		$action = 'unfollow';
 		$this->sync_2_redis($user_id, $user_follow_id,$action);
+		$this->sync_2_follow_event_list($user_id, $user_follow_id,$action);
 		return $this->sync_2_mysql($user_id, $user_follow_id,$action);
 	}
 
@@ -88,6 +90,18 @@ class Follow_biz extends CI_Model{
 		}elseif ($action == 'unfollow'){
 			return $this->user_follow_info_db->delete(['user_id' => $user_id, 'user_follow_id' => $user_follow_id]);
 		}
+	}
+
+	/**
+	 * 将关注事件打入关注事件监控队列
+	 * @param $user_id
+	 * @param $user_follow_id
+	 * @param $action
+	 */
+	private function sync_2_follow_event_list($user_id, $user_follow_id,$action){
+		$redis_key_value = $user_id.':'.$user_follow_id.':'.$action;
+		$redis_key_name = 'follow_event_list';
+		$this->myredis->lPush($redis_key_name,$redis_key_value);
 	}
 
 }
