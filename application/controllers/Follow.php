@@ -26,7 +26,7 @@ class Follow extends CI_Controller{
 			redirect('login/index');
 		}else{
 			$user_id = $this->session->userdata['user_id'];
-			$feed_infos = $this->feed_biz->get_feed_info($user_id);
+			$feed_infos = $this->follow_biz->get_person_feed_info_by_user_id($user_id);
 			$data['articles_info'] = empty($feed_infos) ? [] : $feed_infos;
 			$data['user_image'] = isset($_SESSION['user_image']) ? $_SESSION['user_image'] : site_url('assets/images/user-pic.png');
 			$this->load->view('web/follow_list/index',$data);
@@ -62,7 +62,7 @@ class Follow extends CI_Controller{
 				'offset' => empty($offset) ? 0 : $offset,
 				'size'  => empty($size) ? 0 : $size,
 			];
-			$more_feed_info = $this->feed_biz->get_feed_info($user_id, $options);
+			$more_feed_info = $this->follow_biz->get_person_feed_info_by_user_id($user_id, $options);
 			if (!empty($more_feed_info)){
 				foreach ($more_feed_info as $key => $value){
 					$more_feed_info[$key]['image'] = site_url('assets/'.$value['image']);

@@ -5,6 +5,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @Time: 2019/2/12 9:50
  * @property Myredis myredis
  * @property User_follow_info_db user_follow_info_db
+ * @property User_evaluate_info_biz user_evaluate_info_biz
  */
 class Follow_biz extends CI_Model{
 	public function __construct()
@@ -12,6 +13,7 @@ class Follow_biz extends CI_Model{
 		parent::__construct();
 		$this->load->library('myredis');
 		$this->load->model('db/user_follow_info_db');
+		$this->load->model('bizs/user_evaluate_info_biz');
 	}
 
 	/**
@@ -90,6 +92,34 @@ class Follow_biz extends CI_Model{
 		}elseif ($action == 'unfollow'){
 			return $this->user_follow_info_db->delete(['user_id' => $user_id, 'user_follow_id' => $user_follow_id]);
 		}
+	}
+
+	/**
+	 * 根据用户id查询个人feed流
+	 * @param $user_id
+	 */
+	public function get_person_feed_info_by_user_id($user_id,$option = []){
+		$data = [];
+		//获取缓存里的数据
+		$size = isset($option['size']) ? (!empty($option['size']) ? $option['size'] : 9):9;
+		$offset = isset($option['offset']) ? (!empty($option['offset']) ? $option['offset'] : 0):0;
+		$person_feed_infos = $this->myredis->zRevRange('person_feed:'.$user_id,$offset, $size);
+		//获取集体的信息数据
+		if (!empty($person_feed_infos) && is_array($person_feed_infos)){
+			foreach ($person_feed_infos as $key => $value){
+				$redis_info = explode(':',$value);
+				$res = $this->myredis->hGet('user_articles:'.$redis_info[0],$redis_info[1]);
+				if (!empty($res)){
+					$data[] = json_decode($res,true);
+				}
+			}
+		}
+		if (!empty($data)){
+			foreach ($data as $key => $value){
+				$data[$key]['good_num'] = $this->user_evaluate_info_biz->get_user_evaluate(0,$value['id'],$value['user_id']);
+			}
+		}
+		return $data;
 	}
 
 	/**
