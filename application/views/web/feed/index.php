@@ -98,11 +98,14 @@
                                         <p><?php echo $value['article_intro']?></p>
                                     </div>
                                     <div class="post-info-rate-share">
-                                        <div>
-                                            &nbsp;<span style="font-size: smaller;color: rgba(96,98,138,0.34)"><?php echo $value['modification_time']?></span>
+                                        <div style="float: left">
+                                            &nbsp;<span style="font-size: smaller;color: rgba(96,98,138,0.34);"><?php echo $value['modification_time']?></span>
                                         </div>
-                                        <div>
-                                            <span> </span>
+                                        <div style="float: right">
+                                            <div>
+                                                <span style="display: inline-block;vertical-align: middle"><image src ="<?php echo site_url('assets/images/gooded.png') ?>" style="width: 20px;height: 20px;" ></span>
+                                                <span  style="display: inline-block;vertical-align: middle"><?php echo $value['good_num']?>&nbsp;&nbsp;</span>
+                                            </div>
                                         </div>
                                         <div class="clear"> </div>
                                     </div>
@@ -180,11 +183,14 @@
                                     '<p>'+data.rdata[i].article_intro+'</p>'+
                                     '</div>'+
                                     '<div class="post-info-rate-share">'+
-                                    '<div>'+
+                                    '<div style="float: left">'+
                                     '&nbsp;<span style="font-size: smaller;color: rgba(96,98,138,0.34)">'+data.rdata[i].modification_time+'</span>'+
                                     '</div>'+
+                                    '<div style="float: right">'+
                                     '<div>'+
-                                    ' <span> </span>'+
+                                    ' <span style="display: inline-block;vertical-align: middle">'+ '<img src="'+data.rdata[i].good_pic+'"></span>'+
+                                    ' <span style="display: inline-block;vertical-align: middle">'+data.rdata[i].good_num +'&nbsp;&nbsp;</span>'+
+                                    '</div>'+
                                     '</div>'+
                                     '<div class="clear"> </div>'+
                                     '</div>'+

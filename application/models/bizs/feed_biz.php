@@ -4,12 +4,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @Author: jiangyu01
  * @Time: 2019/1/31 14:38
  * @property Myredis myredis
+ * @property User_evaluate_info_biz user_evaluate_info_biz
  */
 class Feed_biz extends CI_Model{
 	public function __construct()
 	{
 		parent::__construct();
 		$this->load->library('myredis');
+		$this->load->model('bizs/user_evaluate_info_biz');
 	}
 
 	/**
@@ -31,6 +33,11 @@ class Feed_biz extends CI_Model{
 				if (!empty($res)){
 					$data[] = json_decode($res,true);
 				}
+			}
+		}
+		if (!empty($data)){
+			foreach ($data as $key => $value){
+				$data[$key]['good_num'] = $this->user_evaluate_info_biz->get_user_evaluate(0,$value['id'],$value['user_id']);
 			}
 		}
 		return $data;

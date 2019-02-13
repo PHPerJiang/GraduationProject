@@ -35,7 +35,7 @@ class User_evaluate_info_biz extends CI_Model{
 	 * @param $article_user_id
 	 */
 	public function get_user_evaluate($user_id,$article_id,$article_user_id){
-		if (empty($user_id) || empty($article_user_id) || empty($article_id)){
+		if (empty($article_user_id) || empty($article_id)){
 			return FALSE;
 		}
 		return $this->myredis->scard('user_evaluate:'.$article_user_id.':'.$article_id);

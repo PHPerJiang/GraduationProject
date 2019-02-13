@@ -67,6 +67,7 @@ class Follow extends CI_Controller{
 				foreach ($more_feed_info as $key => $value){
 					$more_feed_info[$key]['image'] = site_url('assets/'.$value['image']);
 					$more_feed_info[$key]['jump_to'] = site_url('article/read').'?article_id='.$value['user_id'].':'.$value['id'];
+					$more_feed_info[$key]['good_pic']  = site_url('assets/images/gooded.png');
 				}
 			}
 			$this->resp($more_feed_info);
