@@ -56,12 +56,4 @@ class Follow extends CI_Controller{
 			sleep(3);
 		}
 	}
-
-	/**
-	 * php D:/wamp/www/GraduationProject/index.php cli/follow push_follow_event_2_list
-	 */
-	public function push_follow_event_2_list(){
-		$redis_key_name = 'follow_event_list';
-		$this->myredis->lPush($redis_key_name,'2:3');
-	}
 }
