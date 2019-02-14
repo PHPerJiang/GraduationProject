@@ -24,15 +24,21 @@ class Evaluate extends CI_Controller{
 	 * 用户文章点赞数同步redis
 	 * cli : php D:/wamp/www/GraduationProject/index.php cli/evaluate user_evaluate_2_redis
 	 */
-	public function user_evaluate_2_redis(){
+	public function user_evaluate_2_redis($form = 'mysql', $to = 'redis'){
 		//获取用户id
 		$user_ids = $this->get_user_id();
 		//根据用户id获取该用户的article_ids
 		$article_ids = $this->get_article_ids($user_ids);
-		//根据article_ids获取evaluate表的点赞关系
-		$evaluate_users = $this->get_evaluate_users($article_ids);
-		//点赞数同步redis
-		$this->sync_evaluate_2_redis($evaluate_users);
+		if ($form == 'mysql' && $to == 'redis'){
+			//根据article_ids获取evaluate表的点赞关系
+			$evaluate_users = $this->get_evaluate_users($article_ids);
+			//点赞数同步redis
+			$this->sync_evaluate_2_redis($evaluate_users);
+		}
+		if ($form == 'redis'&& $to == 'mysql'){
+			var_dump($article_ids);
+		}
+
 	}
 
 	/**
