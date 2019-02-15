@@ -93,24 +93,24 @@
 			</div>
 			<form method="post" action="" onsubmit="false" id="article_form">
                 <?php if (isset($follower_info) && !empty($follower_info) && is_array($follower_info)) :?>
-                    <table style="line-height: 50px;">
-                        <t>
-                            <td width="300px;" style="font-size: larger;font-weight: bold">用户名</a></td>
-                            <td width="300px;" style="font-size: larger;font-weight: bold">简介</td>
-                            <td width="1300px"></td>
-                            <td width="150px;" style="font-size: larger;font-weight: bold">操作</td>
-                        </t>
-		                <?php foreach ($follower_info as $key => $value){?>
-                            <div class="contact-form">
-                                <tr>
-                                    <td width="300px;"  style="font-weight: bold;color: rgba(26,26,52,0.72)"><?php echo $value['nickname']?></a></td>
-                                    <td width="300px;" style="font-weight: bold;color: rgba(26,26,52,0.72)"><?php echo $value['description']?></td>
-                                    <td width="1300px"></td>
-                                    <td width="150px;"><button>取消关注</button></td>
-                                </tr>
-                            </div>
-		                <?php }?>
-                    </table>
+                 <div class="contact-form">
+                     <table style="line-height: 50px;border-collapse:separate; border-spacing:0px 10px;border-bottom:solid 1px #333333;border-top:solid 1px #333333;">
+                         <td width="300px;"></td>
+                         <td width="300px;" style="font-size: larger;font-weight: bold">用户名</td>
+                         <td width="300px;" style="font-size: larger;font-weight: bold">简介</td>
+                         <td width="1000px"></td>
+                         <td width="150px;" style="font-size: larger;font-weight: bold">&nbsp;&nbsp;&nbsp;操作</td>
+		                 <?php foreach ($follower_info as $key => $value){?>
+                             <tr>
+                                 <td width="300px;" style="vertical-align: middle"><img src="<?php echo $value['image']?>" style="width: 60px;height: 60px;" /></td>
+                                 <td width="300px;"  style="font-weight: bold;color: rgba(26,26,52,0.72)"><?php echo $value['nickname']?></td>
+                                 <td width="300px;" style="font-weight: bold;color: rgba(26,26,52,0.72)"><?php echo $value['description']?></td>
+                                 <td width="1000px"></td>
+                                 <td width="200px;"><button>取消关注</button></td>
+                             </tr>
+		                 <?php }?>
+                     </table>
+                 </div>
                 <?php else:?>
                     <div class="contact-form">
                         <hr>

@@ -42,6 +42,11 @@ class Follow extends CI_Controller{
 		}else{
 			$user_id = $this->session->userdata['user_id'];
 			$follower_info_list = $this->follow_biz->get_follower_list_by_user_id($user_id);
+			if (!empty($follower_info_list)){
+				foreach ($follower_info_list as $key => $value){
+					$follower_info_list[$key]['image'] = isset($value['image']) ? site_url('assets/'.$value['image']) :site_url('assets/images/user-pic.png');
+				}
+			}
 			$data['follower_info'] = $follower_info_list;
 			$data['user_image'] = isset($_SESSION['user_image']) ? $_SESSION['user_image'] : site_url('assets/images/user-pic.png');
 			$this->load->view('web/follow_user_list/index',$data);
@@ -91,7 +96,7 @@ class Follow extends CI_Controller{
 	}
 
 	/**
-	 * 用户关注
+	 * 用户取消关注
 	 */
 	public function user_unfollow(){
 		if (!$this->session->is_login()){
