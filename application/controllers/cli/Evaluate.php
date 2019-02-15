@@ -36,9 +36,9 @@ class Evaluate extends CI_Controller{
 			$this->sync_evaluate_2_redis($evaluate_users);
 		}
 		if ($form == 'redis'&& $to == 'mysql'){
-			var_dump($article_ids);
+			$redis_evaluate_set = $this->get_redis_exists_evaluate_set($article_ids);
+			$this->sync_evaluate_2_mysql($redis_evaluate_set);
 		}
-
 	}
 
 	/**
@@ -98,6 +98,7 @@ class Evaluate extends CI_Controller{
 	private function sync_evaluate_2_redis($evaluate_users){
 		if (empty($evaluate_users) || !is_array($evaluate_users)){
 			echo "没有数据同步\n";
+			exit;
 		}
 		foreach ($evaluate_users as $key => $value){
 			$redis_key_name = 'user_evaluate:'.$key;
@@ -114,5 +115,96 @@ class Evaluate extends CI_Controller{
 			$this->myredis->exec();
 		}
 		echo "\nmysql => redis 数据同步完毕\n";
+	}
+
+	/**
+	 * 获取redis中存在的点赞文章集合
+	 * @param $evaluate_users
+	 */
+	private function get_redis_exists_evaluate_set($evaluate_users){
+		if (empty($evaluate_users) ||!is_array($evaluate_users)){
+			echo "没有同步的文章id\n";
+			exit;
+		}
+		$all_article_redis_key = $is_exists_arr = [];
+		$res = [];
+		//获取redis中存在的文章点赞集合名称
+		foreach ($evaluate_users as $key => $value){
+			if ($value && is_array($value)){
+				$this->myredis->pipeline();
+				foreach ($value as $key1 => $value1){
+					$redis_key_name = "user_evaluate:".$key.':'.$value1;
+					array_push($all_article_redis_key,$redis_key_name);
+					$is_exists = $this->myredis->exists($redis_key_name);
+				}
+				$res[] = $this->myredis->exec();
+			}
+		}
+		//将结果转为一维数组
+		if ($res && is_array($res)){
+			foreach ($res as $key){
+				if ($key && is_array($key)){
+					$is_exists_arr = array_merge($is_exists_arr,$key);
+				}
+			}
+		}
+		//去除redis不存在的文章点赞集合名称
+		if (count($all_article_redis_key) == count($is_exists_arr)){
+			$count = count($all_article_redis_key);
+			for ($i = 0; $i < $count; $i++){
+				if (empty($is_exists_arr[$i])){
+					unset($all_article_redis_key[$i]);
+				}
+			}
+		}
+		return $all_article_redis_key;
+	}
+
+	/**
+	 * redis中点赞集合数据同步mysql
+	 * @param $redis_evaluate_set
+	 */
+	private function sync_evaluate_2_mysql($redis_evaluate_set){
+		if (empty($redis_evaluate_set) || !is_array($redis_evaluate_set)){
+			echo "没有同步数据\n";
+			exit;
+		}
+		//获取redis点赞集合的成员
+		$this->myredis->pipeline();
+		foreach ($redis_evaluate_set as $key => $value){
+			$tmp  = $this->myredis->sMembers($value);
+		}
+		$redis_evaluate_set_value = $this->myredis->exec();
+		//获取文章数量
+		$count = sizeof($redis_evaluate_set);
+		//重置文章数量数组索引
+		$redis_evaluate_set = array_values($redis_evaluate_set);
+		//数据同步
+		for ($i = 0; $i<$count; $i++){
+			$article_info = explode(':',$redis_evaluate_set[$i]);
+			if (isset($redis_evaluate_set_value[$i]) && !empty($redis_evaluate_set_value[$i])){
+				foreach ($redis_evaluate_set_value[$i] as $key){
+					$data=[
+						'user_id' => $key,
+						'article_user_id'=> $article_info[1],
+						'article_id' => $article_info[2],
+					];
+					$evaluate_info = $this->user_evaluate_info_db->select('id',$data);
+					$evaluate_info = array_column($evaluate_info,'id');
+					if (empty($evaluate_info)){
+						$res = $this->user_evaluate_info_db->insert($data);
+						if ($res){
+							echo "点赞用户 {$key} 同步至mysql成功\n";
+						}else{
+							echo "点赞用户 {$key} 同步至mysql失败\n";
+						}
+					}else{
+						echo "点赞用户 {$key} 在mysql中已经存在\n";
+					}
+				}
+			}
+			sleep(1);
+		}
+		echo "\n数据同步完毕\n";
 	}
 }
