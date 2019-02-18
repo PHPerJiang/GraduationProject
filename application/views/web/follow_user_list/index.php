@@ -101,12 +101,12 @@
                          <td width="1000px"></td>
                          <td width="150px;" style="font-size: larger;font-weight: bold">&nbsp;&nbsp;&nbsp;操作</td>
 		                 <?php foreach ($follower_info as $key => $value){?>
-                             <tr>
+                             <tr id="user_info_<?php echo $value['user_id']?>">
                                  <td width="300px;" style="vertical-align: middle"><img src="<?php echo $value['image']?>" style="width: 60px;height: 60px;" /></td>
                                  <td width="300px;"  style="font-weight: bold;color: rgba(26,26,52,0.72)"><?php echo $value['nickname']?></td>
                                  <td width="300px;" style="font-weight: bold;color: rgba(26,26,52,0.72)"><?php echo $value['description']?></td>
                                  <td width="1000px"></td>
-                                 <td width="200px;"><button>取消关注</button></td>
+                                 <td width="200px;"><input type="button" value="取消关注" onclick="follow_event(<?php echo $value['user_id']?>)"></td>
                              </tr>
 		                 <?php }?>
                      </table>
@@ -152,6 +152,36 @@
             },
         });
     });
+
+    /**
+     * 关注事件
+     * @param user_id
+     */
+     function follow_event(user_id) {
+         if (!user_id){
+             alert('用户异常');
+         }else {
+             var tag_name = '#user_info_'+user_id;
+             console.log($(tag_name));
+             $.ajax({
+                 url:'user_unfollow',
+                 type:'POST',
+                 datatype:'json',
+                 data:{'user_follow_id':user_id},
+                 success:function (data) {
+                    if (data.error_code == 0){
+                        $(tag_name).remove();
+                    }else {
+                        alert('网络错误，请稍后重试！');
+                    }
+                 },
+                 error:function (error) {
+                     alert('网络错误，请稍后重试！');
+                 }
+             });
+         }
+
+     }
 </script>
 </html>
 
