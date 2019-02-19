@@ -89,24 +89,48 @@
 						</li>
 					</ul>
 				</div>
+                <div class="col_1_of_bottom span_1_of_first1">
+                    <h5></h5>
+                    <ul class="list3">
+                        <li>
+                            <div class="extra-wrap">
+                                <p></p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col_1_of_bottom span_1_of_first1">
+                    <h5><a href="<?php echo site_url('follow/follow_user_list')?>">我关注的用户</a></h5>
+                    <ul class="list3">
+                        <li>
+                            <div class="extra-wrap">
+                                <p>User ranking .</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
 				<div class="clear"></div>
 			</div>
 			<form method="post" action="" onsubmit="false" id="article_form">
-                <?php if (isset($follower_info) && !empty($follower_info) && is_array($follower_info)) :?>
+                <?php if (isset($user_rank_infos) && !empty($user_rank_infos) && is_array($user_rank_infos)) :?>
                  <div class="contact-form">
                      <table style="line-height: 50px;border-collapse:separate; border-spacing:0px 10px;border-bottom:solid 1px #333333;border-top:solid 1px #333333;">
                          <td width="300px;"></td>
-                         <td width="300px;" style="font-size: larger;font-weight: bold">用户名</td>
-                         <td width="300px;" style="font-size: larger;font-weight: bold">简介</td>
-                         <td width="1000px"></td>
-                         <td width="150px;" style="font-size: larger;font-weight: bold">&nbsp;&nbsp;&nbsp;操作</td>
-                             <tr id="user_info_<?php echo 1 ?>">
-                                 <td width="300px;" style="vertical-align: middle"><img src="<?php echo 111111?>" style="width: 60px;height: 60px;" /></td>
-                                 <td width="300px;"  style="font-weight: bold;color: rgba(26,26,52,0.72)"><?php echo 111111?></td>
-                                 <td width="300px;" style="font-weight: bold;color: rgba(26,26,52,0.72)"><?php echo 111111?></td>
-                                 <td width="1000px"></td>
-                                 <td width="200px;"><</td>
+                         <td width="300px;"></td>
+                         <td width="300px;" style="font-size: larger;font-weight: bold;color: rgba(26,26,52,0.72)">用户名</td>
+                         <td width="300px;" style="font-size: larger;font-weight: bold;color: rgba(26,26,52,0.72)">排名</td>
+                         <td width="300px;" style="font-size: larger;font-weight: bold;color: rgba(26,26,52,0.72)">简介</td>
+                         <td width="400px;"></td>
+	                         <?php foreach ($user_rank_infos as $key => $value){?>
+                             <tr>
+                                 <td width="300px;"></td>
+                                 <td width="300px;" style="vertical-align: middle"><img src="<?php echo $value['image']?>" style="width: 60px;height: 60px;" /></td>
+                                 <td width="300px;"  style="font-weight: bold;color: rgba(26,26,52,0.72)"><?php echo  $value['nickname']?></td>
+                                 <td width="300px;">no.<?php echo $key+1 ?></td>
+                                 <td width="300px;" style="font-weight: bold;color: rgba(26,26,52,0.72)"><?php echo $value['description']?></td>
+                                 <td width="400px;"></td>
                              </tr>
+	                         <?php }?>
                      </table>
                  </div>
                 <?php else:?>

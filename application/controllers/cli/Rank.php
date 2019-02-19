@@ -6,14 +6,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @property Myredis myredis
  * @property User_base_info_db user_base_info_db
  * @property User_article_db user_article_db
+ * @property User_person_info_db user_person_info_db
  */
 class Rank extends CI_Controller{
 	public function __construct()
 	{
 		parent::__construct();
 		$this->load->library('myredis');
+		$this->load->helper('url');
 		$this->load->model('db/user_base_info_db');
 		$this->load->model('db/user_article_db');
+		$this->load->model('db/user_person_info_db');
 	}
 
 	/**
@@ -122,14 +125,24 @@ class Rank extends CI_Controller{
 			echo "没有同步数据\n";
 			exit;
 		}
+		//定义缓存名称
+		$redis_key_name = 'user_rank';
 		$this->myredis->pipeline();
 		foreach ($user_scores as $key => $value){
-			$redis_key_name = 'user_rank_scores';
-			$this->myredis->zAdd($redis_key_name,$value,$key);
-			echo "用户： {$key}  =>  {$redis_key_name} 存储成功\n";
+			//根据用户id查询用户个人信息
+			$user_info = $this->user_person_info_db->select('*',['user_id' => $key]);
+			if (!empty($user_info)){
+				$user_info = $user_info[0];
+				$user_info['image'] = site_url('assets/'.$user_info['image']);
+				$this->myredis->zAdd('user_rank_tmp',$value,json_encode($user_info));
+				echo "用户： {$key}  =>  {$redis_key_name} 上榜，存储成功\n";
+			}else{
+				echo "用户： {$key} =>  未上榜\n";
+			}
 			sleep(1);
 		}
 		$this->myredis->exec();
+		$this->myredis->reName('user_rank_tmp',$redis_key_name);
 		echo "\n数据同步完毕\n";
 	}
 }

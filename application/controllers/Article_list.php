@@ -30,7 +30,7 @@ class Article_list extends CI_Controller{
 			//获取文章点赞数
 			if (!empty($articles_info) && is_array($articles_info)){
 				foreach ($articles_info as $key => $value){
-					$articles_info[$key]['good_num'] = $this->user_evaluate_info_biz->get_user_evaluate($user_id,$value['user_id'],$value['id']);
+					$articles_info[$key]['good_num'] = $this->user_evaluate_info_biz->get_user_evaluate($user_id,$value['id'],$value['user_id']);
 				}
 			}
 			$data['articles_info'] = empty($articles_info) ? [] : $articles_info;

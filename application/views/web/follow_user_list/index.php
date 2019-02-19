@@ -89,6 +89,26 @@
 						</li>
 					</ul>
 				</div>
+                <div class="col_1_of_bottom span_1_of_first1">
+                    <h5></h5>
+                    <ul class="list3">
+                        <li>
+                            <div class="extra-wrap">
+                                <p></p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col_1_of_bottom span_1_of_first1">
+                    <h5><a href="<?php echo site_url('rank/index')?>">排行榜</a></h5>
+                    <ul class="list3">
+                        <li>
+                            <div class="extra-wrap">
+                                <p>User ranking .</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
 				<div class="clear"></div>
 			</div>
 			<form method="post" action="" onsubmit="false" id="article_form">
@@ -98,14 +118,14 @@
                          <td width="300px;"></td>
                          <td width="300px;" style="font-size: larger;font-weight: bold">用户名</td>
                          <td width="300px;" style="font-size: larger;font-weight: bold">简介</td>
-                         <td width="1000px"></td>
+                         <td width="700px"></td>
                          <td width="150px;" style="font-size: larger;font-weight: bold">&nbsp;&nbsp;&nbsp;操作</td>
 		                 <?php foreach ($follower_info as $key => $value){?>
                              <tr id="user_info_<?php echo $value['user_id']?>">
                                  <td width="300px;" style="vertical-align: middle"><img src="<?php echo $value['image']?>" style="width: 60px;height: 60px;" /></td>
                                  <td width="300px;"  style="font-weight: bold;color: rgba(26,26,52,0.72)"><?php echo $value['nickname']?></td>
                                  <td width="300px;" style="font-weight: bold;color: rgba(26,26,52,0.72)"><?php echo $value['description']?></td>
-                                 <td width="1000px"></td>
+                                 <td width="700px"></td>
                                  <td width="200px;"><input type="button" value="取消关注" onclick="follow_event(<?php echo $value['user_id']?>)"></td>
                              </tr>
 		                 <?php }?>

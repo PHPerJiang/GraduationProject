@@ -54,6 +54,7 @@ class Feed extends CI_Controller{
 					}else{
 						echo "信息: {$article_info['article_name']} ==> 作者: {$article_info['article_author']}, 存入redis失败\n";
 					}
+					sleep(1);
 				}
 			}
 		}
