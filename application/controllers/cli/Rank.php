@@ -18,7 +18,7 @@ class Rank extends CI_Controller{
 
 	/**
 	 * 用户排行榜
-	 * php D:/wamp/www/GraduationProject/index.php cli/rank get_user_ranking
+	 * cli: php D:/wamp/www/GraduationProject/index.php cli/rank get_user_ranking
 	 */
 	public function get_user_ranking(){
 		//获取有效用户id
@@ -26,8 +26,11 @@ class Rank extends CI_Controller{
 		//获取用户的follower
 		$user_follower_num = $this->get_user_follower($user_ids);
 		//获取用户文章的点赞总数
-		$user_evaluate_num = $this->get_user_evaluate_num($user_ids);\
-		var_dump($user_evaluate_num);
+		$user_evaluate_num = $this->get_user_evaluate_num($user_ids);
+		//分值计算
+		$user_scores = $this->get_user_scores($user_follower_num,$user_evaluate_num);
+		//分数同步进入redis
+		$this->sync_user_score_2_redis($user_scores);
 	}
 
 	//获取有效用户id
@@ -97,5 +100,36 @@ class Rank extends CI_Controller{
 			}
 		}
 		return $user_evaluate_sum;
+	}
+
+	//计算用户分值
+	private function get_user_scores($user_follower_num,$user_evaluate_num){
+		if (empty($user_evaluate_num) && empty($user_follower_num)) return [];
+		$user_scores = [];
+	    foreach ($user_follower_num as $key => $value){
+	    	foreach ($user_evaluate_num as $key1 => $value1){
+	    		if ($key == $key1){
+					$user_scores[$key] = $value * 0.6 + $value1 * 0.4;
+			    }
+		    }
+	    }
+	    return $user_scores;
+	}
+
+	//同步分值至redis
+	private  function sync_user_score_2_redis($user_scores){
+		if (empty($user_scores)){
+			echo "没有同步数据\n";
+			exit;
+		}
+		$this->myredis->pipeline();
+		foreach ($user_scores as $key => $value){
+			$redis_key_name = 'user_rank_scores';
+			$this->myredis->zAdd($redis_key_name,$value,$key);
+			echo "用户： {$key}  =>  {$redis_key_name} 存储成功\n";
+			sleep(1);
+		}
+		$this->myredis->exec();
+		echo "\n数据同步完毕\n";
 	}
 }
