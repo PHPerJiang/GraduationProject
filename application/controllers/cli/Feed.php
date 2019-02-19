@@ -34,7 +34,7 @@ class Feed extends CI_Controller{
 		$this->myredis->pipeline();
 		foreach ($user_ids as $key => $user_id){
 			$user_articles_key = 'user_articles:'.$user_id;
-			$feed_articles_key = 'feed_articles';
+			$feed_articles_key = 'feed_articles_tmp';
 			//查询用户信息
 			$articles_info = $this->user_article_db->select($user_id,'*',['article_status' => 1,'user_id' => $user_id],'modification_time desc',0,10000);
 			if (empty($articles_info)){
@@ -59,6 +59,7 @@ class Feed extends CI_Controller{
 			}
 		}
 		$this->myredis->exec();
+		$this->myredis->reName('feed_articles_tmp','feed_articles');
 		echo "\n\n所有用户信息存储完毕\n\n";
 	}
 }
