@@ -6,6 +6,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @property CI_Session session
  * @property Myredis myredis
  * @property Feed_biz feed_biz
+ * @property Common_biz common_biz
  */
 class Feed extends CI_Controller{
 	private $error_code = 0;
@@ -16,6 +17,7 @@ class Feed extends CI_Controller{
 		$this->load->helper(array('url'));
 		$this->load->library('session');
 		$this->load->model('bizs/feed_biz');
+		$this->load->model('bizs/common_biz');
 	}
 
 	/**
@@ -27,6 +29,10 @@ class Feed extends CI_Controller{
 			redirect('login/index');
 		}else{
 			$user_id = $this->session->userdata['user_id'];
+			$person_info = $this->common_biz->validate_user_has_person($user_id);
+//			if (!$person_info){
+//				redirect('person/index');
+//			}
 			$feed_infos = $this->feed_biz->get_feed_info($user_id);
 			$data['articles_info'] = empty($feed_infos) ? [] : $feed_infos;
 			$data['user_image'] = isset($_SESSION['user_image']) ? $_SESSION['user_image'] : site_url('assets/images/user-pic.png');
