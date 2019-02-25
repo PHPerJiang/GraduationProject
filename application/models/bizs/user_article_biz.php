@@ -48,6 +48,7 @@ class User_article_biz extends CI_Model {
 	 */
 	public function find_articles_by_user_id($user_id,$where = []){
 		$user_id = is_numeric($user_id) ? $user_id : 0;
+		$where = ['user_id' => $user_id,'article_status' => 1];
 		$result = $this->user_article_db->select($user_id,'*',$where,'id desc',0,10000);
 		return $result;
 	}

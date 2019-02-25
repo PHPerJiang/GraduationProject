@@ -30,9 +30,9 @@ class Feed extends CI_Controller{
 		}else{
 			$user_id = $this->session->userdata['user_id'];
 			$person_info = $this->common_biz->validate_user_has_person($user_id);
-//			if (!$person_info){
-//				redirect('person/index');
-//			}
+			if (!$person_info){
+				redirect('person/index');
+			}
 			$feed_infos = $this->feed_biz->get_feed_info($user_id);
 			$data['articles_info'] = empty($feed_infos) ? [] : $feed_infos;
 			$data['user_image'] = isset($_SESSION['user_image']) ? $_SESSION['user_image'] : site_url('assets/images/user-pic.png');
