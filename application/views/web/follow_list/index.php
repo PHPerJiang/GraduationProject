@@ -112,7 +112,19 @@
                                 </div>
                             </li>
                         </a>
-					<?php } endif;?>
+					<?php } else:  ?>
+                    <div class="contact-form">
+                        <br><br><br><br>
+                        <hr>
+                        <br>
+                        <br>
+                        <p align="center">您没有关注任何用户哟~</p>
+                        <br>
+                        <br>
+                        <br>
+                        <hr>
+                    </div>
+                <?php endif;?>
                 <!-- End of grid blocks -->
             </ul>
 		</div>
