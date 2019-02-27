@@ -3,6 +3,8 @@ $(document).ready(function () {
     var global_person_name = $('#person_name').val();
     var global_person_nickname = $('#person_nickname').val();
     var global_person_phone = $('#person_phone').val();
+    var global_person_old_password = $('#person_old_password').val();
+    var global_person_new_password = $('#person_new_password').val();
     var global_person_description = $('#person_description');
 
     //提示显示时间
@@ -10,6 +12,10 @@ $(document).ready(function () {
 
     //禁止表单自动提交
     $('#person_form').submit(function (e) {
+        e.preventDefault();
+    });
+
+    $('#person_reset_form').submit(function (e) {
         e.preventDefault();
     });
 
@@ -142,8 +148,67 @@ $(document).ready(function () {
         $('#person_image_upload').click();
     });
 
+    /**
+     * 旧密码验证
+     */
+    $('#person_old_password').blur(function () {
+        var password = $('#person_old_password').val();
+        var res = checkPassword(password);
+        if (res){
+            global_person_old_password = password;
+        }else {
+            $('#person_old_password').val('');
+            $('#person_reset_tips').val('旧密码必须由6-12个大小写字母或数字组成').show().fadeOut(tips_show_time);
+        }
+    });
+
+    /**
+     * 新密码验证
+     */
+    $('#person_new_password').blur(function () {
+        var password = $('#person_new_password').val();
+        var res = checkPassword(password);
+        if (res){
+            global_person_new_password = password;
+        }else {
+            $('#person_new_password').val('');
+            $('#person_reset_tips').val('新密码必须由6-12个大小写字母或数字组成').show().fadeOut(tips_show_time);
+        }
+    });
+
+    $('#person_reset_btn').click(function () {
+        if (global_person_old_password && global_person_new_password){
+            $.ajax({
+                url:'reset_password',
+                type:"POST",
+                dataType:"json",
+                data:{
+                  "user_id":$('#id').val(),
+                  "old_password":global_person_old_password,
+                  "new_password":global_person_new_password,
+                },
+                success:function (data) {
+                    if (data.error_code == 0){
+                        $('#jump_to').val(data.rdata.jump_tp);
+                        $('#article_tips').css('color','green').val('密码更新成功！3秒后跳转至个人资料页').show().fadeOut(tips_show_time);
+                        window.setTimeout(goto_article_list,3000);
+                    }else {
+                        $('#person_reset_tips').val('密码更新失败！').show().fadeOut(tips_show_time);
+                        console.log(data.error_msg);
+                    }
+                },
+                error:function (error) {
+                    $('#person_reset_tips').val('网络错误').show().fadeOut(tips_show_time);
+                }
+            });
+        }
+    });
+
 });
 
+function goto_article_list() {
+    window.location.href = $('#jump_to').val();
+}
 /**
  *上传图片
  */
@@ -171,4 +236,13 @@ function upload_image() {
             console.log('请求失败');
         }
     })
+}
+//密码验证规则：密码由6-12个大小写字母或数字组成
+function checkPassword(str){
+    var re=/^[\w_-]{6,16}$/;
+    if(re.test(str)){
+        return true;
+    }else {
+        return false;
+    }
 }

@@ -22,6 +22,26 @@ class User_base_info_biz extends CI_Model {
 	}
 
 	/**
+	 * 获取用户信息
+	 * @param $user_id
+	 */
+	public function reset_password($user_id, $old_password, $new_passowrd){
+		$result = $this->user_base_info_db->select('*',['id' => $user_id]);
+		$result = isset($result[0]) ? $result[0] : [];
+		$flag = FALSE;
+		if (!empty($result)){
+			if (crypt($old_password,$result['salt']) == $result['password']){
+				$params = [
+					'password'    => crypt($new_passowrd,$result['salt']),
+				];
+				if ($this->data_update($params,['id'=>$user_id])){
+					$flag =  true;
+				}
+			}
+		}
+		return $flag;
+	}
+	/**
 	 * 数据存储
 	 * @param array $params
 	 * @return bool

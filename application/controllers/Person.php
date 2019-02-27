@@ -6,6 +6,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @property CI_Session session
  * @property  User_person_info_biz user_person_info_biz
  * @property Myupload myupload
+ * @property User_base_info_biz user_base_info_biz
  */
 class Person extends CI_Controller{
 
@@ -18,6 +19,7 @@ class Person extends CI_Controller{
 		$this->load->helper('url');
 		$this->load->library('session');
 		$this->load->model('bizs/user_person_info_biz');
+		$this->load->model('bizs/user_base_info_biz');
 		$this->load->library('myupload');
 	}
 
@@ -32,6 +34,20 @@ class Person extends CI_Controller{
 			$data['data'] = isset($person_info[0]) ? $person_info[0] : [];
 			$data['data']['image'] = isset($data['data']['image']) ? site_url('assets/'.$data['data']['image']) : site_url('assets/images/user-pic.png');
 			$this->load->view('web/person/index',$data);
+		}
+	}
+
+	/**
+	 * 重置密码首页
+	 */
+	public function reset(){
+		if (!$this->session->is_login()){
+			redirect('login/index');
+		}else{
+			$person_info = $this->user_person_info_biz->get_person_info($this->session->userdata('user_id'));
+			$data['data'] = isset($person_info[0]) ? $person_info[0] : [];
+			$data['data']['image'] = isset($data['data']['image']) ? site_url('assets/'.$data['data']['image']) : site_url('assets/images/user-pic.png');
+			$this->load->view('web/person/reset',$data);
 		}
 	}
 
@@ -97,6 +113,24 @@ class Person extends CI_Controller{
 		$result = $this->user_person_info_biz->save_user_info($user_id, $params);
 		END:
 		$this->resp($result);
+	}
+
+	/**
+	 * 用户更新密码
+	 */
+	public function reset_password(){
+		$old_password = $this->input->post('old_password');
+		$new_passowrd = $this->input->post('new_password');
+		$user_id  = $this->input->post('user_id');
+		$data = [];
+		$res = $this->user_base_info_biz->reset_password($user_id, $old_password, $new_passowrd);
+		if (!$res){
+			$this->error_code = 1;
+			$this->error_msg = "更新失败";
+		}else{
+			$data['jump_to'] = site_url('person/index');
+		}
+		$this->resp($data);
 	}
 	/**
 	 * 数据输出

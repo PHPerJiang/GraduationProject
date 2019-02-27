@@ -590,8 +590,38 @@ span.mail a:hover{
 	-moz-border-radius: 4px;
 	-o-border-radius: 4px;
 }
+
+.contact-to input[type="password"] {
+	padding: 12px 10px;
+	width: 30.66%;
+	font-family: 'Open Sans', sans-serif;
+	margin: 12px 0;
+	border: 1px solid rgba(192, 192, 192, 0.61);
+	color: #626262;
+	background: #FFF;
+	float: left;
+	outline: none;
+	font-size: 0.85em;
+	transition: border-color 0.3s;
+	-o-transition: border-color 0.3s;
+	-ms-transition: border-color 0.3s;
+	-moz-transition: border-color 0.3s;
+	-webkit-transition: border-color 0.3s;
+	box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.05);
+	-webkit-box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.05);
+	-moz-box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.05);
+	-o-box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.05);
+	border-radius: 4px;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	-o-border-radius: 4px;
+}
 .contact-to input[type="text"]:nth-child(2),.contact-to input[type="text"]:nth-child(3){
 	margin-left:10px;
+}
+
+.contact-to input[type="password"]:nth-child(2),.contact-to input[type="password"]:nth-child(3){
+	margin-left:20px;
 }
 .text2 input[type="text"], .text2 textarea {
 	width: 97.7%;
@@ -622,6 +652,9 @@ span.mail a:hover{
 	height:180px;
 }
 .text2 input[type="text"]:hover,.text2 textarea:hover,.contact-to input[type="text"]:hover{
+	border: 1px solid #B9CB41;
+}
+.text2 input[type="password"]:hover,.text2 textarea:hover,.contact-to input[type="password"]:hover{
 	border: 1px solid #B9CB41;
 }
 .contact-form input[type="submit"] {
