@@ -127,7 +127,7 @@
 					</div>
 					<span><input type="submit" id="person_btn" class="" value="提交"  style="display:inline;"></span>&nbsp;&nbsp;&nbsp;
                     <span><input type="test"  style="display: none;font-size:18px;color: red;width: 500px; border-style: none;border: 0px;outline:none;cursor: pointer;"   readonly id="person_tips"   value="" ></span>
-                    <div  style="display: inline;float: right"><a href="javascript:void(0)" id="reset_password">修改密码</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                    <div  style="display: inline;float: right"><a href="<?php echo $data['reset']?>" id="reset_password">修改密码</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
                     <div class="clear"></div>
 				</div>
 			</form>

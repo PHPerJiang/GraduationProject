@@ -189,8 +189,8 @@ $(document).ready(function () {
                 },
                 success:function (data) {
                     if (data.error_code == 0){
-                        $('#jump_to').val(data.rdata.jump_tp);
-                        $('#article_tips').css('color','green').val('密码更新成功！3秒后跳转至个人资料页').show().fadeOut(tips_show_time);
+                        $('#jump_to').val(data.rdata.jump_to);
+                        $('#person_reset_tips').css('color','green').val('密码更新成功！3秒后跳转至个人资料页').show().fadeOut(tips_show_time);
                         window.setTimeout(goto_article_list,3000);
                     }else {
                         $('#person_reset_tips').val('密码更新失败！').show().fadeOut(tips_show_time);
