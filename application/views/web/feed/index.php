@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-	<title>Home</title>
+	<title>Feed</title>
 	<link href="<?php echo site_url('assets/css/style-feed.css')?>" rel='stylesheet' type='text/css' />
     <meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
