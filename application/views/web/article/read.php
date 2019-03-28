@@ -136,6 +136,8 @@
                         <label id="article_good_num"><?php echo $articles_info['good']?></label>
                         &nbsp;&nbsp;&nbsp;
                         <span><button  style="vertical-align: middle" id="follow" value="<?php echo empty($articles_info['is_followed']) ? 1 : 0 ?>"><?php echo empty($articles_info['is_followed']) ? '关注作者' : '取消关注作者' ?></button></span>
+                        &nbsp;&nbsp;&nbsp;
+                        <span><button  style="vertical-align: middle" id="follow"  disabled <?php if(isset($articles_info['is_forward']) && $articles_info['is_forward']):echo 'disabled';endif; ?>><?php echo isset($articles_info['is_forward']) ? (!empty($articles_info['is_forward']) ? '转发文章' : '已转发') : '转发文章'?></button></span>
                     </div>
 				</div>
 			</form>
