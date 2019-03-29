@@ -3,6 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 /**
  * @Author: jiangyu01
  * @Time: 2019/2/12 10:30
+ * @property
  */
 class User_follow_info_db extends CI_Model{
 	private $table = 'user_follow_info';
@@ -35,6 +36,27 @@ class User_follow_info_db extends CI_Model{
 			->where($where)
 			->order_by($order)
 			->limit($size,$limit)
+			->get();
+		$result = $query->result_array();
+		$query->free_result();
+		return $result;
+	}
+
+	/**
+	 * 查询全部数据
+	 * @param array $where
+	 * @param string $order
+	 * @param string $fields
+	 * @return mixed
+	 * @Author: jiangyu01
+	 * @Time: 2019/3/29 13:24
+	 */
+	public function get_all($where = [],$fields = '*', $order = 'id desc'){
+		$query = $this->db
+			->select($fields)
+			->from($this->table)
+			->where($where)
+			->order_by($order)
 			->get();
 		$result = $query->result_array();
 		$query->free_result();

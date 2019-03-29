@@ -5,6 +5,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @Time: 2019/2/13 10:10
  * @property User_article_db user_article_db
  * @property Myredis myredis
+ * @property User_follow_info_db user_follow_info_db
  */
 class Follow extends CI_Controller{
 	public function __construct()
@@ -12,6 +13,7 @@ class Follow extends CI_Controller{
 		parent::__construct();
 		$this->load->library('myredis');
 		$this->load->model('db/user_article_db');
+		$this->load->model('db/user_follow_info_db');
 	}
 
 	/**
@@ -54,6 +56,58 @@ class Follow extends CI_Controller{
 			}
 			echo "list is empty.\n";
 			sleep(3);
+		}
+	}
+
+	/**
+	 * 文章推送程序
+	 * cli : php D:/wamp/www/GraduationProject/index.php cli/follow article_push
+	 * @Author: jiangyu01
+	 * @Time: 2019/3/29 14:08
+	 */
+	public function article_push(){
+		while (1){
+			$push_article_info = $this->myredis->rPop('article_push_list');
+			if (!empty($push_article_info)){
+				$push_article_info = explode(':', $push_article_info);
+				//获取用户粉丝列表
+				$fans_list = $this->myredis->sMembers('user_fans_info:'.$push_article_info['0']);
+				if (!empty($fans_list)){
+					foreach ($fans_list as $key => $value){
+						if ($push_article_info[3] == 'add'){
+							//文章推送
+							$this->myredis->zAdd('person_feed:'.$value,$push_article_info[2],$push_article_info[0].':'.$push_article_info[1]);
+							echo "用户 {$push_article_info[0]} 的文章 {$push_article_info[1]} 已推送至用户 {$value} 的个人feed流中\n";
+						}elseif ($push_article_info[3] == 'del'){
+							//文章取消推送
+							$this->myredis->zRem('person_feed:'.$value,$push_article_info[0].':'.$push_article_info[1]);
+							echo "用户 {$push_article_info[0]} 的文章 {$push_article_info[1]} 从用户 {$value} 的个人feed流中移除\n";
+						}
+					}
+				}
+			}else{
+				echo "article_push_list is empty.\n";
+			}
+			sleep(3);
+		}
+	}
+
+	/**
+	 * cli : php D:/wamp/www/GraduationProject/index.php cli/follow sync_user_fans_to_redis
+	 * 将用户粉丝数维护进redis
+	 * @Author: jiangyu01
+	 * @Time: 2019/3/29 13:14
+	 */
+	public function sync_user_fans_to_redis(){
+		$res = $this->user_follow_info_db->get_all([],'user_id,user_follow_id');
+		if (!empty($res)){
+			$this->myredis->pipeline();
+				foreach ($res as $key => $value){
+					$this->myredis->sAdd('user_fans_info:'.$value['user_follow_id'],$value['user_id']);
+					echo "用户 {$value['user_id']} 已添加到用户 {$value['user_follow_id']} 的粉丝集合中\n";
+					sleep(1);
+				}
+			$this->myredis->exec();
 		}
 	}
 }

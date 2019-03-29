@@ -31,9 +31,9 @@ class User_article_db extends CI_Model{
 	 * @return array|bool
 	 */
 	public function  save($article_id, $params = []){
-		$article_info = $this->select($params['user_id'],'id',['id' => $article_id]);
+		$article_info = $this->select($params['user_id'],'id',['id' => $article_id,'user_id' => $params['user_id']]);
 		if ($article_info){
-			$result = $this->update($params, ['id' => $article_id]);
+			$result = $this->update($params, ['id' => $article_id, 'user_id' => $params['user_id']]);
 		}else{
 			$result = $this->insert($params);
 		}

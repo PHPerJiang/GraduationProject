@@ -171,6 +171,24 @@ class Article extends CI_Controller{
 			$this->resp();
 		}
 	}
+
+	/**
+	 * 转发
+	 * @Author: jiangyu01
+	 * @Time: 2019/3/29 10:29
+	 */
+	public function forward(){
+		$user_id = $this->input->post('user_id');
+		$follow_id = $this->input->post('follow_id');
+		$article_id = $this->input->post('article_id');
+		$data = $this->user_article_biz->forward($user_id,$follow_id,$article_id);
+		if (!$data){
+			$this->error_msg = '转发失败';
+			$this->error_code = 1;
+		}
+		$this->resp($data);
+	}
+
 	/**
 	 * 数据输出
 	 * @param array $data

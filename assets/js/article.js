@@ -225,8 +225,36 @@ $(document).ready(function () {
 
     });
 
-    function evaluate() {
-        
-    }
+    //转载功能
+    $('#forward').click(function () {
+        var user_id = $('#id').val();
+        var follow_id = $('#article_user_id').val();
+        var article_id = $('#article_id').val();
+        if (user_id && follow_id && article_id){
+            $.ajax({
+                url:'forward',
+                type:'POST',
+                dataType:'json',
+                data:{
+                    'user_id':user_id,
+                    'follow_id':follow_id,
+                    'article_id' : article_id,
+                },
+                success:function (data) {
+                    if (data.error_code == 0){
+                        layer.msg('转发成功,3s后跳转至文章列页');
+                        setTimeout(function () {
+                            window.location.href = $('#article_list_href').val();
+                        },3000)
+                    }
+                },
+                error:function (error) {
+                    layer.msg('参数错误。');
+                }
+            })
+        }else {
+            layer.msg('参数错误无法转载。');
+        }
+    })
 });
 

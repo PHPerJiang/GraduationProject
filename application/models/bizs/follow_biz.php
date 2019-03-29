@@ -72,8 +72,11 @@ class Follow_biz extends CI_Model{
 		$redis_key_name = 'user_follow_info:'.$user_id;
 		if ($action == 'follow'){
 			$this->myredis->sAdd($redis_key_name,$user_follow_id);
+			//维护用户粉丝集合
+			$this->myredis->sAdd('user_fans_info:'.$user_follow_id, $user_id);
 		}elseif ($action == 'unfollow'){
 			$this->myredis->srem($redis_key_name,$user_follow_id);
+			$this->myredis->srem('user_fans_info:'.$user_follow_id, $user_id);
 		}
 
 	}

@@ -11,6 +11,7 @@
     <!--    加载百度的ueditor插件-->
     <script src="<?php echo base_url('assets/ueditor/ueditor.config.js')?>"></script>
     <script src="<?php echo base_url('assets/ueditor/ueditor.all.js')?>"></script>
+    <script src="<?php echo base_url('assets/js/layer.js')?>"></script>
     <script type="text/javascript">
         var $ = jQuery.noConflict();
         $(function() {

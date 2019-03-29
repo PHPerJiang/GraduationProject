@@ -11,6 +11,7 @@
     <!--    加载百度的ueditor插件-->
     <script src="<?php echo base_url('assets/ueditor/ueditor.config.js')?>"></script>
     <script src="<?php echo base_url('assets/ueditor/ueditor.all.js')?>"></script>
+    <script src="<?php echo base_url('assets/js/layer.js')?>"></script>
     <script type="text/javascript">
         var $ = jQuery.noConflict();
         $(function() {
@@ -135,9 +136,13 @@
                                                                    style="vertical-align: middle"  id="evaluate_good" attr-status = "<?php echo $articles_info['user_is_evaluated'] ? 0 : 1 ?>"</image></a></span>
                         <label id="article_good_num"><?php echo $articles_info['good']?></label>
                         &nbsp;&nbsp;&nbsp;
-                        <span><button  style="vertical-align: middle" id="follow" value="<?php echo empty($articles_info['is_followed']) ? 1 : 0 ?>"><?php echo empty($articles_info['is_followed']) ? '关注作者' : '取消关注作者' ?></button></span>
+                        <span><button  style="vertical-align: middle" id="follow" value="<?php echo empty($articles_info['is_followed']) ? 1 : 0 ?>" <?php if($articles_info['user_id'] == $_SESSION['user_id']):echo 'disabled';endif; ?>>
+                                <?php echo empty($articles_info['is_followed']) ? '关注作者' : '取消关注作者' ?>
+                            </button></span>
                         &nbsp;&nbsp;&nbsp;
-                        <span><button  style="vertical-align: middle" id="follow"  disabled <?php if(isset($articles_info['is_forward']) && $articles_info['is_forward']):echo 'disabled';endif; ?>><?php echo isset($articles_info['is_forward']) ? (!empty($articles_info['is_forward']) ? '转发文章' : '已转发') : '转发文章'?></button></span>
+                        <span><button  style="vertical-align: middle" id="forward"   <?php if($articles_info['user_id'] == $_SESSION['user_id']):echo 'disabled';endif; ?>>
+                                <?php echo isset($articles_info['is_forward']) ? (!empty($articles_info['is_forward']) ? '转发文章' : '已转发') : '转发文章'?>
+                            </button></span>
                     </div>
 				</div>
 			</form>

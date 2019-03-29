@@ -117,8 +117,12 @@
 				<div class="contact-form">
                     <table style="line-height: 50px">
                         <tr>
-                            <td width="300px;" style="font-size: large;"><a href="<?php echo $article_edit.'?article_id='.$value['id'] ?>"><?php echo $value['article_name']?></a></td>
-                            <td width="300px;"><span><?php echo $value['article_status'] == 1 ? '[已发布]' : '[草稿]'?></span></td>
+                            <td width="300px;" style="font-size: large;"><a href="<?php echo $article_edit.'?article_id='.$value['id'] ?>"><?php $position = strpos($value['article_name'],' [转发]'); if ($position):echo substr($value['article_name'],0,$position);else:echo $value['article_name'];endif;?></a></td>
+                            <td width="300px;">
+                                <span>
+                                    <?php if ($value['article_status'] == 1): echo '[已发布]';elseif ($value['article_status'] == 2) : echo '[草稿]';else: echo '[转发]';endif;?>
+                                </span>
+                            </td>
                             <td width="1300px"></td>
                             <td width="50px;"></td>
                             <td width="50px;">赞&nbsp;:&nbsp;<?php echo $value['good_num']?></td>
