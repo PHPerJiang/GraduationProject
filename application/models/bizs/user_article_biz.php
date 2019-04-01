@@ -6,6 +6,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @property User_article_db user_article_db
  * @property Myredis myredis
  * @property User_person_info_db user_person_info_db
+ * @property User_article_index_db user_article_index_db
  */
 class User_article_biz extends CI_Model {
 	public function __construct()
@@ -13,6 +14,7 @@ class User_article_biz extends CI_Model {
 		parent::__construct();
 		$this->load->model('db/user_article_db');
 		$this->load->model('db/user_person_info_db');
+		$this->load->model('db/user_article_index_db');
 		$this->load->library('myredis');
 	}
 
@@ -41,6 +43,8 @@ class User_article_biz extends CI_Model {
 				$res['image'] = isset($user_person_info['image']) ? $user_person_info['image'] : '';
 				//同步缓存
 				$this->sync_article_2_redis($res['user_id'],$res['id'],$res,'add');
+				//同步文章索引
+				$this->sync_article_index(['user_id'=> $params['user_id'], 'article_name' => $res['article_name'], 'article_id' => $res['id']],'add');
 			}
 		}
 		return $result;
@@ -69,7 +73,10 @@ class User_article_biz extends CI_Model {
 		$user_id = is_numeric($user_id) ? $user_id : 0;
 		$result = $this->user_article_db->delete($user_id,['id' => $article_id]);
 		if ($result){
+			//同步缓存
 			$this->sync_article_2_redis($user_id,$article_id,'','del');
+			//同步索引表
+			$this->sync_article_index(['user_id'=>$user_id, 'article_id'=> $article_id], 'del');
 		}
 		return $result;
 	}
@@ -127,5 +134,22 @@ class User_article_biz extends CI_Model {
 			$res = $this->save_article(0,$params);
 		}
 		return $res;
+	}
+
+	/**
+	 * 同步信息流索引
+	 * @param array $params
+	 * @param string $action
+	 * @Author: jiangyu01
+	 * @Time: 2019/4/1 10:34
+	 */
+	public function sync_article_index($params = [], $action = 'add'){
+		if (!empty($params)){
+			if ($action == 'add'){
+				$this->user_article_index_db->save($params);
+			}elseif ($action == 'del'){
+				$this->user_article_index_db->delete($params);
+			}
+		}
 	}
 }

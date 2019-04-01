@@ -42,4 +42,21 @@ class Feed_biz extends CI_Model{
 		}
 		return $data;
 	}
+
+	/**
+	 * @param $user_id
+	 * @param $article_id
+	 * @Author: jiangyu01
+	 * @Time: 2019/4/1 14:50
+	 */
+	public function get_search_article_info($user_id, $article_id){
+		$article_info = [];
+		$article_info = $this->myredis->hGet('user_articles:'.$user_id,$article_id);
+		$article_info = json_decode($article_info, true);
+		unset($article_info['good']);
+		if (!empty($article_info)){
+			$article_info['good_num'] = $this->user_evaluate_info_biz->get_user_evaluate(0,$article_info['id'],$article_info['user_id']);
+		}
+		return [$article_info];
+	}
 }

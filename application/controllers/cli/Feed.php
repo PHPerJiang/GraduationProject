@@ -7,6 +7,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @property User_article_db user_article_db
  * @property User_base_info_db user_base_info_db
  * @property User_person_info_db user_person_info_db
+ * @property User_article_index_db user_article_index_db
  */
 class Feed extends CI_Controller{
 	public function __construct()
@@ -16,6 +17,7 @@ class Feed extends CI_Controller{
 		$this->load->model('db/user_article_db');
 		$this->load->model('db/user_base_info_db');
 		$this->load->model('db/user_person_info_db');
+		$this->load->model('db/user_article_index_db');
 	}
 
 	/**
@@ -36,7 +38,7 @@ class Feed extends CI_Controller{
 			$user_articles_key = 'user_articles:'.$user_id;
 			$feed_articles_key = 'feed_articles_tmp';
 			//查询用户信息
-			$articles_info = $this->user_article_db->select($user_id,'*',['article_status' => 1,'user_id' => $user_id],'modification_time desc',0,10000);
+			$articles_info = $this->user_article_db->select($user_id,'*',['article_status !=' => 2,'user_id' => $user_id],'modification_time desc',0,10000);
 			if (empty($articles_info)){
 				continue;
 			}else{
@@ -49,6 +51,8 @@ class Feed extends CI_Controller{
 					$res_user_articles = $this->myredis->hSet($user_articles_key,$article_info['id'],json_encode($articles_info[$key1]));
 //					打入信息时间表
 					$this->myredis->zAdd($feed_articles_key,strtotime($article_info['modification_time']),($user_id.':'.$article_info['id']));
+					//同步用户用户文章索引表
+					$this->sync_article_index($user_id, $article_info['id'], $article_info['article_name']);
 					if ($res_user_articles){
 						echo "信息: {$article_info['article_name']} ==> 作者: {$article_info['article_author']}, 存入redis成功\n";
 					}else{
@@ -61,5 +65,30 @@ class Feed extends CI_Controller{
 		$this->myredis->exec();
 		$this->myredis->reName('feed_articles_tmp','feed_articles');
 		echo "\n\n所有用户信息存储完毕\n\n";
+	}
+
+
+	/**
+	 * 同步文章索引
+	 * @param $user_id
+	 * @param $article_id
+	 * @param $article_name
+	 * @Author: jiangyu01
+	 * @Time: 2019/4/1 10:17
+	 */
+	private function sync_article_index($user_id, $article_id, $article_name){
+		if ($user_id && $article_id && $article_name){
+			$params = [
+				'user_id' => $user_id,
+				'article_id' => $article_id,
+				'article_name' => $article_name,
+			];
+			$res = $this->user_article_index_db->insert($params);
+			if ($res){
+				echo "文章{$article_name},入索引表成功！\n";
+			}else{
+				echo "文章{$article_name},入索引表失败！\n";
+			}
+		}
 	}
 }

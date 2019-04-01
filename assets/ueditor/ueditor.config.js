@@ -88,7 +88,7 @@
 
         //indentValue
         //首行缩进距离,默认是2em
-        // ,indentValue:'2em'
+        // ,indentValue:'0em'
 
         ,initialFrameWidth:1000  //初始化编辑器宽度,默认1000
         ,initialFrameHeight:400  //初始化编辑器高度,默认320
@@ -252,7 +252,7 @@
 
         //wordCount
         ,wordCount:true          //是否开启字数统计
-        ,maximumWords:10000      //允许的最大字符数
+        ,maximumWords:1000      //允许的最大字符数
         //字数统计提示，{#count}代表当前字数，{#leave}代表还可以输入多少字符数,留空支持多语言自动切换，否则按此配置显示
         //,wordCountMsg:''   //当前已输入 {#count} 个字符，您还可以输入{#leave} 个字符
         //超出字数限制提示  留空支持多语言自动切换，否则按此配置显示

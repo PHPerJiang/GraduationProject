@@ -10,6 +10,8 @@
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text/css' />
     <link rel="stylesheet" href="<?php echo site_url('assets/css/main-feed.css')?>" />
     <script src="<?php echo site_url('assets/js/jquery-3.1.0.min.js')?>"></script>
+    <link href="<?php echo site_url('assets/css/jquery-ui.css')?>" rel='stylesheet' type='text/css' />
+    <script src="<?php echo site_url('assets/js/jquery-ui.js')?>"></script>
     <script src="<?php echo site_url('assets/js/common.js')?>"></script>
 	<script type="text/javascript">
         //控制导航栏的js
@@ -32,7 +34,51 @@
             });
 
         });
+
+        //juery-ui的自动填充功能
+        function search_article() {
+            $('#search_article_name').autocomplete({
+                source: function( request, response ) {
+                    $.ajax({
+                        url: "search_article",
+                        dataType: "json",
+                        data:{
+                            search_article_name: request.term
+                        },
+                        success: function( data ) {
+                            response( $.map( data.rdata, function( item ) {
+                                return {
+                                    label:item.article_name,
+                                    value: item.article_name,
+                                    user_id:item.user_id,
+                                    article_id:item.article_id,
+                                }
+                            }));
+                        }
+                    });
+                },
+                minLength: 1,
+                select: function( event, ui ) {
+                    console.log(ui.item);
+                    $('#search_article_name').val(ui.item.label);
+                    $('#search_article_info').val(ui.item.user_id+':'+ui.item.article_id);
+                    return;
+                }
+            })
+        }
+
+        /**
+         * 搜索请求
+         */
+        $('#sear_article_btn').click(function () {
+            var search_article_info = $('#search_article_info').val();
+            alert(search_article_info) ;
+        });
+
 	</script>
+    <style>
+        .ui-autocomplete{ z-index: 9999 !important; }
+    </style>
 </head>
 <body>
 <!---start-wrap---->
@@ -63,11 +109,13 @@
 				</div>
 			</div>
 		</div>
-<!--		<div class="top-searchbar">-->
-<!--			<form>-->
-<!--				<input type="text" /><input type="submit" value="" />-->
-<!--			</form>-->
-<!--		</div>-->
+		<div class="top-searchbar">
+			<form action="index" method="post">
+				<input type="text" id="search_article_name" placeholder="根据信息名称模糊搜索"  value="" oninput="search_article()"/>
+                <input type="hidden" id = 'search_article_info' name="search_article_info" value="">
+                <input type="submit" id="sear_article_btn" value="" />
+			</form>
+		</div>
 		<div class="userinfo">
 			<div class="user">
 				<ul>
