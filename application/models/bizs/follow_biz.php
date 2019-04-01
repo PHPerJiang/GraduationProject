@@ -159,4 +159,38 @@ class Follow_biz extends CI_Model{
 		$this->myredis->lPush($redis_key_name,$redis_key_value);
 	}
 
+	/**
+	 * 获取用户粉丝列表
+	 * @param int $user_id
+	 * @Author: jiangyu01
+	 * @Time: 2019/3/29 21:57
+	 */
+	public function get_user_fans_list($user_id = 0){
+		if (empty($user_id)) return false;
+		$fans_list = $this->myredis->sMembers('user_fans_info:'.$user_id);
+		$fans = [];
+		if ($fans_list && is_array($fans_list)){
+			foreach ($fans_list as $key =>$value){
+				$fans_info = $this->myredis->get('person_info:'.$value);
+				$fans_info = json_decode($fans_info, true);
+				if (!empty($fans_info)){
+					$fans[] = $fans_info;
+				}
+			}
+		}
+		return $fans;
+	}
+
+	/**
+	 * 获取用户粉丝数
+	 * @param int $user_id
+	 * @return bool|int
+	 * @Author: jiangyu01
+	 * @Time: 2019/4/1 9:24
+	 */
+	public function get_user_fans_num_by_id($user_id = 0){
+		if (empty($user_id)) return false;
+		$fans_num = $this->myredis->scard('user_fans_info:'.$user_id);
+		return $fans_num ? $fans_num : 0;
+	}
 }

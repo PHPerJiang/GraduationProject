@@ -79,28 +79,28 @@
 	<div class="wrap">
 		<div class="contact-info">
 			<div class="contact-grids">
-				<div class="col_1_of_bottom span_1_of_first1">
-					<h5>达人排行榜</h5>
-					<ul class="list3">
-						<li>
-							<div class="extra-wrap">
-								<p>User rank.</p>
-							</div>
-						</li>
-					</ul>
-				</div>
                 <div class="col_1_of_bottom span_1_of_first1">
-                    <h5></h5>
+                    <h5><a href="<?php echo site_url('follow/follow_user_list')?>">我关注的用户</a></h5>
                     <ul class="list3">
                         <li>
                             <div class="extra-wrap">
-                                <p></p>
+                                <p>My concern.</p>
                             </div>
                         </li>
                     </ul>
                 </div>
                 <div class="col_1_of_bottom span_1_of_first1">
-                    <h5><a href="<?php echo site_url('follow/follow_user_list')?>">我关注的用户</a></h5>
+                    <h5><a href="<?php echo site_url('follow/fans_list')?>">粉丝列表</a></h5>
+                    <ul class="list3">
+                        <li>
+                            <div class="extra-wrap">
+                                <p>Fans list.</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col_1_of_bottom span_1_of_first1">
+                    <h5><a href="javascript:void(0)">排行榜</a></h5>
                     <ul class="list3">
                         <li>
                             <div class="extra-wrap">

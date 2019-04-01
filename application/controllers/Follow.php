@@ -54,6 +54,25 @@ class Follow extends CI_Controller{
 	}
 
 	/**
+	 * 粉丝列表
+	 * @Author: jiangyu01
+	 * @Time: 2019/3/29 21:55
+	 */
+	public function fans_list(){
+		if (!$this->session->is_login()){
+			redirect('login/index');
+		}else{
+			$user_id = $this->session->userdata['user_id'];
+			$fans_infos = $this->follow_biz->get_user_fans_list($user_id);
+			$fans_num = $this->follow_biz->get_user_fans_num_by_id($user_id);
+			$data['fans_info'] = $fans_infos;
+			$data['fans_num'] = $fans_num;
+			$data['user_image'] = isset($_SESSION['user_image']) ? $_SESSION['user_image'] : site_url('assets/images/user-pic.png');
+			$this->load->view('web/follow_user_list/fans_list',$data);
+		}
+	}
+
+	/**
 	 * 用户关注
 	 */
 	public function user_follow(){
