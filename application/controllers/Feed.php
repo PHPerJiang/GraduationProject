@@ -93,6 +93,31 @@ class Feed extends CI_Controller{
 	}
 
 	/**
+	 * 获取推荐数据
+	 * @Author: jiangyu01
+	 * @Time: 2019/4/1 16:46
+	 */
+	public function get_tuijian(){
+		$user_id = isset($this->session->userdata['user_id']) ? $this->session->userdata['user_id'] : 0;
+		if (empty($user_id)){
+			$this->error_code = 1;
+			$this->error_msg = '当前登录用户无效';
+			goto END;
+		}
+		$res = [];
+		//控制推荐方式及次数，默认出现概率为20%
+		$num = rand(0,4);
+		if (empty($num)){
+			$res = $this->feed_biz->get_user_tuijian_info($user_id);
+		}
+		if(empty($res)){
+			$this->error_code = 1;
+			$this->error_msg = '没有推荐信息';
+		}
+		END:
+		$this->resp($res);
+	}
+	/**
 	 * 数据输出
 	 * @param array $data
 	 * @param string $total

@@ -12,6 +12,11 @@
     <script src="<?php echo site_url('assets/js/jquery-3.1.0.min.js')?>"></script>
     <link href="<?php echo site_url('assets/css/jquery-ui.css')?>" rel='stylesheet' type='text/css' />
     <script src="<?php echo site_url('assets/js/jquery-ui.js')?>"></script>
+    <script src="<?php echo site_url('assets/js/layer.js')?>"></script>
+    <link href="<?php echo site_url('assets/css/jquery-confirm.css')?>" rel='stylesheet' type='text/css' />
+    <script src="<?php echo site_url('assets/js/jquery-confirm.js')?>"></script>
+    <link href="<?php echo site_url('assets/css/bootstrap.min.css')?>" rel='stylesheet' type='text/css' />
+    <script src="<?php echo site_url('assets/js/bootstrap.min.js')?>"></script>
     <script src="<?php echo site_url('assets/js/common.js')?>"></script>
 	<script type="text/javascript">
         //控制导航栏的js
@@ -75,8 +80,35 @@
             alert(search_article_info) ;
         });
 
-	</script>
+
+    </script>
     <style>
+        .pop-box {
+            z-index: 9999; /*这个数值要足够大，才能够显示在最上层*/
+            margin-bottom: 3px;
+            display: none;
+            position: absolute;
+            background: #FFF;
+            border:solid 1px ;
+            border-color: rgba(96,98,138,0.72);
+        }
+        .pop-box h4 {
+            color: rgba(26,26,52,0.72);
+            cursor:default;
+            height: 10px;
+            font-size: 15px;
+            font-weight:bold;
+            text-align: center;
+            padding-left: 8px;
+            padding-top: 10px;
+            padding-bottom: 2px;
+        }
+        .pop-box-body {
+            clear: both;
+            margin: 10px;
+            padding: 10px;
+            text-align: center;
+        }
         .ui-autocomplete{ z-index: 9999 !important; }
     </style>
 </head>
@@ -113,6 +145,7 @@
 			<form action="index" method="post">
 				<input type="text" id="search_article_name" placeholder="根据信息名称模糊搜索"  value="" oninput="search_article()"/>
                 <input type="hidden" id = 'search_article_info' name="search_article_info" value="">
+                <input type="hidden" name="tuijian_module" id="tuijian_module" value="1">
                 <input type="submit" id="sear_article_btn" value="" />
 			</form>
 		</div>
@@ -165,6 +198,21 @@
             </ul>
 		</div>
 	</div>
+</div>
+
+<div id='pop-div' style="width: 300px;height: 600px" class="pop-box">
+    <div class="pop-box-body" >
+        <div id="cover" style="background: #000; position: absolute; left: 0px; top: 0px; width: 100%; filter: alpha(opacity=30); opacity: 0.3; display: none; z-index: 2 ">
+
+        </div>
+        <div id="tuijian" style="margin-top: 14px">
+        </div>
+        <div>
+            <br>
+            <a href="" id="jump"><input type="submit" class="btn btn-default"  value="去看看"/></a>&nbsp;&nbsp;
+            <a href="javascript:void (0)"><input type="submit" class="btn btn-default" onclick="hideDiv('pop-div');" value="就不看"/></a>
+        </div>
+    </div>
 </div>
 <script src="<?php echo site_url('assets/js/script-feed.js')?>"></script>
 <script>
@@ -262,7 +310,59 @@
         applyLayout();
 
         $window.bind('scroll.wookmark', onScroll);
+        /***********************************************************************************  精选推荐 *****************************************************/
+        /**
+         * 弹出框
+         */
+        $.ajax({
+            url:'get_tuijian',
+            dataType:'json',
+            type:'GET',
+            success:function (data) {
+                if (data.error_code == 0){
+                    //显示弹框
+                    var div_id = 'pop-div';
+                    var div_obj = $("#"+div_id);
+                    var windowWidth = document.body.clientWidth;
+                    var windowHeight = windowWidth * 0.5;
+                    var popupHeight = div_obj.height();
+                    var popupWidth = div_obj.width();
+                    div_obj.css({"position": "absolute"})
+                        .animate({left: windowWidth/2-popupWidth/2,
+                            top: windowHeight/2-popupHeight/2, opacity: "show" }, "slow");
+                    //给弹框填充内容
+                    //拼凑html
+                    var popContent =
+                        '<a href="'+data.rdata.jump_to+'" target="_blank">'+
+                        '<img src="'+data.rdata.image+'" width="220" height="333">'+
+                        '<div class="post-info">'+
+                        '<div class="post-basic-info">'+
+                        ' <h3 style="font-size: 18px"><a href="#">'+data.rdata.article_name+'</a></h3>'+
+                        '<br/>'+
+                        '<span><a href="#"><label></label>'+data.rdata.article_author+'</a></span>'+
+                        '</div>'+
+                        '<div class="clear"> </div>'+
+                        '</div>'+
+                        '</a>'
+                    $('#tuijian').append(popContent);
+                    $('#jump').attr('href',data.rdata.jump_to);
+                }
+            },
+            error:function (error) {
+                layer.msg('网络错误');
+            }
+        });
+
     })(jQuery);
+
+    /**
+     * 隐藏浮动框
+     * @param div_id
+     */
+    function hideDiv(div_id) {
+        $("#mask").remove();
+        $("#" + div_id).animate({left: 0, top: 0, opacity: "hide" }, "slow");
+    }
 </script>
 <div class="footer">
 	<p>Copyright &copy; 2015.Company name All rights reserved.More Templates <a href="" target="_blank" title="">版权最终解释权归uuJiang所有</a> - Collect from <a href="" title="" target="_blank">PHPerJiang</a></p>

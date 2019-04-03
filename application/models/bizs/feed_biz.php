@@ -12,6 +12,7 @@ class Feed_biz extends CI_Model{
 		parent::__construct();
 		$this->load->library('myredis');
 		$this->load->model('bizs/user_evaluate_info_biz');
+		$this->load->helper(array('url'));
 	}
 
 	/**
@@ -58,5 +59,45 @@ class Feed_biz extends CI_Model{
 			$article_info['good_num'] = $this->user_evaluate_info_biz->get_user_evaluate(0,$article_info['id'],$article_info['user_id']);
 		}
 		return [$article_info];
+	}
+
+	/**
+	 * 获取用户推荐文章
+	 * @param $user_id
+	 * @Author: jiangyu01
+	 * @Time: 2019/4/1 17:15
+	 */
+	public function get_user_tuijian_info($user_id){
+		//获取关注列表
+		$follow_list = $this->myredis->sMembers('user_follow_info:'.$user_id);
+		$tuijian_article = [];
+		if ($follow_list){
+			//随机一个关注用户
+			$tuijian_user_id = $follow_list[array_rand($follow_list,1)];
+			//获取关注用户的文章列表
+			$articles_list = $this->myredis->hKeys('user_articles:'.$tuijian_user_id);
+			//获取文章id
+			$article_id = $articles_list[array_rand($articles_list,1)];
+			$key = 'tuijian_2_user_id:'.$user_id;
+			//打入推荐文章集合
+			if (!$this->myredis->sIsMEMBER($key, $tuijian_user_id.':'.$article_id)){
+				$this->myredis->sAdd($key, $tuijian_user_id.':'.$article_id);
+				$ttl = $this->myredis->ttl($key);
+				//设置过期时间1天
+				if ($ttl <= 0){
+					$this->myredis->expire($key,3600*24);
+				}
+				$tuijian_article = $this->myredis->hGet('user_articles:'.$tuijian_user_id, $article_id);
+				$tuijian_article = json_decode($tuijian_article, true);
+				//获取点赞数
+				if (!empty($tuijian_article)){
+					$tuijian_article['good_num'] = $this->user_evaluate_info_biz->get_user_evaluate(0,$tuijian_article['id'],$tuijian_article['user_id']);
+					$tuijian_article['image'] = site_url('assets/'.$tuijian_article['image']);
+					$tuijian_article['jump_to'] = site_url('article/read').'?article_id='.$tuijian_article['user_id'].':'.$article_id;
+					$tuijian_article['good_pic']  = site_url('assets/images/gooded.png');
+				}
+			}
+		}
+		return $tuijian_article;
 	}
 }
