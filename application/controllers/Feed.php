@@ -106,7 +106,7 @@ class Feed extends CI_Controller{
 		}
 		$res = [];
 		//控制推荐方式及次数，默认出现概率为20%
-		$num = rand(0,4);
+		$num = rand(0,5);
 		if (empty($num)){
 			$res = $this->feed_biz->get_user_tuijian_info($user_id);
 		}
